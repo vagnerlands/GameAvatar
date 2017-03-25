@@ -1,0 +1,209 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\Application">
+      <UniqueIdentifier>{188a199d-14a3-4ea8-a7bf-1f769e2dd2dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Controller">
+      <UniqueIdentifier>{4864a988-88e9-4533-aa83-ba06515b233b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Logic">
+      <UniqueIdentifier>{4fc7b6ff-45eb-47c3-929b-049fba7cb137}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Logic\Commands">
+      <UniqueIdentifier>{bbae0ee7-494c-416b-b69c-5dbaca677dc9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\View">
+      <UniqueIdentifier>{9376b32c-a25a-4600-be42-1fd0d262603e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Application\Cache">
+      <UniqueIdentifier>{f22829d8-1dd3-4b10-905b-28e09f7a01a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Application\Cache\ResourceCache">
+      <UniqueIdentifier>{19900b05-aa63-4c97-ba73-2b502220291e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Application\Cache\ZLib">
+      <UniqueIdentifier>{9ba479cd-ead4-43eb-9abf-bcdb9be6bede}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="GameAvatar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\CAnsiString.cpp">
+      <Filter>Source Files\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\CSocketHolder.cpp">
+      <Filter>Source Files\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\CThreadHolder.cpp">
+      <Filter>Source Files\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\CWinMutex.cpp">
+      <Filter>Source Files\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\CWinSocket.cpp">
+      <Filter>Source Files\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\CWinThread.cpp">
+      <Filter>Source Files\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="Logic\CControllerMenu.cpp">
+      <Filter>Source Files\Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="Logic\CEngine.cpp">
+      <Filter>Source Files\Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="Logic\CEventManager.cpp">
+      <Filter>Source Files\Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="Logic\CEventMenu.cpp">
+      <Filter>Source Files\Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="Logic\CGameCockpit.cpp">
+      <Filter>Source Files\Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="Logic\Commands\CCommandLoginClassMenu.cpp">
+      <Filter>Source Files\Logic\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="Logic\Commands\CCommandLoginGenderMenu.cpp">
+      <Filter>Source Files\Logic\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="Logic\Commands\CCommandLoginMenu.cpp">
+      <Filter>Source Files\Logic\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="Logic\Commands\CCommandLoginRaceMenu.cpp">
+      <Filter>Source Files\Logic\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="Logic\Commands\CCommandLoginUserName.cpp">
+      <Filter>Source Files\Logic\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="View\CViewElementSquare.cpp">
+      <Filter>Source Files\View</Filter>
+    </ClCompile>
+    <ClCompile Include="View\CHumanView.cpp">
+      <Filter>Source Files\View</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\CTextManager.cpp">
+      <Filter>Source Files\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Cache\ResourceCache\CResHandle.cpp">
+      <Filter>Source Files\Application\Cache\ResourceCache</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Cache\ResourceCache\ZipFile.cpp">
+      <Filter>Source Files\Application\Cache\ResourceCache</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Application\CAnsiString.h">
+      <Filter>Source Files\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\CCommonTypes.h">
+      <Filter>Source Files\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\CRoom.h">
+      <Filter>Source Files\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\CSocketHolder.h">
+      <Filter>Source Files\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\CThreadHolder.h">
+      <Filter>Source Files\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\CWinMutex.h">
+      <Filter>Source Files\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\CWinSocket.h">
+      <Filter>Source Files\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\CWinThread.h">
+      <Filter>Source Files\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\IMutex.h">
+      <Filter>Source Files\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\ISocket.h">
+      <Filter>Source Files\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\IThread.h">
+      <Filter>Source Files\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\CControllerMenu.h">
+      <Filter>Source Files\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\CEngine.h">
+      <Filter>Source Files\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\CEventManager.h">
+      <Filter>Source Files\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\CEventMenu.h">
+      <Filter>Source Files\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\CGameCockpit.h">
+      <Filter>Source Files\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\CPerson.h">
+      <Filter>Source Files\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\IEvent.h">
+      <Filter>Source Files\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\Commands\CCommandLoginClassMenu.h">
+      <Filter>Source Files\Logic\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\Commands\CCommandLoginGenderMenu.h">
+      <Filter>Source Files\Logic\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\Commands\CCommandLoginMenu.h">
+      <Filter>Source Files\Logic\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\Commands\CCommandLoginRaceMenu.h">
+      <Filter>Source Files\Logic\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\Commands\CCommandLoginUserName.h">
+      <Filter>Source Files\Logic\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\Commands\CICommand.h">
+      <Filter>Source Files\Logic\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="View\CHumanView.h">
+      <Filter>Source Files\View</Filter>
+    </ClInclude>
+    <ClInclude Include="View\IView.h">
+      <Filter>Source Files\View</Filter>
+    </ClInclude>
+    <ClInclude Include="View\IViewElement.h">
+      <Filter>Source Files\View</Filter>
+    </ClInclude>
+    <ClInclude Include="View\CViewElementSquare.h">
+      <Filter>Source Files\View</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\CTextManager.h">
+      <Filter>Source Files\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Cache\ResourceCache\CResHandle.h">
+      <Filter>Source Files\Application\Cache\ResourceCache</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Cache\ResourceCache\IResourceFile.h">
+      <Filter>Source Files\Application\Cache\ResourceCache</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Cache\ResourceCache\ZipFile.h">
+      <Filter>Source Files\Application\Cache\ResourceCache</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+</Project>
