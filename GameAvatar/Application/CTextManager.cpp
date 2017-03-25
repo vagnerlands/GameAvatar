@@ -31,17 +31,14 @@ CTextManager::LoadTexture(const TByte* data, const string textId)
 	// load a 256x256 RGB .RAW file as a texture
 
 	const int wrap = 0;
-    
-    TInt32 width = 512, height = 512;
-
 	// allocate a texture name
 	GLuint GeneratedTexture = -1;
 	
 	//for debug only
 	//int dataPos    = *(int*)&(data[0x0A]);
 	//int imageSize  = *(int*)&(data[0x22]);
-	//int width1      = *(int*)&(data[0x12]);
-	//int height1     = *(int*)&(data[0x16]);
+	TInt32 width      = *(int*)&(data[0x12]);
+	TInt32 height     = *(int*)&(data[0x16]);
 
 	// checks if the mentioned texture was already generated
 	TextureMap::iterator it = m_textures.find(textId);
@@ -61,8 +58,20 @@ CTextManager::LoadTexture(const TByte* data, const string textId)
 		printf("glError BindTexture=%d\n", err);
 	}
 
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	//glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+	err = glGetError();
+	if (err != 0)
+	{
+		printf("glError Texture parameters=%d\n", err);
+	}
+
+
     // build our texture mipmaps	
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
 	err = glGetError();
 	if (err != 0)
 	{
@@ -70,15 +79,6 @@ CTextManager::LoadTexture(const TByte* data, const string textId)
 	}
 
 	m_textures.insert(make_pair(textId, GeneratedTexture));
-
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-
-	err = glGetError();
-	if (err != 0)
-	{
-		printf("glError Texture parameters=%d\n", err);
-	}
 }
 
 void CTextManager::RemoveTexture(const string textId)
