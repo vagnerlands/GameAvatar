@@ -85,7 +85,7 @@ CGameCockpit::CGameCockpit()
 	m_userDB.push_back(user2);
 
 	// creates an object of Human View
-	shared_ptr<IViewElement> element(new CViewElementSquare(0, 0, 256, 256));
+	shared_ptr<IViewElement> element(new CViewElementSquare(0, 0, 512, 512));
 	shared_ptr<IViewElement> element2(new CViewElementSquare(-256, -256, 100, 100));
 	shared_ptr<IView> view(new CHumanView());
 	view->VPushElement(element);

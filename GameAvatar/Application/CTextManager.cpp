@@ -2,23 +2,29 @@
 #include "gl/glut.h"
 
 
-CTextManager* CTextManager::s_instance = NULL;
+CTextManager* CTextManager::s_pInstance = NULL;
 
 CTextManager*
-CTextManager::getInstance()
+CTextManager::instance()
 {
-	if (s_instance == NULL)
+	if (s_pInstance == NULL)
 	{
-		s_instance = new CTextManager();
-		s_instance->m_cacheDb.Init();
+		s_pInstance = new CTextManager();
+		s_pInstance->m_cacheDb.Init();
 	}
 
-	return s_instance;
+	return s_pInstance;
+}
+
+void 
+CTextManager::OnRemoveEvent(string removeItem)
+{
+	instance()->RemoveTexture(removeItem);
 }
 
 CTextManager::CTextManager()
-	: m_textureFiles("C:\\Users\\Vagner\\Documents\\Visual Studio 2015\\Projects\\GameAvatar\\GameAvatar\\Resources\\respack.zip"),
-	  m_cacheDb(3, &m_textureFiles)
+	: m_textureFiles("C:\\Users\\Vagner\\Documents\\Visual Studio 2015\\Projects\\GameAvatar\\GameAvatar\\Resources\\respack.zip", this->OnRemoveEvent),
+	  m_cacheDb(4, &m_textureFiles)
 {
 	
 }
@@ -104,7 +110,6 @@ CTextManager::getTextureById(string textId)
 	// cache missed - must reload it from resources db
 	CResource resExample(textId);
 	shared_ptr<CResHandle> bytesStream = m_cacheDb.GetHandle(&resExample);
-	int size = bytesStream->GetSize();
 	char* buf = bytesStream->Buffer();
 	// perform the load texture (binds it to opengl memory)
 	LoadTexture(buf, textId);

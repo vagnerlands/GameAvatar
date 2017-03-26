@@ -6,6 +6,12 @@ CResource::VCreateHandle(const char* buffer, unsigned int size, CResCache* pResC
 	return retVal;
 }
 
+void 
+CResourceZipFile::VOnRemoveEvent(string removedItem)
+{
+	m_textMngHandle(removedItem);
+}
+
 CResourceZipFile::~CResourceZipFile()
 {
 	delete m_pZipFile;
@@ -139,6 +145,10 @@ CResCache::Free(shared_ptr<CResHandle> gonner)
 	list<shared_ptr<CResHandle>>::iterator iter = m_lru.begin();
 	while (*iter != gonner) iter++;
 
+	// callback event when a resource is deallocated
+	// tells the texture manager that this resource is gonne
+	m_file->VOnRemoveEvent(gonner->GetResource().m_name);
+
 	// the handle is already allocated
 	if (*iter == gonner) {
 		// removes this handle from the least recently used
@@ -187,6 +197,10 @@ CResCache::FreeOneResource()
 	iter--;
 
 	shared_ptr<CResHandle> handle = *iter;
+
+	// callback event when a resource is deallocated
+	// tells the texture manager that this resource is gonne
+	m_file->VOnRemoveEvent(handle->GetResource().m_name);
 
 	m_lru.pop_back();
 	m_resourcesMap.erase(handle->GetResource().m_name);

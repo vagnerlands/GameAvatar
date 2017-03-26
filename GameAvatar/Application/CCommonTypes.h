@@ -44,6 +44,7 @@ namespace Types {
 	typedef list<shared_ptr<IViewElement>> ViewElementList;
 	typedef list<shared_ptr<IView>> ViewList;
 	typedef unordered_map<string, GLuint> TextureMap;
+	typedef void(*OnRemoveEvent)(string);
 
 	enum ESocketConnectionStatus
 	{

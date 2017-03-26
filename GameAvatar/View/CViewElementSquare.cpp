@@ -32,6 +32,14 @@ void CViewElementSquare::VRender()
 	{
 		bindTexture("paper.bmp");
 	}
+	else if (ttt <= 30000)
+	{
+		bindTexture("water.bmp");
+	}
+	else if (ttt <= 40000)
+	{
+		bindTexture("melancia.bmp");
+	}
 	else
 	{
 		ttt = 0;
@@ -42,30 +50,29 @@ void CViewElementSquare::VRender()
 	//glRotated(180, 0.0, 1.0, 0.0);
 	//glRotated(45.0, 0.0, 0.0, 1.0);
 	glBegin(GL_QUADS);
-	glColor4d(0.0, 0.5, 0.0, 0.5);	
+	//glColor4d(1.0, 1.0, 1.0, 1.0);	
 	// dimensions according to the given parameters
 	/*
 	       D---A
 		   | 0 |
            C---B	
 	*/
-	glTexCoord2f(0, 0);
-	glVertex3f((m_width / 2.0), -(m_height / 2.0), 0.0f); // A
 	glTexCoord2f(1, 0);
-	glVertex3f((m_width / 2.0), (m_height / 2.0), 0.0f); // B
+	glVertex3f((m_width / 2.0), -(m_height / 2.0), 0.0f); // A
 	glTexCoord2f(1, 1);
-	glVertex3f(-(m_width / 2.0), (m_height / 2.0), 0.0f); // C
+	glVertex3f((m_width / 2.0), (m_height / 2.0), 0.0f); // B
 	glTexCoord2f(0, 1);
+	glVertex3f(-(m_width / 2.0), (m_height / 2.0), 0.0f); // C
+	glTexCoord2f(0, 0);
 	glVertex3f(-(m_width / 2.0), -(m_height / 2.0), 0.0f); // D
 	glEnd();
 	glDisable(GL_TEXTURE_2D);
-	
 	glPopMatrix();
 }
 
 void CViewElementSquare::bindTexture(string textId)
 {
-	GLuint texture = CTextManager::getInstance()->getTextureById(textId);
+	GLuint texture = CTextManager::instance()->getTextureById(textId);
 	if (texture == -1)
 	{
 		return;
@@ -78,9 +85,22 @@ void CViewElementSquare::bindTexture(string textId)
 		printf("glError EnableTexture2D=%d\n", err);
 	}
 
+	glEnable(GL_BLEND);
+	if (err != 0)
+	{
+		printf("glError GL_BLEND=%d\n", err);
+	}
+
+
 	glBindTexture(GL_TEXTURE_2D, texture);
 	if (err != 0)
 	{
 		printf("glError glBindTexture=%d\n", err);
+	}
+
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
+	if (err != 0)
+	{
+		printf("glError glTexEnvf=%d\n", err);
 	}
 }

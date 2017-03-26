@@ -13,18 +13,21 @@ using namespace std;
 class CTextManager
 {
 public:
-	static CTextManager* getInstance();
+	static CTextManager* instance();
 	void LoadTexture(const TByte* data, const string textId);
 	void RemoveTexture(const string textId);
 	GLuint getTextureById(string textId);
 	CTextManager::~CTextManager();
+
+	// external callback event in case a resource is deallocated
+	static void OnRemoveEvent(string removeItem);
 
 private:
 	CTextManager();
 	TextureMap m_textures;
 	CResourceZipFile m_textureFiles;
 	CResCache m_cacheDb;
-	static CTextManager* s_instance;
+	static CTextManager* s_pInstance;
 
 };
 

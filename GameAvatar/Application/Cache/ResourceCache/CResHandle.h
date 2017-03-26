@@ -31,15 +31,17 @@ class CResourceZipFile : public IResourceFile
 	string m_resFileName;
 
 public:
-	CResourceZipFile(const char* resFileName) {
+	CResourceZipFile(const char* resFileName, void* textMngHandle) {
 		m_pZipFile = NULL;
 		m_resFileName = resFileName;
+		m_textMngHandle = (OnRemoveEvent)textMngHandle;
 	}
 	virtual ~CResourceZipFile();
 
 	virtual bool VOpen();
 	virtual int VGetResourceSize(const CResource &r);
 	virtual int VGetResource(const CResource &r, char *buffer);
+	virtual void VOnRemoveEvent(string removedItem);
 };
 
 class CResHandle {
