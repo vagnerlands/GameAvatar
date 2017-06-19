@@ -177,7 +177,7 @@
     <ClCompile Include="Logic\Commands\CCommandLoginRaceMenu.cpp" />
     <ClCompile Include="Logic\Commands\CCommandLoginUserName.cpp" />
     <ClCompile Include="View\CHumanView.cpp" />
-    <ClCompile Include="View\CViewElementCube.cpp" />
+    <ClCompile Include="View\CViewElementModel.cpp" />
     <ClCompile Include="View\CViewElementSquare.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -224,7 +224,7 @@
     <ClInclude Include="Logic\IEvent.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="View\CHumanView.h" />
-    <ClInclude Include="View\CViewElementCube.h" />
+    <ClInclude Include="View\CViewElementModel.h" />
     <ClInclude Include="View\CViewElementSquare.h" />
     <ClInclude Include="View\IView.h" />
     <ClInclude Include="View\IViewElement.h" />

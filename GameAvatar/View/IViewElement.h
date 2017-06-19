@@ -47,8 +47,8 @@ protected:
 		// empty implementation
 	}
 	bool m_isVisible;
-	int	m_posX, m_posY;
-	int	m_width, m_height;
+	TFloat m_posX, m_posY;
+	TFloat m_width, m_height, m_volume;
 };
 
 #endif

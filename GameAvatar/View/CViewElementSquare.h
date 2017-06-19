@@ -7,7 +7,7 @@ class CViewElementSquare : public IViewElement
 {
 public:
 
-	CViewElementSquare(TInt32 posX, TInt32 posY, TInt32 width, TInt32 height);
+	CViewElementSquare(TFloat posX, TFloat posY, TFloat width, TFloat height);
 
 	virtual ~CViewElementSquare();
 

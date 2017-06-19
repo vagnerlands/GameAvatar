@@ -1,12 +1,13 @@
 #include "CHumanView.h"
 #include "CViewElementSquare.h"
 
-CViewElementSquare::CViewElementSquare(TInt32 posX, TInt32 posY, TInt32 width, TInt32 height)
+CViewElementSquare::CViewElementSquare(TFloat posX, TFloat posY, TFloat width, TFloat height)
 {
 	m_posX = posX;
 	m_posY = posY;
 	m_width = width;
 	m_height = height;
+	m_volume = 1.0f;
 }
 
 CViewElementSquare::~CViewElementSquare()

@@ -131,9 +131,6 @@
     <ClCompile Include="Application\CModelManager.cpp">
       <Filter>Source Files\Application</Filter>
     </ClCompile>
-    <ClCompile Include="View\CViewElementCube.cpp">
-      <Filter>Source Files\View</Filter>
-    </ClCompile>
     <ClCompile Include="Application\Utilities\objParser\string_extra.cpp">
       <Filter>Source Files\Application\Utilities\ModelParser</Filter>
     </ClCompile>
@@ -145,6 +142,9 @@
     </ClCompile>
     <ClCompile Include="Application\Utilities\objParser\objLoader.cpp">
       <Filter>Source Files\Application\Utilities\ModelParser</Filter>
+    </ClCompile>
+    <ClCompile Include="View\CViewElementModel.cpp">
+      <Filter>Source Files\View</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -272,9 +272,6 @@
     <ClInclude Include="Application\Utilities\CMathTypes.h">
       <Filter>Source Files\Application\Utilities</Filter>
     </ClInclude>
-    <ClInclude Include="View\CViewElementCube.h">
-      <Filter>Source Files\View</Filter>
-    </ClInclude>
     <ClInclude Include="Application\Utilities\objParser\objLoader.h">
       <Filter>Source Files\Application\Utilities\ModelParser</Filter>
     </ClInclude>
@@ -286,6 +283,9 @@
     </ClInclude>
     <ClInclude Include="Application\Utilities\objParser\obj_parser.h">
       <Filter>Source Files\Application\Utilities\ModelParser</Filter>
+    </ClInclude>
+    <ClInclude Include="View\CViewElementModel.h">
+      <Filter>Source Files\View</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -11,7 +11,7 @@
 #include "CControllerMenu.h"
 #include "IEvent.h"
 #include "CViewElementSquare.h"
-#include "CViewElementCube.h"
+#include "CViewElementModel.h"
 #include "CHumanView.h"
 #include "IView.h"
 #include "IProcess.h"
