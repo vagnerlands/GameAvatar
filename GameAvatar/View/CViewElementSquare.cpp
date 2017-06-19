@@ -22,28 +22,37 @@ void CViewElementSquare::VPreRender()
 
 void CViewElementSquare::VRender()
 {
-	static int ttt = 0;
+	static int ttt = 0;	
 	// prepares the texture
-	if (++ttt  <= 10000)
+	//_CrtDumpMemoryLeaks();
+	//applyTexture("goku.bmp");
+	applyTexture("texSky.bmp");
+	/*
+	if (++ttt  <= 5000)
 	{
-		bindTexture("texAridTerrain.bmp");
+		applyTexture("goku.bmp");
 	}
+	else if (ttt <= 10000)
+	{
+		applyTexture("texAridTerrain.bmp");
+	}
+	
+	else if (ttt <= 15000)
+	{
+		applyTexture("orc.bmp");
+	}
+	
 	else if (ttt <= 20000)
+		
 	{
-		bindTexture("paper.bmp");
+		applyTexture("paladin.bmp");
 	}
-	else if (ttt <= 30000)
-	{
-		bindTexture("water.bmp");
-	}
-	else if (ttt <= 40000)
-	{
-		bindTexture("melancia.bmp");
-	}
+	
 	else
 	{
 		ttt = 0;
 	}
+	*/
 	// moves the rectangle to the correct location
 	glTranslated(m_posX, m_posY, 0.0);
 
@@ -70,9 +79,11 @@ void CViewElementSquare::VRender()
 	glPopMatrix();
 }
 
-void CViewElementSquare::bindTexture(string textId)
+void CViewElementSquare::applyTexture(string textId)
 {
+	// get texture from cache
 	GLuint texture = CTextManager::instance()->getTextureById(textId);
+	// requested texture was not found (the requested texture was put in a process queue and in next request it may be there)
 	if (texture == -1)
 	{
 		return;
@@ -84,21 +95,27 @@ void CViewElementSquare::bindTexture(string textId)
 	{
 		printf("glError EnableTexture2D=%d\n", err);
 	}
-
 	glEnable(GL_BLEND);
+	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	/*
+	glEnable(GL_BLEND); 
+	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+	glBlendFunc(GL_SRC_ALPHA, GL_DST_COLOR);
+	*/
 	if (err != 0)
 	{
 		printf("glError GL_BLEND=%d\n", err);
 	}
 
-
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
 	glBindTexture(GL_TEXTURE_2D, texture);
 	if (err != 0)
 	{
 		printf("glError glBindTexture=%d\n", err);
 	}
 
-	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
+	//glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
 	if (err != 0)
 	{
 		printf("glError glTexEnvf=%d\n", err);

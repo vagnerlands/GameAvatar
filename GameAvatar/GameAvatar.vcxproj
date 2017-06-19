@@ -87,7 +87,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_WIN_;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>./Application;./Controller;./Logic;./Logic/Commands;./View/;./Application/Cache;./Application/Cache/ResourceCache;./Application/Cache/ZLib;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./Application;./Controller;./Logic;./Logic/Commands;./View/;./Application/Cache;./Application/Cache/ResourceCache;./Application/Cache/ZLib;./Application/Debug/;./Application/Loader/;./Application/Utilities/;./Application/Utilities/ModelParser/</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -116,7 +116,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>_WIN_;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>./Application;./Controller;./Logic;./Logic/Commands;./View/;./Application/Cache;./Application/Cache/ResourceCache;./Application/Cache/ZLib;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./Application;./Controller;./Logic;./Logic/Commands;./View/;./Application/Cache;./Application/Cache/ResourceCache;./Application/Cache/ZLib;./Application/Debug/;./Application/Loader/;./Application/Utilities/;./Application/Utilities/ModelParser/</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -150,12 +150,21 @@
     <ClCompile Include="Application\Cache\ResourceCache\CResHandle.cpp" />
     <ClCompile Include="Application\Cache\ResourceCache\ZipFile.cpp" />
     <ClCompile Include="Application\CAnsiString.cpp" />
+    <ClCompile Include="Application\CModelManager.cpp" />
     <ClCompile Include="Application\CSocketHolder.cpp" />
     <ClCompile Include="Application\CTextManager.cpp" />
     <ClCompile Include="Application\CThreadHolder.cpp" />
     <ClCompile Include="Application\CWinMutex.cpp" />
     <ClCompile Include="Application\CWinSocket.cpp" />
     <ClCompile Include="Application\CWinThread.cpp" />
+    <ClCompile Include="Application\Loader\CProcessLoadModel.cpp" />
+    <ClCompile Include="Application\Loader\CProcessLoadTexture.cpp" />
+    <ClCompile Include="Application\Loader\CResourcesLoader.cpp" />
+    <ClCompile Include="Application\Utilities\objParser\list.cpp" />
+    <ClCompile Include="Application\Utilities\objParser\objLoader.cpp" />
+    <ClCompile Include="Application\Utilities\objParser\obj_parser.cpp" />
+    <ClCompile Include="Application\Utilities\objParser\string_extra.cpp" />
+    <ClCompile Include="Controller\CGameController.cpp" />
     <ClCompile Include="GameAvatar.cpp" />
     <ClCompile Include="Logic\CControllerMenu.cpp" />
     <ClCompile Include="Logic\CEngine.cpp" />
@@ -168,6 +177,7 @@
     <ClCompile Include="Logic\Commands\CCommandLoginRaceMenu.cpp" />
     <ClCompile Include="Logic\Commands\CCommandLoginUserName.cpp" />
     <ClCompile Include="View\CHumanView.cpp" />
+    <ClCompile Include="View\CViewElementCube.cpp" />
     <ClCompile Include="View\CViewElementSquare.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -176,6 +186,7 @@
     <ClInclude Include="Application\Cache\ResourceCache\ZipFile.h" />
     <ClInclude Include="Application\CAnsiString.h" />
     <ClInclude Include="Application\CCommonTypes.h" />
+    <ClInclude Include="Application\CModelManager.h" />
     <ClInclude Include="Application\CRoom.h" />
     <ClInclude Include="Application\CSocketHolder.h" />
     <ClInclude Include="Application\CTextManager.h" />
@@ -186,6 +197,18 @@
     <ClInclude Include="Application\IMutex.h" />
     <ClInclude Include="Application\ISocket.h" />
     <ClInclude Include="Application\IThread.h" />
+    <ClInclude Include="Application\Loader\CProcessLoadModel.h" />
+    <ClInclude Include="Application\Loader\CProcessLoadTexture.h" />
+    <ClInclude Include="Application\Loader\CResourcesLoader.h" />
+    <ClInclude Include="Application\Loader\IProcess.h" />
+    <ClInclude Include="Application\Utilities\CMathTypes.h" />
+    <ClInclude Include="Application\Utilities\objParser\list.h" />
+    <ClInclude Include="Application\Utilities\objParser\objLoader.h" />
+    <ClInclude Include="Application\Utilities\objParser\obj_parser.h" />
+    <ClInclude Include="Application\Utilities\objParser\string_extra.h" />
+    <ClInclude Include="Controller\CGameController.h" />
+    <ClInclude Include="Controller\IKeyboardHandler.h" />
+    <ClInclude Include="Controller\IMouseHandler.h" />
     <ClInclude Include="Logic\CControllerMenu.h" />
     <ClInclude Include="Logic\CEngine.h" />
     <ClInclude Include="Logic\CEventManager.h" />
@@ -199,7 +222,9 @@
     <ClInclude Include="Logic\Commands\CICommand.h" />
     <ClInclude Include="Logic\CPerson.h" />
     <ClInclude Include="Logic\IEvent.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="View\CHumanView.h" />
+    <ClInclude Include="View\CViewElementCube.h" />
     <ClInclude Include="View\CViewElementSquare.h" />
     <ClInclude Include="View\IView.h" />
     <ClInclude Include="View\IViewElement.h" />

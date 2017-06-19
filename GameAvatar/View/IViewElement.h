@@ -42,7 +42,7 @@ public:
 
 protected:
 	// bind texture 
-	virtual void bindTexture(string textId)
+	virtual void applyTexture(string textId)
 	{
 		// empty implementation
 	}

@@ -2,6 +2,13 @@
 #include "CThreadHolder.h"
 #include "CEventManager.h"
 #include <iostream>
+//#define _DEBUG
+#define _CRTDBG_MAP_ALLOC
+#include <crtdbg.h>
+#ifdef _DEBUG
+#define DEBUG_NEW new(_NORMAL_BLOCK, __FILE__, __LINE__)
+#define new DEBUG_NEW
+#endif
 
 using namespace std;
 
@@ -41,6 +48,19 @@ CEngine::execute()
 	// execute commands from Sockets
 	m_socketServer.executeCommands();
 
+	// prepares ORTHO PROJECTION
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity(); //Reset the drawing perspective
+	glOrtho(-(s_SCREEN_WIDTH / 2.0), (s_SCREEN_WIDTH / 2.0), -(s_SCREEN_HEIGHT / 2.0), (s_SCREEN_HEIGHT / 2.0), -600.0, 600.0);
+	// prepares MODEL VIEW
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glMatrixMode(GL_MODELVIEW);
+	// Set background (clear) color to black
+	glClearColor(0.0, 0.0, 0.0, 1.0);
+	//GLenum err = glGetError();
+	//glMatrixMode(GL_PROJECTION);                // update projection
+	//err = glGetError();
+
 	// runs periodic functions based on system events
 	CGameCockpit::instance()->run();
 
@@ -52,6 +72,15 @@ void
 CEngine::reshape(TInt32 w, TInt32 h)
 {
 	glViewport(0, 0, (GLsizei)s_SCREEN_WIDTH, (GLsizei)s_SCREEN_HEIGHT);
+
+	glMatrixMode(GL_PROJECTION); //Switch to setting the camera perspective
+
+								 //Set the camera perspective
+	glLoadIdentity(); //Reset the camera
+	gluPerspective(45.0,                  //The camera angle
+		(double)s_SCREEN_WIDTH / (double)s_SCREEN_HEIGHT, //The width-to-height ratio
+		1.0,                   //The near z clipping coordinate
+		100.0);                //The far z clipping coordinate
 }
 
 void 
@@ -67,6 +96,14 @@ CEngine::ReshapeWrap(TInt32 w, TInt32 h)
 	m_pInstance->reshape(w, h);
 }
 
+void CEngine::KeyboardInput(TUByte key, int x, int y)
+{
+}
+
+void CEngine::KeyboardRelease(TUByte key, int x, int y)
+{
+}
+
 DWORD WINAPI
 CEngine::ConnectionListener(LPVOID lpParameter)
 {
@@ -78,6 +115,18 @@ CEngine::ConnectionListener(LPVOID lpParameter)
 		m_pInstance->connectionLoop();
 	}
 }
+
+DWORD WINAPI
+CEngine::BackgroundLoader(LPVOID lpParameter)
+{
+	// remains listening for more resource load requests
+	while (true)
+	{
+		// load resources in background thread
+		m_pInstance->m_resourceLoader.execute();
+	}
+}
+
 
 void 
 CEngine::ignition() 
@@ -91,7 +140,9 @@ CEngine::ignition()
 	CEventManager::instance()->registerListener(EEVENTTYPE_MENU_STATE, &CGameCockpit::ControllerMenuEventHandler);
 
 	// creates thread incomming "TCP/IP connection requests"
-	CThreadHolder::instance()->registerThread("thSocketListener", ConnectionListener);
+	//CThreadHolder::instance()->registerThread("thSocketListener", ConnectionListener);
+	// creates a thread for loading resources purpose
+	CThreadHolder::instance()->registerThread("thBackgroundLoader", BackgroundLoader);
 
 	// declares the drawing function to opengl state machine
 	glutDisplayFunc(RunWrap);
@@ -99,13 +150,18 @@ CEngine::ignition()
 	glutReshapeFunc(ReshapeWrap);
 	// declares the idle function to opengl state machine
 	glutIdleFunc(RunWrap);
+	// key press down event
+	glutKeyboardFunc(KeyboardInput);
+	// key press up event
+	glutKeyboardUpFunc(KeyboardRelease);
 	
 	// initialize the opengl main loop
 	// this will handle the whole displaying states of our game...
 	glutMainLoop();
 
+	CThreadHolder::instance()->destroyThread("thBackgroundLoader");
 	// releases the <listening> thread
-	CThreadHolder::instance()->destroyThread("thSocketListener");
+	//CThreadHolder::instance()->destroyThread("thSocketListener");
 
 	return ;
 }

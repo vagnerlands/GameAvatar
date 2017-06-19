@@ -10,10 +10,12 @@ CWinMutex::~CWinMutex()
 
 void CWinMutex::createMutex(string mutexName)
 {
+	m_mutexName = mutexName;
+
 	m_mutexHandle = CreateMutex(
 		NULL,              // default security attributes
 		FALSE,             // initially not owned
-		NULL);             // unnamed mutex
+		(LPCWSTR)mutexName.data());             // unnamed mutex
 
 	if (m_mutexHandle == NULL)
 	{
@@ -28,7 +30,7 @@ CWinMutex::mutexLock()
 	// request the ownership of mutex...
 	dwWaitResult = WaitForSingleObject(
 		m_mutexHandle,   // handle to mutex
-		5000L);   // five-second time-out interval
+		10000L);   // five-second time-out interval
 	switch (dwWaitResult)
 	{
 		// the thread got the mutex ownership...
@@ -37,7 +39,7 @@ CWinMutex::mutexLock()
 		break;
 		// cannot get the mutex ownership due to time-out.
 	case WAIT_TIMEOUT:
-		cout << "time-out interval elapsed, and the object's state is non-signaled." << endl;
+		cout << "time-out interval elapsed [" << m_mutexName << "], and the object's state is non-signaled." << endl;
 		break;
 		// got the ownership of the abandoned mutex object.
 	case WAIT_ABANDONED:

@@ -22,6 +22,7 @@ public:
 private:
 	HANDLE m_mutexHandle;
 	TUInt32 m_counter;
+	string m_mutexName;
 };
 
 #endif //_CWINMUTEX_H_

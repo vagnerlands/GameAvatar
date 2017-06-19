@@ -3,11 +3,14 @@
 
 #include <memory>
 #include <list>
+#include <vector>
 #include <unordered_map>
+#include "glm/glm.hpp"
 #include "GL/glut.h"
 
 class IView;
 class IViewElement;
+class CResHandle;
 using namespace std;
 
 namespace Types {
@@ -35,15 +38,34 @@ namespace Types {
 	enum GameViewElement
 	{
 		GameViewElement_Undefined,
-		GameViewElement_Square
+		GameViewElement_Square,
+		GameViewElement_Cube
+	};
+
+	enum ProcessType
+	{
+		ProcessType_LoadTexture,
+		ProcessType_LoadModel
 	};
 
 
 	typedef unsigned int GameViewId;
 
+
+
+	struct SModelData
+	{
+		vector<glm::vec3> m_vertices;
+		vector<glm::vec2> m_textures;
+		vector<glm::vec3> m_normals;
+		vector<glm::vec3> m_indices;
+	};
+
 	typedef list<shared_ptr<IViewElement>> ViewElementList;
 	typedef list<shared_ptr<IView>> ViewList;
+	typedef unordered_map<string, SModelData> ModelMap;
 	typedef unordered_map<string, GLuint> TextureMap;
+	typedef unordered_map<string, shared_ptr<CResHandle>> TextureContentMap;
 	typedef void(*OnRemoveEvent)(string);
 
 	enum ESocketConnectionStatus

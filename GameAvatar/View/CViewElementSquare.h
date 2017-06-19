@@ -18,14 +18,15 @@ public:
 	// debug purposes
 	virtual char* GetName()
 	{
-		return "SquareElement";
+		return "Square";
 	}
 	virtual GameViewElement VGetType()
 	{
 		return GameViewElement_Square;
 	}
 protected:
-	virtual void bindTexture(string textId);
+	virtual void applyTexture(string textId);
+
 };
 
 #endif //_CVIEWELEMENTSQUARE_H_

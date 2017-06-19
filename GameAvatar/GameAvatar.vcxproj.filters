@@ -33,6 +33,18 @@
     <Filter Include="Source Files\Application\Cache\ZLib">
       <UniqueIdentifier>{9ba479cd-ead4-43eb-9abf-bcdb9be6bede}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Application\Debug">
+      <UniqueIdentifier>{21c34b79-ee8a-4c6e-a416-850e553cce48}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Application\Loader">
+      <UniqueIdentifier>{9fb92451-0881-4c2d-b328-972088312fa2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Application\Utilities">
+      <UniqueIdentifier>{624cd7c5-9183-4048-b9f2-b5332232484d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Application\Utilities\ModelParser">
+      <UniqueIdentifier>{bad3002b-67e2-4d53-8e88-bb20c172a0a5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -103,6 +115,36 @@
     </ClCompile>
     <ClCompile Include="Application\Cache\ResourceCache\ZipFile.cpp">
       <Filter>Source Files\Application\Cache\ResourceCache</Filter>
+    </ClCompile>
+    <ClCompile Include="Controller\CGameController.cpp">
+      <Filter>Source Files\Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Loader\CResourcesLoader.cpp">
+      <Filter>Source Files\Application\Loader</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Loader\CProcessLoadTexture.cpp">
+      <Filter>Source Files\Application\Loader</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Loader\CProcessLoadModel.cpp">
+      <Filter>Source Files\Application\Loader</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\CModelManager.cpp">
+      <Filter>Source Files\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="View\CViewElementCube.cpp">
+      <Filter>Source Files\View</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Utilities\objParser\string_extra.cpp">
+      <Filter>Source Files\Application\Utilities\ModelParser</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Utilities\objParser\list.cpp">
+      <Filter>Source Files\Application\Utilities\ModelParser</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Utilities\objParser\obj_parser.cpp">
+      <Filter>Source Files\Application\Utilities\ModelParser</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Utilities\objParser\objLoader.cpp">
+      <Filter>Source Files\Application\Utilities\ModelParser</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -201,6 +243,49 @@
     </ClInclude>
     <ClInclude Include="Application\Cache\ResourceCache\ZipFile.h">
       <Filter>Source Files\Application\Cache\ResourceCache</Filter>
+    </ClInclude>
+    <ClInclude Include="Controller\CGameController.h">
+      <Filter>Source Files\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="Controller\IKeyboardHandler.h">
+      <Filter>Source Files\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="Controller\IMouseHandler.h">
+      <Filter>Source Files\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="Application\Loader\CResourcesLoader.h">
+      <Filter>Source Files\Application\Loader</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Loader\IProcess.h">
+      <Filter>Source Files\Application\Loader</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Loader\CProcessLoadTexture.h">
+      <Filter>Source Files\Application\Loader</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Loader\CProcessLoadModel.h">
+      <Filter>Source Files\Application\Loader</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\CModelManager.h">
+      <Filter>Source Files\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Utilities\CMathTypes.h">
+      <Filter>Source Files\Application\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="View\CViewElementCube.h">
+      <Filter>Source Files\View</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Utilities\objParser\objLoader.h">
+      <Filter>Source Files\Application\Utilities\ModelParser</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Utilities\objParser\string_extra.h">
+      <Filter>Source Files\Application\Utilities\ModelParser</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Utilities\objParser\list.h">
+      <Filter>Source Files\Application\Utilities\ModelParser</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Utilities\objParser\obj_parser.h">
+      <Filter>Source Files\Application\Utilities\ModelParser</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

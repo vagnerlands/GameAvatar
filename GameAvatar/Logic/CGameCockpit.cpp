@@ -1,5 +1,8 @@
 #include "CGameCockpit.h"
 #include "CEventManager.h"
+#ifdef _WIN_
+#include "CWinMutex.h"
+#endif
 
 CGameCockpit* CGameCockpit::s_pInstance = NULL;
 
@@ -42,19 +45,6 @@ void CGameCockpit::run()
 	// Notify all controllers with related events - according to CEventManager rules
 	CEventManager::instance()->notify();
 
-	// prepares ORTHO PROJECTION
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity(); //Reset the drawing perspective
-	glOrtho(-(600.0 / 2.0), (600.0 / 2.0), -(600.0 / 2.0), (600.0 / 2.0), -1.0, 1.0);
-	// prepares MODEL VIEW
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glMatrixMode(GL_MODELVIEW); 
-	// Set background (clear) color to black
-	glClearColor(0.0, 0.0, 0.0, 1.0); 
-	//GLenum err = glGetError();
-	//glMatrixMode(GL_PROJECTION);                // update projection
-	//err = glGetError();
-
 	// Render Screen objects
 	for (ViewList::iterator it = m_views.begin();
 			it != m_views.end();
@@ -77,8 +67,71 @@ void CGameCockpit::setClass(string socketKey, ECharacterClass charClass)
 	// remove it
 }
 
+void CGameCockpit::pushProcess(shared_ptr<IProcess> pProcess)
+{
+	m_processesMutex->mutexLock();
+	for (list<shared_ptr<IProcess>>::iterator it = m_processes.begin();
+		it != m_processes.end();
+		++it)
+	{
+		shared_ptr<IProcess> r = *it;
+		if (r->VGetType() == pProcess->VGetType())
+		{
+			m_processesMutex->mutexUnlock();
+			// same process already exists in the queue - then do not add a new one
+			return;
+		}
+	}
+
+	// adds a new process in the queue
+	m_processes.push_front(pProcess);
+	m_processesMutex->mutexUnlock();
+}
+
+shared_ptr<IProcess> CGameCockpit::getNextProcess()
+{
+	shared_ptr<IProcess> retVal = NULL;
+	m_processesMutex->mutexLock();
+	if (!m_processes.empty())
+	{
+		retVal = m_processes.back();
+	}
+	m_processesMutex->mutexUnlock();
+	return retVal;
+}
+
+void 
+CGameCockpit::popProcess(shared_ptr<IProcess> pProcess)
+{
+	m_processesMutex->mutexLock();
+	for (list<shared_ptr<IProcess>>::iterator it = m_processes.begin();
+		m_processes.end() != it;
+		++it)
+	{
+		shared_ptr<IProcess> r = *it;
+		if (pProcess == r)
+		{
+			m_processes.erase(it);
+			break;
+		}
+	}
+	m_processesMutex->mutexUnlock();
+}
+
 CGameCockpit::CGameCockpit()
 {
+#ifdef _WIN_
+	m_processesMutex = new CWinMutex();
+#else
+	#error "no implementation for this platform"
+#endif
+	if (m_processesMutex == NULL)
+	{
+		cout << "<!> Critical issue while allocating resources, program is being terminated!" << endl;
+		exit(1);
+	}
+	// create a mutex for background processes of this game
+	m_processesMutex->createMutex("backgroundProcesses");
 	CPerson* user1 = new CPerson("vagner", false, ECHARACTERGENDER_MALE, ECHARACTERRACE_HUMAN);
 	CPerson* user2 = new CPerson("chen", false, ECHARACTERGENDER_FEMALE, ECHARACTERRACE_HUMAN);
 	m_userDB.push_back(user1);
@@ -87,9 +140,11 @@ CGameCockpit::CGameCockpit()
 	// creates an object of Human View
 	shared_ptr<IViewElement> element(new CViewElementSquare(0, 0, 512, 512));
 	shared_ptr<IViewElement> element2(new CViewElementSquare(-256, -256, 100, 100));
+	shared_ptr<IViewElement> elementCube(new CViewElementCube(0, 0, 2, 2));
 	shared_ptr<IView> view(new CHumanView());
 	view->VPushElement(element);
-	view->VPushElement(element2);
+	//view->VPushElement(element2);
+	view->VPushElement(elementCube);
 	//view->VPushElement(element3); 
 	//view->VPushElement(element4);
 	// push to the list of views
@@ -106,14 +161,11 @@ CGameCockpit::~CGameCockpit()
 		it = NULL;
 	}
 
-
 	while (!m_views.empty())
 	{
 		// shared pointers will automatically deallocate when the last reference is erased
 		m_views.pop_back();
 	}
-
-
 
 	delete s_pInstance;
 }

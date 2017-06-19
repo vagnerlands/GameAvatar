@@ -4,6 +4,7 @@
 #include "CSocketHolder.h"
 #include "CWinThread.h"
 #include "CICommand.h"
+#include "CResourcesLoader.h"
 #include <Windows.h>
 #include "GL/glut.h"
 
@@ -25,12 +26,17 @@ private:
 	void reshape(TInt32 w, TInt32 h);
 	static void RunWrap();
 	static void ReshapeWrap(TInt32 w, TInt32 h);
+	static void KeyboardInput(TUByte key, int x, int y);
+	static void KeyboardRelease(TUByte key, int x, int y);
 	static DWORD WINAPI ConnectionListener(LPVOID lpParameter);
+	static DWORD WINAPI BackgroundLoader(LPVOID lpParameter);
 
 	static const TInt32 s_SCREEN_HEIGHT = 600;
 	static const TInt32 s_SCREEN_WIDTH = 600;
 
 	CSocketHolder m_socketServer;
+	CResourcesLoader m_resourceLoader;
+
 };
 
 #endif //_CENGINE_H
