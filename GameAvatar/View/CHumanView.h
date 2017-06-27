@@ -2,6 +2,7 @@
 #define _CHUMANVIEW_H_
 
 #include "IView.h"
+#include "GL/glut.h"
 
 class CHumanView : public IView
 {
@@ -9,8 +10,11 @@ public:
 	CHumanView();
 	virtual ~CHumanView();
 	virtual void VOnRender();
-	virtual void VPushElement(shared_ptr<IViewElement> pElement);
-	virtual void VPopElement(shared_ptr<IViewElement> pElement);
+	virtual void VPushElement(const string elementId, shared_ptr<IViewElement> pElement);
+	virtual void VPopElement(const string elementId, shared_ptr<IViewElement> pElement);
+
+private:
+	void UpdateScenario(const string elementId);
 };
 
 #endif //_CHUMANVIEW_H_

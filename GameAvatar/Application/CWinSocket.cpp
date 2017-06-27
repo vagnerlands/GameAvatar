@@ -213,42 +213,6 @@ CWinSocket::parseReadBuffer()
 	}
 }
 
-CICommand* 
-CWinSocket::CreateCommand()
-{
-	CICommand* retVal = NULL;
-
-	if (m_commandQ.empty()) return retVal;
-
-	switch (m_state)
-	{
-		case ESOCKETSTATE_LOGIN:
-			retVal = new CCommandLoginUserName(m_commandQ.front());
-			m_commandQ.pop();
-			break;
-		case ESOCKETSTATE_LOGIN_MENU:
-			retVal = new CCommandLoginMenu(m_commandQ.front());
-			m_commandQ.pop();
-			break;
-		case ESOCKETSTATE_CREATE_NEW_CHAR_CLASS:
-			retVal = new CCommandLoginClassMenu(m_commandQ.front());
-			m_commandQ.pop();
-			break;
-		case ESOCKETSTATE_CREATE_NEW_CHAR_GENDER:
-			retVal = new CCommandLoginGenderMenu(m_commandQ.front());
-			m_commandQ.pop();
-			break;
-		case ESOCKETSTATE_CREATE_NEW_CHAR_RACE:
-			retVal = new CCommandLoginRaceMenu(m_commandQ.front());
-			m_commandQ.pop();
-			break;
-		default:
-			break;
-	}
-
-	return retVal;
-}
-
 string CWinSocket::setState(ESocketState nextState)
 {
 	// should check validity before accepting

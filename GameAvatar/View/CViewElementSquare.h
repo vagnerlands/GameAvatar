@@ -7,7 +7,7 @@ class CViewElementSquare : public IViewElement
 {
 public:
 
-	CViewElementSquare(TFloat posX, TFloat posY, TFloat width, TFloat height);
+	CViewElementSquare(TFloat posX, TFloat posY, TFloat width, TFloat height, string textureName);
 
 	virtual ~CViewElementSquare();
 
@@ -26,6 +26,10 @@ public:
 	}
 protected:
 	virtual void applyTexture(string textId);
+
+	bool loadShader(string shaderId);
+
+	string m_textureId;
 
 };
 

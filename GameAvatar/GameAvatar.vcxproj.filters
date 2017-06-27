@@ -45,6 +45,15 @@
     <Filter Include="Source Files\Application\Utilities\ModelParser">
       <UniqueIdentifier>{bad3002b-67e2-4d53-8e88-bb20c172a0a5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Logic\Events">
+      <UniqueIdentifier>{27e53e26-23e7-47fb-a5e6-122574295eff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Logic\UI">
+      <UniqueIdentifier>{b131075e-d626-4334-9840-76ff58b7090e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Application\Shaders">
+      <UniqueIdentifier>{a68eda73-3394-4a3e-b82f-52366726bbeb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -54,9 +63,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Application\CAnsiString.cpp">
-      <Filter>Source Files\Application</Filter>
-    </ClCompile>
-    <ClCompile Include="Application\CSocketHolder.cpp">
       <Filter>Source Files\Application</Filter>
     </ClCompile>
     <ClCompile Include="Application\CThreadHolder.cpp">
@@ -71,35 +77,11 @@
     <ClCompile Include="Application\CWinThread.cpp">
       <Filter>Source Files\Application</Filter>
     </ClCompile>
-    <ClCompile Include="Logic\CControllerMenu.cpp">
-      <Filter>Source Files\Logic</Filter>
-    </ClCompile>
     <ClCompile Include="Logic\CEngine.cpp">
-      <Filter>Source Files\Logic</Filter>
-    </ClCompile>
-    <ClCompile Include="Logic\CEventManager.cpp">
-      <Filter>Source Files\Logic</Filter>
-    </ClCompile>
-    <ClCompile Include="Logic\CEventMenu.cpp">
       <Filter>Source Files\Logic</Filter>
     </ClCompile>
     <ClCompile Include="Logic\CGameCockpit.cpp">
       <Filter>Source Files\Logic</Filter>
-    </ClCompile>
-    <ClCompile Include="Logic\Commands\CCommandLoginClassMenu.cpp">
-      <Filter>Source Files\Logic\Commands</Filter>
-    </ClCompile>
-    <ClCompile Include="Logic\Commands\CCommandLoginGenderMenu.cpp">
-      <Filter>Source Files\Logic\Commands</Filter>
-    </ClCompile>
-    <ClCompile Include="Logic\Commands\CCommandLoginMenu.cpp">
-      <Filter>Source Files\Logic\Commands</Filter>
-    </ClCompile>
-    <ClCompile Include="Logic\Commands\CCommandLoginRaceMenu.cpp">
-      <Filter>Source Files\Logic\Commands</Filter>
-    </ClCompile>
-    <ClCompile Include="Logic\Commands\CCommandLoginUserName.cpp">
-      <Filter>Source Files\Logic\Commands</Filter>
     </ClCompile>
     <ClCompile Include="View\CViewElementSquare.cpp">
       <Filter>Source Files\View</Filter>
@@ -146,18 +128,42 @@
     <ClCompile Include="View\CViewElementModel.cpp">
       <Filter>Source Files\View</Filter>
     </ClCompile>
+    <ClCompile Include="Logic\Events\CControllerUserInput.cpp">
+      <Filter>Source Files\Logic\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="Logic\Events\CEventManager.cpp">
+      <Filter>Source Files\Logic\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="Logic\Events\CEventMenu.cpp">
+      <Filter>Source Files\Logic\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="View\CViewLightAmbient.cpp">
+      <Filter>Source Files\View</Filter>
+    </ClCompile>
+    <ClCompile Include="View\CViewLightSpecular.cpp">
+      <Filter>Source Files\View</Filter>
+    </ClCompile>
+    <ClCompile Include="View\CViewLightDiffuse.cpp">
+      <Filter>Source Files\View</Filter>
+    </ClCompile>
+    <ClCompile Include="View\CViewElementTerrainMesh.cpp">
+      <Filter>Source Files\View</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Shaders\glsl.cpp">
+      <Filter>Source Files\Application\Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\CShaderManager.cpp">
+      <Filter>Source Files\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Loader\CProcessLoadShader.cpp">
+      <Filter>Source Files\Application\Loader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application\CAnsiString.h">
       <Filter>Source Files\Application</Filter>
     </ClInclude>
     <ClInclude Include="Application\CCommonTypes.h">
-      <Filter>Source Files\Application</Filter>
-    </ClInclude>
-    <ClInclude Include="Application\CRoom.h">
-      <Filter>Source Files\Application</Filter>
-    </ClInclude>
-    <ClInclude Include="Application\CSocketHolder.h">
       <Filter>Source Files\Application</Filter>
     </ClInclude>
     <ClInclude Include="Application\CThreadHolder.h">
@@ -181,16 +187,7 @@
     <ClInclude Include="Application\IThread.h">
       <Filter>Source Files\Application</Filter>
     </ClInclude>
-    <ClInclude Include="Logic\CControllerMenu.h">
-      <Filter>Source Files\Logic</Filter>
-    </ClInclude>
     <ClInclude Include="Logic\CEngine.h">
-      <Filter>Source Files\Logic</Filter>
-    </ClInclude>
-    <ClInclude Include="Logic\CEventManager.h">
-      <Filter>Source Files\Logic</Filter>
-    </ClInclude>
-    <ClInclude Include="Logic\CEventMenu.h">
       <Filter>Source Files\Logic</Filter>
     </ClInclude>
     <ClInclude Include="Logic\CGameCockpit.h">
@@ -198,27 +195,6 @@
     </ClInclude>
     <ClInclude Include="Logic\CPerson.h">
       <Filter>Source Files\Logic</Filter>
-    </ClInclude>
-    <ClInclude Include="Logic\IEvent.h">
-      <Filter>Source Files\Logic</Filter>
-    </ClInclude>
-    <ClInclude Include="Logic\Commands\CCommandLoginClassMenu.h">
-      <Filter>Source Files\Logic\Commands</Filter>
-    </ClInclude>
-    <ClInclude Include="Logic\Commands\CCommandLoginGenderMenu.h">
-      <Filter>Source Files\Logic\Commands</Filter>
-    </ClInclude>
-    <ClInclude Include="Logic\Commands\CCommandLoginMenu.h">
-      <Filter>Source Files\Logic\Commands</Filter>
-    </ClInclude>
-    <ClInclude Include="Logic\Commands\CCommandLoginRaceMenu.h">
-      <Filter>Source Files\Logic\Commands</Filter>
-    </ClInclude>
-    <ClInclude Include="Logic\Commands\CCommandLoginUserName.h">
-      <Filter>Source Files\Logic\Commands</Filter>
-    </ClInclude>
-    <ClInclude Include="Logic\Commands\CICommand.h">
-      <Filter>Source Files\Logic\Commands</Filter>
     </ClInclude>
     <ClInclude Include="View\CHumanView.h">
       <Filter>Source Files\View</Filter>
@@ -286,6 +262,45 @@
     </ClInclude>
     <ClInclude Include="View\CViewElementModel.h">
       <Filter>Source Files\View</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\Events\CEventMenu.h">
+      <Filter>Source Files\Logic\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\Events\CControllerUserInput.h">
+      <Filter>Source Files\Logic\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\Events\CEventManager.h">
+      <Filter>Source Files\Logic\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\Events\IEvent.h">
+      <Filter>Source Files\Logic\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\UI\CBaseUI.h">
+      <Filter>Source Files\Logic\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="View\IViewLight.h">
+      <Filter>Source Files\View</Filter>
+    </ClInclude>
+    <ClInclude Include="View\CViewLightAmbient.h">
+      <Filter>Source Files\View</Filter>
+    </ClInclude>
+    <ClInclude Include="View\CViewLightSpecular.h">
+      <Filter>Source Files\View</Filter>
+    </ClInclude>
+    <ClInclude Include="View\CViewLightDiffuse.h">
+      <Filter>Source Files\View</Filter>
+    </ClInclude>
+    <ClInclude Include="View\CViewElementTerrainMesh.h">
+      <Filter>Source Files\View</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Shaders\glsl.h">
+      <Filter>Source Files\Application\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\CShaderManager.h">
+      <Filter>Source Files\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Loader\CProcessLoadShader.h">
+      <Filter>Source Files\Application\Loader</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

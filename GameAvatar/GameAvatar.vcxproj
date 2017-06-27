@@ -87,7 +87,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_WIN_;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>./Application;./Controller;./Logic;./Logic/Commands;./View/;./Application/Cache;./Application/Cache/ResourceCache;./Application/Cache/ZLib;./Application/Debug/;./Application/Loader/;./Application/Utilities/;./Application/Utilities/ModelParser/</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./Application;./Controller;./Logic;./Logic/UI/;./Logic/Commands;./View/;./Application/Shaders;./Application/Cache;./Application/Cache/ResourceCache;./Application/Cache/ZLib;./Application/Debug/;./Application/Loader/;./Application/Utilities/;./Application/Utilities/ModelParser/;./Logic/Events/</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -116,7 +116,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>_WIN_;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>./Application;./Controller;./Logic;./Logic/Commands;./View/;./Application/Cache;./Application/Cache/ResourceCache;./Application/Cache/ZLib;./Application/Debug/;./Application/Loader/;./Application/Utilities/;./Application/Utilities/ModelParser/</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./Application;./Controller;./Logic;./Logic/UI/;./Logic/Commands;./View/;./Application/Shaders;./Application/Cache;./Application/Cache/ResourceCache;./Application/Cache/ZLib;./Application/Debug/;./Application/Loader/;./Application/Utilities/;./Application/Utilities/ModelParser/;./Logic/Events/</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -151,34 +151,35 @@
     <ClCompile Include="Application\Cache\ResourceCache\ZipFile.cpp" />
     <ClCompile Include="Application\CAnsiString.cpp" />
     <ClCompile Include="Application\CModelManager.cpp" />
-    <ClCompile Include="Application\CSocketHolder.cpp" />
+    <ClCompile Include="Application\CShaderManager.cpp" />
     <ClCompile Include="Application\CTextManager.cpp" />
     <ClCompile Include="Application\CThreadHolder.cpp" />
     <ClCompile Include="Application\CWinMutex.cpp" />
     <ClCompile Include="Application\CWinSocket.cpp" />
     <ClCompile Include="Application\CWinThread.cpp" />
     <ClCompile Include="Application\Loader\CProcessLoadModel.cpp" />
+    <ClCompile Include="Application\Loader\CProcessLoadShader.cpp" />
     <ClCompile Include="Application\Loader\CProcessLoadTexture.cpp" />
     <ClCompile Include="Application\Loader\CResourcesLoader.cpp" />
+    <ClCompile Include="Application\Shaders\glsl.cpp" />
     <ClCompile Include="Application\Utilities\objParser\list.cpp" />
     <ClCompile Include="Application\Utilities\objParser\objLoader.cpp" />
     <ClCompile Include="Application\Utilities\objParser\obj_parser.cpp" />
     <ClCompile Include="Application\Utilities\objParser\string_extra.cpp" />
     <ClCompile Include="Controller\CGameController.cpp" />
     <ClCompile Include="GameAvatar.cpp" />
-    <ClCompile Include="Logic\CControllerMenu.cpp" />
     <ClCompile Include="Logic\CEngine.cpp" />
-    <ClCompile Include="Logic\CEventManager.cpp" />
-    <ClCompile Include="Logic\CEventMenu.cpp" />
     <ClCompile Include="Logic\CGameCockpit.cpp" />
-    <ClCompile Include="Logic\Commands\CCommandLoginClassMenu.cpp" />
-    <ClCompile Include="Logic\Commands\CCommandLoginGenderMenu.cpp" />
-    <ClCompile Include="Logic\Commands\CCommandLoginMenu.cpp" />
-    <ClCompile Include="Logic\Commands\CCommandLoginRaceMenu.cpp" />
-    <ClCompile Include="Logic\Commands\CCommandLoginUserName.cpp" />
+    <ClCompile Include="Logic\Events\CControllerUserInput.cpp" />
+    <ClCompile Include="Logic\Events\CEventManager.cpp" />
+    <ClCompile Include="Logic\Events\CEventMenu.cpp" />
     <ClCompile Include="View\CHumanView.cpp" />
     <ClCompile Include="View\CViewElementModel.cpp" />
     <ClCompile Include="View\CViewElementSquare.cpp" />
+    <ClCompile Include="View\CViewElementTerrainMesh.cpp" />
+    <ClCompile Include="View\CViewLightAmbient.cpp" />
+    <ClCompile Include="View\CViewLightDiffuse.cpp" />
+    <ClCompile Include="View\CViewLightSpecular.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application\Cache\ResourceCache\CResHandle.h" />
@@ -187,8 +188,7 @@
     <ClInclude Include="Application\CAnsiString.h" />
     <ClInclude Include="Application\CCommonTypes.h" />
     <ClInclude Include="Application\CModelManager.h" />
-    <ClInclude Include="Application\CRoom.h" />
-    <ClInclude Include="Application\CSocketHolder.h" />
+    <ClInclude Include="Application\CShaderManager.h" />
     <ClInclude Include="Application\CTextManager.h" />
     <ClInclude Include="Application\CThreadHolder.h" />
     <ClInclude Include="Application\CWinMutex.h" />
@@ -198,9 +198,11 @@
     <ClInclude Include="Application\ISocket.h" />
     <ClInclude Include="Application\IThread.h" />
     <ClInclude Include="Application\Loader\CProcessLoadModel.h" />
+    <ClInclude Include="Application\Loader\CProcessLoadShader.h" />
     <ClInclude Include="Application\Loader\CProcessLoadTexture.h" />
     <ClInclude Include="Application\Loader\CResourcesLoader.h" />
     <ClInclude Include="Application\Loader\IProcess.h" />
+    <ClInclude Include="Application\Shaders\glsl.h" />
     <ClInclude Include="Application\Utilities\CMathTypes.h" />
     <ClInclude Include="Application\Utilities\objParser\list.h" />
     <ClInclude Include="Application\Utilities\objParser\objLoader.h" />
@@ -209,25 +211,25 @@
     <ClInclude Include="Controller\CGameController.h" />
     <ClInclude Include="Controller\IKeyboardHandler.h" />
     <ClInclude Include="Controller\IMouseHandler.h" />
-    <ClInclude Include="Logic\CControllerMenu.h" />
     <ClInclude Include="Logic\CEngine.h" />
-    <ClInclude Include="Logic\CEventManager.h" />
-    <ClInclude Include="Logic\CEventMenu.h" />
     <ClInclude Include="Logic\CGameCockpit.h" />
-    <ClInclude Include="Logic\Commands\CCommandLoginClassMenu.h" />
-    <ClInclude Include="Logic\Commands\CCommandLoginGenderMenu.h" />
-    <ClInclude Include="Logic\Commands\CCommandLoginMenu.h" />
-    <ClInclude Include="Logic\Commands\CCommandLoginRaceMenu.h" />
-    <ClInclude Include="Logic\Commands\CCommandLoginUserName.h" />
-    <ClInclude Include="Logic\Commands\CICommand.h" />
     <ClInclude Include="Logic\CPerson.h" />
-    <ClInclude Include="Logic\IEvent.h" />
+    <ClInclude Include="Logic\Events\CControllerUserInput.h" />
+    <ClInclude Include="Logic\Events\CEventManager.h" />
+    <ClInclude Include="Logic\Events\CEventMenu.h" />
+    <ClInclude Include="Logic\Events\IEvent.h" />
+    <ClInclude Include="Logic\UI\CBaseUI.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="View\CHumanView.h" />
     <ClInclude Include="View\CViewElementModel.h" />
     <ClInclude Include="View\CViewElementSquare.h" />
+    <ClInclude Include="View\CViewElementTerrainMesh.h" />
+    <ClInclude Include="View\CViewLightAmbient.h" />
+    <ClInclude Include="View\CViewLightDiffuse.h" />
+    <ClInclude Include="View\CViewLightSpecular.h" />
     <ClInclude Include="View\IView.h" />
     <ClInclude Include="View\IViewElement.h" />
+    <ClInclude Include="View\IViewLight.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

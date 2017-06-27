@@ -6,8 +6,6 @@
 #include <list>
 #include <memory>
 #include "CCommonTypes.h"
-#include "CWinSocket.h"
-#include "CPerson.h"
 #include "CControllerMenu.h"
 #include "IEvent.h"
 #include "CViewElementSquare.h"
@@ -16,6 +14,7 @@
 #include "IView.h"
 #include "IProcess.h"
 #include "IMutex.h"
+#include "CGameController.h"
 
 #include "GL/glut.h"
 
@@ -26,26 +25,39 @@ class CGameCockpit {
 public:
 	static CGameCockpit* instance();
 
-	bool validateUserLogin(string socketKey, string login, bool* isCharacterCreated);
+	// for application closure
+	void Close();
 
-	void setClass(string socketKey, ECharacterClass charClass);
+	//bool validateUserLogin(string socketKey, string login, bool* isCharacterCreated);
+
+	//void setClass(string socketKey, ECharacterClass charClass);
 	// adds a process request in the process queue
 	void pushProcess(shared_ptr<IProcess> pProcess);
 	// removes a given process from the Process Queue
 	void popProcess(shared_ptr<IProcess> pProcess);
 
+	// grants access to CGameController instance in CGameCockpit
+	// to set which keys the user is pressing
+	shared_ptr<CGameController> getGameController();
+
 	shared_ptr<IProcess> getNextProcess();
 
 	static void ControllerMenuEventHandler(IEvent* ev);
 
+	static void UserInputEventHandler(IEvent* ev);
+
 	void run();
+
 	CControllerMenu m_CtrlMenu;
+
 private:
 	CGameCockpit();
 	~CGameCockpit();
 	static CGameCockpit* s_pInstance;
 
-	list<CPerson*> m_userDB;
+	shared_ptr<CGameController> m_pGameInputCtrl;
+
+	//list<CPerson*> m_userDB;
 	ViewList m_views;
 
 	// list of processes for background thread
@@ -54,5 +66,11 @@ private:
 	IMutex* m_processesMutex;
 	
 };
+
+inline shared_ptr<CGameController>
+CGameCockpit::getGameController()
+{
+	return m_pGameInputCtrl;
+}
 
 #endif //_CGAMELOGIN_H_

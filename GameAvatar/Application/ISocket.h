@@ -37,8 +37,6 @@ public:
 	virtual TUInt16 getClientPort() = 0;
 	virtual TByte* getClientIP() = 0;
 
-	virtual CICommand* CreateCommand() = 0;
-
 	virtual string setState(ESocketState nextState) = 0;
 
 	// non used

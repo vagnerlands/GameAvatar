@@ -16,6 +16,7 @@ CGameCockpit::instance()
 	return s_pInstance;
 }
 
+/*
 bool 
 CGameCockpit::validateUserLogin(string socketKey, string login, bool* isCharacterCreated)
 {
@@ -35,6 +36,7 @@ CGameCockpit::validateUserLogin(string socketKey, string login, bool* isCharacte
 	
 	return retVal;
 }
+*/
 
 void CGameCockpit::run()
 {
@@ -52,9 +54,6 @@ void CGameCockpit::run()
 	{
 		(*it)->VOnRender();
 	}
-
-	// Flush drawing command buffer to make drawing happen as soon as possible.
-	glutSwapBuffers();
 }
 
 void CGameCockpit::ControllerMenuEventHandler(IEvent* ev)
@@ -62,10 +61,11 @@ void CGameCockpit::ControllerMenuEventHandler(IEvent* ev)
 	s_pInstance->m_CtrlMenu.execute(ev);
 }
 
-void CGameCockpit::setClass(string socketKey, ECharacterClass charClass)
+void CGameCockpit::UserInputEventHandler(IEvent* ev)
 {
-	// remove it
+	s_pInstance->m_CtrlMenu.execute(ev);
 }
+
 
 void CGameCockpit::pushProcess(shared_ptr<IProcess> pProcess)
 {
@@ -132,34 +132,30 @@ CGameCockpit::CGameCockpit()
 	}
 	// create a mutex for background processes of this game
 	m_processesMutex->createMutex("backgroundProcesses");
-	CPerson* user1 = new CPerson("vagner", false, ECHARACTERGENDER_MALE, ECHARACTERRACE_HUMAN);
-	CPerson* user2 = new CPerson("chen", false, ECHARACTERGENDER_FEMALE, ECHARACTERRACE_HUMAN);
-	m_userDB.push_back(user1);
-	m_userDB.push_back(user2);
+	// creates the game control
+	shared_ptr<CGameController> pGameControl(new CGameController());
+	m_pGameInputCtrl = pGameControl;
+	// set the game control to the current view
+	shared_ptr<IView> view(new CHumanView());
+	view->VSetGameCtrl(m_pGameInputCtrl);
 
 	// creates an object of Human View
-	shared_ptr<IViewElement> element(new CViewElementSquare(0.0f, 0.0f, 512.0f, 512.0f));
-	shared_ptr<IViewElement> element2(new CViewElementSquare(-256.0f, -256.0f, 100.0f, 100.0f));
-	shared_ptr<IViewElement> elementCube(new CViewElementModel(0.0f, 0.0f, 2.0f, 2.0f, 2.0f));
-	shared_ptr<IView> view(new CHumanView());
-	view->VPushElement(element);
+	shared_ptr<IViewElement> element(new CViewElementSquare(0.0f, 0.0f, 512.0f, 512.0f, "melancia.bmp"));
+	shared_ptr<IViewElement> element2(new CViewElementSquare(-256.0f, -256.0f, 100.0f, 100.0f, "melancia.bmp"));
+	shared_ptr<IViewElement> elementCube(new CViewElementModel(0.0f, 0.0f, 2.0f, 2.0f, 2.0f, "skull.obj"));
+
+	//view->VPushElement("melan", element);
 	//view->VPushElement(element2);
-	view->VPushElement(elementCube);
+	view->VPushElement("skull", elementCube);
 	//view->VPushElement(element3); 
 	//view->VPushElement(element4);
 	// push to the list of views
 	m_views.push_back(view);
 }
 
-CGameCockpit::~CGameCockpit()
+void
+CGameCockpit::Close()
 {
-	while (!m_userDB.empty())
-	{
-		CPerson* it = m_userDB.back();
-		m_userDB.pop_back();
-		delete it;
-		it = NULL;
-	}
 
 	while (!m_views.empty())
 	{
@@ -167,5 +163,27 @@ CGameCockpit::~CGameCockpit()
 		m_views.pop_back();
 	}
 
+	while (!m_processes.empty())
+	{
+		// shared pointers will automatically deallocate when the last reference is erased
+		m_processes.pop_back();
+	}
+
+	m_processesMutex->mutexUnlock();
+	m_processesMutex->destroy();
+	delete m_processesMutex;
+
 	delete s_pInstance;
+
+}
+
+CGameCockpit::~CGameCockpit()
+{
+	while (!m_views.empty())
+	{
+		// shared pointers will automatically deallocate when the last reference is erased
+		m_views.pop_back();
+	}
+
+	s_pInstance = nullptr;
 }

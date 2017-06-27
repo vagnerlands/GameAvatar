@@ -12,12 +12,6 @@
 #include <string>
 #include <queue>
 #include "CCommonTypes.h"
-#include "CCommandLoginUserName.h"
-#include "CCommandLoginMenu.h"
-#include "CCommandLoginClassMenu.h"
-#include "CCommandLoginRaceMenu.h"
-#include "CCommandLoginGenderMenu.h"
-#include "CICommand.h"
 #include "ISocket.h"
 
 #include "CAnsiString.h"

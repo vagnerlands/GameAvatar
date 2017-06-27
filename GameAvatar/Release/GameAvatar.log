@@ -1,9 +1,199 @@
-﻿  CViewElementCube.cpp
-View\CViewElementCube.cpp(84): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
-View\CViewElementCube.cpp(85): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
-  Generating code
-  1 of 2782 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    4 functions had inline decision re-evaluated but remain unchanged
-  Finished generating code
-  GameAvatar.vcxproj -> C:\Users\Vagner\Documents\Visual Studio 2015\Projects\GameAvatar\Release\GameAvatar.exe
+﻿  CResHandle.cpp
+  ZipFile.cpp
+Application\Cache\ResourceCache\ZipFile.cpp(149): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\stdio.h(205): note: see declaration of 'fopen'
+Application\Cache\ResourceCache\ZipFile.cpp(203): warning C4996: '_strlwr': This function or variable may be unsafe. Consider using _strlwr_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(233): note: see declaration of '_strlwr'
+Application\Cache\ResourceCache\ZipFile.cpp(226): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(119): note: see declaration of 'strcpy'
+Application\Cache\ResourceCache\ZipFile.cpp(227): warning C4996: '_strlwr': This function or variable may be unsafe. Consider using _strlwr_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(233): note: see declaration of '_strlwr'
+  CAnsiString.cpp
+  CModelManager.cpp
+c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\application\CWinSocket.h(5): warning C4005: 'WIN32_LEAN_AND_MEAN': macro redefinition
+  c:\users\vagner\documents\visual studio 2015\projects\gameavatar\packages\nupengl.core.0.1.0.1\build\native\include\gl\freeglut_std.h(58): note: see previous definition of 'WIN32_LEAN_AND_MEAN'
+c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\application\CWinSocket.h(119): warning C4996: 'inet_ntoa': Use inet_ntop() or InetNtop() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+  C:\Program Files (x86)\Windows Kits\8.1\Include\um\winsock2.h(1868): note: see declaration of 'inet_ntoa'
+c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\application\utilities\objparser\obj_parser.h(28): warning C4091: 'typedef ': ignored on left of 'obj_face' when no variable is declared
+c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\application\utilities\objparser\obj_parser.h(37): warning C4091: 'typedef ': ignored on left of 'obj_sphere' when no variable is declared
+c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\application\utilities\objparser\obj_parser.h(46): warning C4091: 'typedef ': ignored on left of 'obj_plane' when no variable is declared
+c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\application\utilities\objparser\obj_parser.h(51): warning C4091: 'typedef ': ignored on left of 'obj_vector' when no variable is declared
+c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\application\utilities\objparser\obj_parser.h(66): warning C4091: 'typedef ': ignored on left of 'obj_material' when no variable is declared
+c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\application\utilities\objparser\obj_parser.h(73): warning C4091: 'typedef ': ignored on left of 'obj_camera' when no variable is declared
+c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\application\utilities\objparser\obj_parser.h(79): warning C4091: 'typedef ': ignored on left of 'obj_light_point' when no variable is declared
+c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\application\utilities\objparser\obj_parser.h(86): warning C4091: 'typedef ': ignored on left of 'obj_light_disc' when no variable is declared
+c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\application\utilities\objparser\obj_parser.h(92): warning C4091: 'typedef ': ignored on left of 'obj_light_quad' when no variable is declared
+c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\application\utilities\objparser\obj_parser.h(115): warning C4091: 'typedef ': ignored on left of 'obj_growable_scene_data' when no variable is declared
+c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\application\utilities\objparser\obj_parser.h(148): warning C4091: 'typedef ': ignored on left of 'obj_scene_data' when no variable is declared
+  CSocketHolder.cpp
+c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\application\CWinSocket.h(119): warning C4996: 'inet_ntoa': Use inet_ntop() or InetNtop() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+  C:\Program Files (x86)\Windows Kits\8.1\Include\um\winsock2.h(1868): note: see declaration of 'inet_ntoa'
+Application\CSocketHolder.cpp(65): warning C4800: 'unsigned int': forcing value to bool 'true' or 'false' (performance warning)
+  CTextManager.cpp
+c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\application\CWinSocket.h(5): warning C4005: 'WIN32_LEAN_AND_MEAN': macro redefinition
+  c:\users\vagner\documents\visual studio 2015\projects\gameavatar\packages\nupengl.core.0.1.0.1\build\native\include\gl\freeglut_std.h(58): note: see previous definition of 'WIN32_LEAN_AND_MEAN'
+c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\application\CWinSocket.h(119): warning C4996: 'inet_ntoa': Use inet_ntop() or InetNtop() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+  C:\Program Files (x86)\Windows Kits\8.1\Include\um\winsock2.h(1868): note: see declaration of 'inet_ntoa'
+  CThreadHolder.cpp
+  CWinMutex.cpp
+  CWinSocket.cpp
+c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\application\CWinSocket.h(119): warning C4996: 'inet_ntoa': Use inet_ntop() or InetNtop() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+  C:\Program Files (x86)\Windows Kits\8.1\Include\um\winsock2.h(1868): note: see declaration of 'inet_ntoa'
+  CWinThread.cpp
+  CProcessLoadModel.cpp
+  CProcessLoadTexture.cpp
+  CResourcesLoader.cpp
+C:\Users\Vagner\Documents\Visual Studio 2015\Projects\GameAvatar\GameAvatar\Application\CWinSocket.h(5): warning C4005: 'WIN32_LEAN_AND_MEAN': macro redefinition
+  c:\users\vagner\documents\visual studio 2015\projects\gameavatar\packages\nupengl.core.0.1.0.1\build\native\include\gl\freeglut_std.h(58): note: see previous definition of 'WIN32_LEAN_AND_MEAN'
+C:\Users\Vagner\Documents\Visual Studio 2015\Projects\GameAvatar\GameAvatar\Application\CWinSocket.h(119): warning C4996: 'inet_ntoa': Use inet_ntop() or InetNtop() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+  C:\Program Files (x86)\Windows Kits\8.1\Include\um\winsock2.h(1868): note: see declaration of 'inet_ntoa'
+  list.cpp
+Application\Utilities\objParser\list.cpp(61): warning C4996: 'strncpy': This function or variable may be unsafe. Consider using strncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(346): note: see declaration of 'strncpy'
+  objLoader.cpp
+c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\application\utilities\objparser\obj_parser.h(28): warning C4091: 'typedef ': ignored on left of 'obj_face' when no variable is declared
+c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\application\utilities\objparser\obj_parser.h(37): warning C4091: 'typedef ': ignored on left of 'obj_sphere' when no variable is declared
+c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\application\utilities\objparser\obj_parser.h(46): warning C4091: 'typedef ': ignored on left of 'obj_plane' when no variable is declared
+c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\application\utilities\objparser\obj_parser.h(51): warning C4091: 'typedef ': ignored on left of 'obj_vector' when no variable is declared
+c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\application\utilities\objparser\obj_parser.h(66): warning C4091: 'typedef ': ignored on left of 'obj_material' when no variable is declared
+c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\application\utilities\objparser\obj_parser.h(73): warning C4091: 'typedef ': ignored on left of 'obj_camera' when no variable is declared
+c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\application\utilities\objparser\obj_parser.h(79): warning C4091: 'typedef ': ignored on left of 'obj_light_point' when no variable is declared
+c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\application\utilities\objparser\obj_parser.h(86): warning C4091: 'typedef ': ignored on left of 'obj_light_disc' when no variable is declared
+c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\application\utilities\objparser\obj_parser.h(92): warning C4091: 'typedef ': ignored on left of 'obj_light_quad' when no variable is declared
+c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\application\utilities\objparser\obj_parser.h(115): warning C4091: 'typedef ': ignored on left of 'obj_growable_scene_data' when no variable is declared
+c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\application\utilities\objparser\obj_parser.h(148): warning C4091: 'typedef ': ignored on left of 'obj_scene_data' when no variable is declared
+  obj_parser.cpp
+c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\application\utilities\objparser\obj_parser.h(28): warning C4091: 'typedef ': ignored on left of 'obj_face' when no variable is declared
+c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\application\utilities\objparser\obj_parser.h(37): warning C4091: 'typedef ': ignored on left of 'obj_sphere' when no variable is declared
+c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\application\utilities\objparser\obj_parser.h(46): warning C4091: 'typedef ': ignored on left of 'obj_plane' when no variable is declared
+c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\application\utilities\objparser\obj_parser.h(51): warning C4091: 'typedef ': ignored on left of 'obj_vector' when no variable is declared
+c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\application\utilities\objparser\obj_parser.h(66): warning C4091: 'typedef ': ignored on left of 'obj_material' when no variable is declared
+c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\application\utilities\objparser\obj_parser.h(73): warning C4091: 'typedef ': ignored on left of 'obj_camera' when no variable is declared
+c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\application\utilities\objparser\obj_parser.h(79): warning C4091: 'typedef ': ignored on left of 'obj_light_point' when no variable is declared
+c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\application\utilities\objparser\obj_parser.h(86): warning C4091: 'typedef ': ignored on left of 'obj_light_disc' when no variable is declared
+c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\application\utilities\objparser\obj_parser.h(92): warning C4091: 'typedef ': ignored on left of 'obj_light_quad' when no variable is declared
+c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\application\utilities\objparser\obj_parser.h(115): warning C4091: 'typedef ': ignored on left of 'obj_growable_scene_data' when no variable is declared
+c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\application\utilities\objparser\obj_parser.h(148): warning C4091: 'typedef ': ignored on left of 'obj_scene_data' when no variable is declared
+Application\Utilities\objParser\obj_parser.cpp(62): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(453): note: see declaration of 'strtok'
+Application\Utilities\objParser\obj_parser.cpp(140): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(453): note: see declaration of 'strtok'
+Application\Utilities\objParser\obj_parser.cpp(168): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(453): note: see declaration of 'strtok'
+Application\Utilities\objParser\obj_parser.cpp(169): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(453): note: see declaration of 'strtok'
+Application\Utilities\objParser\obj_parser.cpp(170): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(453): note: see declaration of 'strtok'
+Application\Utilities\objParser\obj_parser.cpp(193): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\stdio.h(205): note: see declaration of 'fopen'
+Application\Utilities\objParser\obj_parser.cpp(204): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(453): note: see declaration of 'strtok'
+Application\Utilities\objParser\obj_parser.cpp(220): warning C4996: 'strncpy': This function or variable may be unsafe. Consider using strncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(346): note: see declaration of 'strncpy'
+Application\Utilities\objParser\obj_parser.cpp(227): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(453): note: see declaration of 'strtok'
+Application\Utilities\objParser\obj_parser.cpp(228): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(453): note: see declaration of 'strtok'
+Application\Utilities\objParser\obj_parser.cpp(229): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(453): note: see declaration of 'strtok'
+Application\Utilities\objParser\obj_parser.cpp(235): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(453): note: see declaration of 'strtok'
+Application\Utilities\objParser\obj_parser.cpp(236): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(453): note: see declaration of 'strtok'
+Application\Utilities\objParser\obj_parser.cpp(237): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(453): note: see declaration of 'strtok'
+Application\Utilities\objParser\obj_parser.cpp(243): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(453): note: see declaration of 'strtok'
+Application\Utilities\objParser\obj_parser.cpp(244): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(453): note: see declaration of 'strtok'
+Application\Utilities\objParser\obj_parser.cpp(245): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(453): note: see declaration of 'strtok'
+Application\Utilities\objParser\obj_parser.cpp(250): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(453): note: see declaration of 'strtok'
+Application\Utilities\objParser\obj_parser.cpp(255): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(453): note: see declaration of 'strtok'
+Application\Utilities\objParser\obj_parser.cpp(260): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(453): note: see declaration of 'strtok'
+Application\Utilities\objParser\obj_parser.cpp(265): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(453): note: see declaration of 'strtok'
+Application\Utilities\objParser\obj_parser.cpp(270): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(453): note: see declaration of 'strtok'
+Application\Utilities\objParser\obj_parser.cpp(279): warning C4996: 'strncpy': This function or variable may be unsafe. Consider using strncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(346): note: see declaration of 'strncpy'
+Application\Utilities\objParser\obj_parser.cpp(307): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(453): note: see declaration of 'strtok'
+Application\Utilities\objParser\obj_parser.cpp(385): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(453): note: see declaration of 'strtok'
+Application\Utilities\objParser\obj_parser.cpp(390): warning C4996: 'strncpy': This function or variable may be unsafe. Consider using strncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(346): note: see declaration of 'strncpy'
+Application\Utilities\objParser\obj_parser.cpp(407): warning C4477: 'printf' : format string '%s' requires an argument of type 'char *', but variadic argument 3 has type 'std::string'
+Application\Utilities\objParser\obj_parser.cpp(423): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\stdio.h(205): note: see declaration of 'fopen'
+Application\Utilities\objParser\obj_parser.cpp(445): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(453): note: see declaration of 'strtok'
+Application\Utilities\objParser\obj_parser.cpp(523): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(453): note: see declaration of 'strtok'
+Application\Utilities\objParser\obj_parser.cpp(528): warning C4996: 'strncpy': This function or variable may be unsafe. Consider using strncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(346): note: see declaration of 'strncpy'
+  string_extra.cpp
+  CGameController.cpp
+  GameAvatar.cpp
+c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\application\CWinSocket.h(119): warning C4996: 'inet_ntoa': Use inet_ntop() or InetNtop() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+  C:\Program Files (x86)\Windows Kits\8.1\Include\um\winsock2.h(1868): note: see declaration of 'inet_ntoa'
+  CEngine.cpp
+c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\application\CWinSocket.h(119): warning C4996: 'inet_ntoa': Use inet_ntop() or InetNtop() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+  C:\Program Files (x86)\Windows Kits\8.1\Include\um\winsock2.h(1868): note: see declaration of 'inet_ntoa'
+  Compiling...
+  CGameCockpit.cpp
+C:\Users\Vagner\Documents\Visual Studio 2015\Projects\GameAvatar\GameAvatar\Application\CWinSocket.h(5): warning C4005: 'WIN32_LEAN_AND_MEAN': macro redefinition
+  c:\users\vagner\documents\visual studio 2015\projects\gameavatar\packages\nupengl.core.0.1.0.1\build\native\include\gl\freeglut_std.h(58): note: see previous definition of 'WIN32_LEAN_AND_MEAN'
+C:\Users\Vagner\Documents\Visual Studio 2015\Projects\GameAvatar\GameAvatar\Application\CWinSocket.h(119): warning C4996: 'inet_ntoa': Use inet_ntop() or InetNtop() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+  C:\Program Files (x86)\Windows Kits\8.1\Include\um\winsock2.h(1868): note: see declaration of 'inet_ntoa'
+Logic\CGameCockpit.cpp(20): error C2039: 'validateUserLogin': is not a member of 'CGameCockpit'
+  c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\logic\CGameCockpit.h(26): note: see declaration of 'CGameCockpit'
+Logic\CGameCockpit.cpp(23): error C2065: 'm_userDB': undeclared identifier
+Logic\CGameCockpit.cpp(23): error C2228: left of '.begin' must have class/struct/union
+  Logic\CGameCockpit.cpp(23): note: type is 'unknown-type'
+Logic\CGameCockpit.cpp(23): error C2228: left of '.end' must have class/struct/union
+  Logic\CGameCockpit.cpp(23): note: type is 'unknown-type'
+Logic\CGameCockpit.cpp(29): warning C4800: 'bool *': forcing value to bool 'true' or 'false' (performance warning)
+  CCommandLoginClassMenu.cpp
+C:\Users\Vagner\Documents\Visual Studio 2015\Projects\GameAvatar\GameAvatar\Application\CWinSocket.h(5): warning C4005: 'WIN32_LEAN_AND_MEAN': macro redefinition
+  c:\users\vagner\documents\visual studio 2015\projects\gameavatar\packages\nupengl.core.0.1.0.1\build\native\include\gl\freeglut_std.h(58): note: see previous definition of 'WIN32_LEAN_AND_MEAN'
+C:\Users\Vagner\Documents\Visual Studio 2015\Projects\GameAvatar\GameAvatar\Application\CWinSocket.h(119): warning C4996: 'inet_ntoa': Use inet_ntop() or InetNtop() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+  C:\Program Files (x86)\Windows Kits\8.1\Include\um\winsock2.h(1868): note: see declaration of 'inet_ntoa'
+  CCommandLoginGenderMenu.cpp
+C:\Users\Vagner\Documents\Visual Studio 2015\Projects\GameAvatar\GameAvatar\Application\CWinSocket.h(5): warning C4005: 'WIN32_LEAN_AND_MEAN': macro redefinition
+  c:\users\vagner\documents\visual studio 2015\projects\gameavatar\packages\nupengl.core.0.1.0.1\build\native\include\gl\freeglut_std.h(58): note: see previous definition of 'WIN32_LEAN_AND_MEAN'
+C:\Users\Vagner\Documents\Visual Studio 2015\Projects\GameAvatar\GameAvatar\Application\CWinSocket.h(119): warning C4996: 'inet_ntoa': Use inet_ntop() or InetNtop() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+  C:\Program Files (x86)\Windows Kits\8.1\Include\um\winsock2.h(1868): note: see declaration of 'inet_ntoa'
+  CCommandLoginMenu.cpp
+C:\Users\Vagner\Documents\Visual Studio 2015\Projects\GameAvatar\GameAvatar\Application\CWinSocket.h(5): warning C4005: 'WIN32_LEAN_AND_MEAN': macro redefinition
+  c:\users\vagner\documents\visual studio 2015\projects\gameavatar\packages\nupengl.core.0.1.0.1\build\native\include\gl\freeglut_std.h(58): note: see previous definition of 'WIN32_LEAN_AND_MEAN'
+C:\Users\Vagner\Documents\Visual Studio 2015\Projects\GameAvatar\GameAvatar\Application\CWinSocket.h(119): warning C4996: 'inet_ntoa': Use inet_ntop() or InetNtop() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+  C:\Program Files (x86)\Windows Kits\8.1\Include\um\winsock2.h(1868): note: see declaration of 'inet_ntoa'
+  CCommandLoginRaceMenu.cpp
+C:\Users\Vagner\Documents\Visual Studio 2015\Projects\GameAvatar\GameAvatar\Application\CWinSocket.h(5): warning C4005: 'WIN32_LEAN_AND_MEAN': macro redefinition
+  c:\users\vagner\documents\visual studio 2015\projects\gameavatar\packages\nupengl.core.0.1.0.1\build\native\include\gl\freeglut_std.h(58): note: see previous definition of 'WIN32_LEAN_AND_MEAN'
+C:\Users\Vagner\Documents\Visual Studio 2015\Projects\GameAvatar\GameAvatar\Application\CWinSocket.h(119): warning C4996: 'inet_ntoa': Use inet_ntop() or InetNtop() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+  C:\Program Files (x86)\Windows Kits\8.1\Include\um\winsock2.h(1868): note: see declaration of 'inet_ntoa'
+  CCommandLoginUserName.cpp
+C:\Users\Vagner\Documents\Visual Studio 2015\Projects\GameAvatar\GameAvatar\Application\CWinSocket.h(5): warning C4005: 'WIN32_LEAN_AND_MEAN': macro redefinition
+  c:\users\vagner\documents\visual studio 2015\projects\gameavatar\packages\nupengl.core.0.1.0.1\build\native\include\gl\freeglut_std.h(58): note: see previous definition of 'WIN32_LEAN_AND_MEAN'
+C:\Users\Vagner\Documents\Visual Studio 2015\Projects\GameAvatar\GameAvatar\Application\CWinSocket.h(119): warning C4996: 'inet_ntoa': Use inet_ntop() or InetNtop() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+  C:\Program Files (x86)\Windows Kits\8.1\Include\um\winsock2.h(1868): note: see declaration of 'inet_ntoa'
+Logic\Commands\CCommandLoginUserName.cpp(15): error C2039: 'validateUserLogin': is not a member of 'CGameCockpit'
+  c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\logic\CGameCockpit.h(26): note: see declaration of 'CGameCockpit'
+  CControllerMenu.cpp
+Logic\Events\CControllerMenu.cpp(85): warning C4800: 'Types::TInt32': forcing value to bool 'true' or 'false' (performance warning)
+  CControllerUserInput.cpp
+Logic\Events\CControllerUserInput.cpp(85): warning C4800: 'Types::TInt32': forcing value to bool 'true' or 'false' (performance warning)
+  CEventManager.cpp
+  CEventMenu.cpp
+  CHumanView.cpp
+  CViewElementModel.cpp
+  CViewElementSquare.cpp
+View\CViewElementSquare.cpp(71): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+View\CViewElementSquare.cpp(73): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+View\CViewElementSquare.cpp(75): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+View\CViewElementSquare.cpp(77): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data

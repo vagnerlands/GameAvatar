@@ -3,20 +3,48 @@
 
 #include "CCommonTypes.h"
 #include "IKeyboardHandler.h"
+#include "IMouseHandler.h"
 #include <string>
 
 using namespace std;
 using namespace Types;
 
-class CGameController : public IKeyboardHandler
+class CGameController : public IKeyboardHandler, public IMouseHandler
 {
-protected:
-	// Which keys are up and down
-	TByte m_bKey[256]; 
 	//shared_ptr<SceneNode>	m_object;
 public:
+	// Which keys are up and down
+	bool m_bKey[256];
+	// destructor
+	virtual ~CGameController();
+
 	// this function is called cyclically and this updates the game status...
 	void OnUpdate();
+
+	virtual bool VOnMouseMove(const CPoint &mousePos)
+	{
+		return true;
+	}
+
+	virtual bool VOnLButtonDown(const CPoint &mousePos)
+	{
+		return true;
+	}
+
+	virtual bool VOnLButtonUp(const CPoint &mousePos)
+	{
+		return true;
+	}
+
+	virtual bool VOnRButtonDown(const CPoint &mousePos)
+	{
+		return true;
+	}
+
+	virtual bool VOnRButtonUp(const CPoint &mousePos) 
+	{
+		return true;
+	}
 
 	bool VOnKeyDown(const TByte c) 
 	{ 

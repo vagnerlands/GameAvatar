@@ -6,10 +6,13 @@
 #include <vector>
 #include <unordered_map>
 #include "glm/glm.hpp"
+#include "GL/glew.h"
 #include "GL/glut.h"
+#include "glsl.h"
 
 class IView;
 class IViewElement;
+class IViewLight;
 class CResHandle;
 using namespace std;
 
@@ -39,19 +42,29 @@ namespace Types {
 	{
 		GameViewElement_Undefined,
 		GameViewElement_Square,
-		GameViewElement_Cube
+		GameViewElement_Model,
+		GameViewElement_TerrainMesh,
+		GameViewElement_Light_Ambient,
+		GameViewElement_Light_Specular
 	};
 
 	enum ProcessType
 	{
 		ProcessType_LoadTexture,
-		ProcessType_LoadModel
+		ProcessType_LoadModel,
+		ProcessType_LoadShader
 	};
 
 
 	typedef unsigned int GameViewId;
 
 
+	class CPoint
+	{
+	public:
+		TInt32 x;
+		TInt32 y;
+	};
 
 	struct SModelData
 	{
@@ -61,7 +74,9 @@ namespace Types {
 		vector<glm::vec3> m_indices;
 	};
 
-	typedef list<shared_ptr<IViewElement>> ViewElementList;
+	typedef unordered_map<string, cwc::glShader*> ShadersMap;
+	typedef unordered_map<string, shared_ptr<IViewElement>> ViewElementMap;
+	typedef unordered_map<string, shared_ptr<IViewLight>> ViewLightMap;
 	typedef list<shared_ptr<IView>> ViewList;
 	typedef unordered_map<string, SModelData> ModelMap;
 	typedef unordered_map<string, GLuint> TextureMap;

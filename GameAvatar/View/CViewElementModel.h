@@ -7,7 +7,7 @@ class CViewElementModel : public IViewElement
 {
 public:
 
-	CViewElementModel(TFloat posX, TFloat posY, TFloat width, TFloat height, TFloat volume);
+	CViewElementModel(TFloat posX, TFloat posY, TFloat width, TFloat height, TFloat volume, string modelName);
 
 	virtual ~CViewElementModel();
 
@@ -18,18 +18,22 @@ public:
 	// debug purposes
 	virtual char* GetName()
 	{
-		return "Cube";
+		return "Model";
 	}
 	virtual GameViewElement VGetType()
 	{
-		return GameViewElement_Cube;
+		return GameViewElement_Model;
 	}
 protected:
 	virtual void applyTexture(string textId);
 
-	virtual void loadModel(string modelId);
+	virtual bool loadModel(string modelId);
+
+	bool loadShader(string shaderId);
 
 	SModelData m_data;
+
+	string m_modelId;
 };
 
 #endif //_CVIEWELEMENTMODEL_H_

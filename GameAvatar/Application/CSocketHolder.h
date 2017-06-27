@@ -9,7 +9,6 @@
 #include <list>
 #include "CCommonTypes.h"
 #include "CWinThread.h"
-#include "CCommandLoginUserName.h"
 #include "CAnsiString.h"
 #include "ISocket.h"
 #include "IMutex.h"

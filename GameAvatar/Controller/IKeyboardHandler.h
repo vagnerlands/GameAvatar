@@ -9,7 +9,9 @@ using namespace Types;
 
 class IKeyboardHandler {
 public:
-	virtual ~IKeyboardHandler() = 0;
+	virtual ~IKeyboardHandler()
+	{
+	}
 
 	virtual bool VOnKeyDown(const TByte c) = 0;
 

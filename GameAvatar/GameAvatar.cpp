@@ -29,6 +29,8 @@ int main(int argv, char** argc)
 	glutInitWindowPosition(200, 20);
 	glutInitWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 	glutCreateWindow("Game Avatar - Vagner Landskron");
+	//glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
+	//glutGameModeString("800x600:32");
 
 	// straight forward way to avoid Z-fighting
 	//glDisable(GL_DEPTH_TEST);
@@ -46,7 +48,7 @@ int main(int argv, char** argc)
 	// prepares the PROJECTION MATRIX
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	glFrustum(-(WINDOW_WIDTH / 2.0), (WINDOW_WIDTH / 2.0), -(WINDOW_HEIGHT / 2.0), (WINDOW_HEIGHT / 2.0), -100.0, 100.0);
+	//glFrustum(-(WINDOW_WIDTH / 2.0), (WINDOW_WIDTH / 2.0), -(WINDOW_HEIGHT / 2.0), (WINDOW_HEIGHT / 2.0), 1.0, 60000.0);
 
 	// preapres the MODELVIEW MATRIX
 	glMatrixMode(GL_MODELVIEW);

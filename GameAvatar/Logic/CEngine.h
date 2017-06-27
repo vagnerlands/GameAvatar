@@ -1,7 +1,7 @@
 #ifndef _CENGINE_H
 #define _CENGINE_H
 
-#include "CSocketHolder.h"
+//#include "CSocketHolder.h"
 #include "CWinThread.h"
 #include "CICommand.h"
 #include "CResourcesLoader.h"
@@ -34,7 +34,9 @@ private:
 	static const TInt32 s_SCREEN_HEIGHT = 600;
 	static const TInt32 s_SCREEN_WIDTH = 600;
 
-	CSocketHolder m_socketServer;
+	static bool m_bTerminateApplication;
+
+	//CSocketHolder m_socketServer;
 	CResourcesLoader m_resourceLoader;
 
 };
