@@ -68,7 +68,16 @@ CViewElementTerrainMesh::VRender()
 	// disable texture 	
 	glDisable(GL_TEXTURE_2D);
 
+}
+
+void CViewElementTerrainMesh::VPostRender()
+{
 	glPopMatrix();
+	TInt32 err = glGetError();
+	if (err != 0)
+	{
+		printf("glError glPopMatrix=%d\n", err);
+	}
 }
 
 void 

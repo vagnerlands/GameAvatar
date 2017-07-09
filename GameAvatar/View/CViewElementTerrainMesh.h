@@ -15,6 +15,8 @@ public:
 
 	virtual void VRender();
 
+	virtual void VPostRender();
+
 	// debug purposes
 	virtual char* GetName()
 	{

@@ -28,6 +28,8 @@ private:
 	static void ReshapeWrap(TInt32 w, TInt32 h);
 	static void KeyboardInput(TUByte key, int x, int y);
 	static void KeyboardRelease(TUByte key, int x, int y);
+	static void MouseInput(int button, int state, int x, int y);
+	static void MouseMotion(int x, int y);
 	static DWORD WINAPI ConnectionListener(LPVOID lpParameter);
 	static DWORD WINAPI BackgroundLoader(LPVOID lpParameter);
 
@@ -38,6 +40,11 @@ private:
 
 	//CSocketHolder m_socketServer;
 	CResourcesLoader m_resourceLoader;
+
+	// mouse members - to be moved somewhere else
+	static int s_lastState;
+	static int s_lastCursorX;
+	static int s_lastCursorY;
 
 };
 

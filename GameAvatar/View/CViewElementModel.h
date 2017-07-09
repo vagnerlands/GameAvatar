@@ -15,6 +15,8 @@ public:
 
 	virtual void VRender();
 
+	virtual void VPostRender();
+
 	// debug purposes
 	virtual char* GetName()
 	{
@@ -34,6 +36,8 @@ protected:
 	SModelData m_data;
 
 	string m_modelId;
+
+	cwc::glShader* m_pProgramShader;
 };
 
 #endif //_CVIEWELEMENTMODEL_H_

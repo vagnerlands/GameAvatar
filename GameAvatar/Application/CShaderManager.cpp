@@ -106,7 +106,8 @@ CShaderManager::getShaderById(string shaderId)
 
 CShaderManager::~CShaderManager()
 {
-	for (auto it = m_shaders.begin(); it != m_shaders.end();) {
-		m_shaders.erase(it);
+	while (!m_shaders.empty())
+	{
+		m_shaders.erase(m_shaders.begin());
 	}		
 }

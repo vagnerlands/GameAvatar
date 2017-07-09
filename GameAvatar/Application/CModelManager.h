@@ -14,20 +14,11 @@ using namespace std;
 class CModelManager
 {
 public:
-/*
-	struct membuf : std::streambuf
-	{
-		membuf(char* begin, char* end) {
-			this->setg(begin, begin, end);
-		}
-	};
-*/
+	~CModelManager();
 	static CModelManager* instance();
 	void LoadModel(const string modelId);
 	void RemoveModel(const string modelId);
 	bool getModelById(string modelId, SModelData& out);
-	//void AddModelContent(string modelId, shared_ptr<CResHandle> data);
-	CModelManager::~CModelManager();
 
 	// external callback event in case a resource is deallocated
 	static void OnRemoveEvent(string removeItem);
@@ -35,7 +26,7 @@ public:
 
 private:
 	CModelManager();
-	void AddModelContent(string modelId, TByte* bytesStream);
+	void AddModelContent(string modelId, TByte* bytesStream, TByte* materialStream);
 	// local hashmap built textures
 	ModelMap m_models;
 	// mutex for m_processes

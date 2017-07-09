@@ -27,6 +27,15 @@ namespace Types {
 	typedef float TFloat;
 
 	static const TByte* s_GAME_CONNECTION_PORT = "1234";
+	static const TFloat s_CYCLE_MAX_TIME = 16;
+
+	enum CameraAttributeType
+	{
+		CameraAttribute_Position,
+		CameraAttribute_Up,
+		CameraAttribute_Right,
+		CameraAttribute_Forward
+	};
 
 	enum GameViewType
 	{
@@ -55,6 +64,16 @@ namespace Types {
 		ProcessType_LoadShader
 	};
 
+	enum EVertexBuffers
+	{
+		VertexBuffer_Vertices,
+		VertexBuffer_Normals,
+		VertexBuffer_Textures,
+		VertexBuffer_Colors,
+		VertexBuffer_Element,
+		VertexBuffer_Max_Num
+	};
+
 
 	typedef unsigned int GameViewId;
 
@@ -66,18 +85,71 @@ namespace Types {
 		TInt32 y;
 	};
 
+	struct SMaterialAttr
+	{
+		glm::vec3 m_ambient;
+		glm::vec3 m_diffuse;
+		glm::vec3 m_specular;
+		TDouble m_reflect;
+		TDouble m_refract;
+		TDouble m_trans;
+		TDouble m_shiny;
+		TDouble m_glossy;
+	};
+
+	struct SFaceAttr
+	{
+		// vec4 since it supports triangles or quads
+		glm::vec4 m_vertexIndex;
+		glm::vec4 m_normalIndex;
+		glm::vec4 m_textureIndex;
+		TInt32 m_vertexCount;
+		TInt32 m_materialIndex;
+	};
+
 	struct SModelData
 	{
-		vector<glm::vec3> m_vertices;
+		~SModelData()
+		{
+			if (m_vboBufferCreated)
+			{
+				glDeleteVertexArrays(1, &m_vertexArrayObject);
+				m_vertexArrayObject = 0;
+				
+				glDeleteBuffers(VertexBuffer_Max_Num, m_elementBuffer);
+
+				m_vboBufferCreated = false;
+			}
+		}
+
+		SModelData() : m_vboBufferCreated(false), m_vertexArrayObject(0)
+		{
+			for (TInt32 i = 0; i < VertexBuffer_Max_Num; i++)
+			{
+				m_elementBuffer[i] = 0;
+			}
+		}
+
+		bool m_vboBufferCreated;
+		GLuint m_vertexArrayObject;
+		vector<GLushort> m_verticesIndexed;
+		vector<GLushort> m_normalsIndexed;
+		vector<GLushort> m_texturesIndexed;
+		// indexes for Normals, Textures, Vertices and Colors
+		//GLuint m_vertexBuffer[VertexBuffer_Max_Num];
+		GLuint m_elementBuffer[VertexBuffer_Max_Num];
+
 		vector<glm::vec2> m_textures;
 		vector<glm::vec3> m_normals;
-		vector<glm::vec3> m_indices;
+		vector<glm::vec3> m_vertices;
+		vector<SMaterialAttr> m_material;
+		//vector<SFaceAttr> m_faces;
 	};
 
 	typedef unordered_map<string, cwc::glShader*> ShadersMap;
 	typedef unordered_map<string, shared_ptr<IViewElement>> ViewElementMap;
 	typedef unordered_map<string, shared_ptr<IViewLight>> ViewLightMap;
-	typedef list<shared_ptr<IView>> ViewList;
+	typedef std::list<shared_ptr<IView>> ViewList;
 	typedef unordered_map<string, SModelData> ModelMap;
 	typedef unordered_map<string, GLuint> TextureMap;
 	typedef unordered_map<string, shared_ptr<CResHandle>> TextureContentMap;

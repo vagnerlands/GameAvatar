@@ -66,7 +66,16 @@ void CViewLightDiffuse::VRender()
 		
 	glEnd();
 	glDisable(GL_TEXTURE_2D);
+}
+
+void CViewLightDiffuse::VPostRender()
+{
 	glPopMatrix();
+	TInt32 err = glGetError();
+	if (err != 0)
+	{
+		printf("glError glPopMatrix=%d\n", err);
+	}
 }
 
 void CViewLightDiffuse::applyTexture(string textId)

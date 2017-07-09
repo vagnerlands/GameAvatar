@@ -73,8 +73,18 @@ void CViewLightAmbient::VRender()
 		m_position.z); // D
 	glEnd();
 	glDisable(GL_TEXTURE_2D);
-	glPopMatrix();
 }
+
+void CViewLightAmbient::VPostRender()
+{
+	glPopMatrix();
+	TInt32 err = glGetError();
+	if (err != 0)
+	{
+		printf("glError glPopMatrix=%d\n", err);
+	}
+}
+
 
 void CViewLightAmbient::applyTexture(string textId)
 {

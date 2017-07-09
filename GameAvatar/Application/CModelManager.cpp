@@ -13,6 +13,14 @@
 
 CModelManager* CModelManager::s_pInstance = NULL;
 
+CModelManager::~CModelManager()
+{
+	while (!m_models.empty())
+	{
+		m_models.erase(m_models.begin());
+	}	
+}
+
 CModelManager*
 CModelManager::instance()
 {
@@ -53,79 +61,115 @@ CModelManager::LoadModel(const string modelId)
 	clock_t start = clock();
 
 	// cache missed - must reload it from resources db
-	CResource resExample(modelId);
-	shared_ptr<CResHandle> bytesStream = m_cacheDb.GetHandle(&resExample);
-	TByte* data = bytesStream->Buffer();
-
-	AddModelContent(modelId, bytesStream->Buffer());
+	CResource resModel(modelId);
+	shared_ptr<CResHandle> modelStream = m_cacheDb.GetHandle(&resModel);
+	string materialId = modelId.substr(0, modelId.find_last_of('.'));
+	materialId += ".mtl";
+	CResource resMaterial(materialId);
+	shared_ptr<CResHandle> materialStream = m_cacheDb.GetHandle(&resMaterial);
+	if (modelStream->GetSize() > 0)
+	{
+		TByte* data = modelStream->Buffer();
+		TByte* materialData = 0;
+		if (materialStream->GetSize() > 0) materialData = materialStream->Buffer();
+		AddModelContent(modelId, data, materialData);
+	}
+	else
+	{
+		printf("Model %s not found in resource file!\n", modelId);
+	}	
 
 	// time measurement
 	printf(" loading model [%s] %.2fms\n", modelId.data(), (float)(clock() - start));
 }
 
 void
-CModelManager::AddModelContent(string modelId, TByte* bytesStream)
+CModelManager::AddModelContent(string modelId, TByte* bytesStream, TByte* materialStream)
 {
 	// new node to be allocated
 	SModelData newNode;
 	// will be deallocated at the end of this function
 	shared_ptr<objLoader> objData (new objLoader());
 	// parses the loaded model
-	objData->load(bytesStream, true);
+	objData->load(bytesStream, materialStream, true);
 
 	printf("Number of vertices: %i\n", objData->vertexCount);
 	printf("Number of vertex normals: %i\n", objData->normalCount);
 	printf("Number of texture coordinates: %i\n", objData->textureCount);
 	printf("\n");
+
+	newNode.m_vboBufferCreated = false;
+
+	for (int i = 0; i < objData->materialCount; i++)
+	{
+		SMaterialAttr newMaterial;
+		obj_material* m = objData->materialList[i];
+
+		newMaterial.m_ambient = glm::vec3(m->amb[0], m->amb[1], m->amb[2]);
+		newMaterial.m_specular = glm::vec3(m->spec[0], m->spec[1], m->spec[2]);
+		newMaterial.m_diffuse = glm::vec3(m->diff[0], m->diff[1], m->diff[2]);
+		newMaterial.m_glossy = m->glossy;
+		newMaterial.m_reflect = m->reflect;
+		newMaterial.m_refract = m->refract;
+		newMaterial.m_shiny = m->shiny;
+		newMaterial.m_trans = m->trans;
+
+		newNode.m_material.push_back(newMaterial);
+	}
+
+	bool recalculateNormals = true;
+
+	if (objData->normalCount > 0)
+	{
+		recalculateNormals = false;
+		for (int i = 0; i < objData->normalCount; i++)
+		{
+			// temporary normal object
+			obj_vector* n = objData->normalList[i];
+			newNode.m_normals.push_back(glm::vec3(n->e[0], n->e[1], n->e[2]));
+		}
+	}
+
+	for (int i = 0; i < objData->vertexCount; i++)
+	{
+		// temporary vertex object
+		obj_vector *o = objData->vertexList[i];
+
+		newNode.m_vertices.push_back(glm::vec3(o->e[0], o->e[1], o->e[2]));
+
+		if (recalculateNormals)
+		{
+			//! if normals are not present - calculate them!
+			// calculate the length of the axis of the vertex
+			TFloat length = sqrt(pow(o->e[0], 2.0)
+				+ pow(o->e[1], 2.0)
+				+ pow(o->e[2], 2.0));
+
+			// use calculate normals 
+			// divide the vertex by the calculate length of the vertexes
+			newNode.m_normals.push_back(glm::vec3(o->e[0] / length, o->e[1] / length, o->e[2] / length));
+		}
+	}
+
+	for (int i = 0; i < objData->textureCount; i++)
+	{
+		obj_vector* t = objData->textureList[i];
+		newNode.m_textures.push_back(glm::vec2(t->e[0], t->e[1]));
+	}
+
 	for (int i = 0; i < objData->faceCount; i++)
 	{
 		obj_face *o = objData->faceList[i];
-		//printf(" face ");
-		for (int j = 0; j<3; j++)
+
+		for (int j = 0; j < o->vertex_count; j++)
 		{
-			newNode.m_vertices.push_back(glm::vec3(
-				objData->vertexList[o->vertex_index[j]]->e[0],
-				objData->vertexList[o->vertex_index[j]]->e[1],
-				objData->vertexList[o->vertex_index[j]]->e[2]
-			    ));			
-
-			if (objData->normalCount > 0)
+			
+			newNode.m_normalsIndexed.push_back(o->normal_index[j]);
+			newNode.m_verticesIndexed.push_back(o->vertex_index[j]);
+			if (o->material_index != -1)
 			{
-				newNode.m_normals.push_back(glm::vec3(
-					objData->normalList[o->vertex_index[j]]->e[0],
-					objData->normalList[o->vertex_index[j]]->e[1],
-					objData->normalList[o->vertex_index[j]]->e[2]
-				));
-			}
-			else
-			{
-				//! if normals are not present - calculate them!
-				// calculate the length of the axis of the vertex
-				TFloat length = sqrt(pow(objData->vertexList[o->vertex_index[j]]->e[0], 2.0)
-					+ pow(objData->vertexList[o->vertex_index[j]]->e[1], 2.0)
-					+ pow(objData->vertexList[o->vertex_index[j]]->e[2], 2.0));
-
-				// use calculate normals 
-				// divide the vertex by the calculate length of the vertexes
-				newNode.m_normals.push_back(glm::vec3(
-					objData->vertexList[o->vertex_index[j]]->e[0] / length,
-					objData->vertexList[o->vertex_index[j]]->e[1] / length,
-					objData->vertexList[o->vertex_index[j]]->e[2] / length
-				));
-			}
-
-			if (objData->textureCount > 0)
-			{
-				newNode.m_textures.push_back(glm::vec2(
-					objData->textureList[o->vertex_index[j]]->e[0],
-					objData->textureList[o->vertex_index[j]]->e[1]
-				));
-			}
-			else
-			{
-				// must think about a way to map textures in case the 
-				// mapping isn't present
-			}
+				newNode.m_texturesIndexed.push_back(o->texture_index[j]);
+			}			
 		}
 	}
 
@@ -159,7 +203,61 @@ CModelManager::getModelById(string textId, SModelData& out)
 	ModelMap::iterator result = m_models.find(textId);
 	if (result != m_models.end())
 	{
+		
+		if (!result->second.m_vboBufferCreated)
+		{			
+			result->second.m_vboBufferCreated = true;
+			
+			// generates the VAO
+			glGenVertexArrays(1, &result->second.m_vertexArrayObject);
+			// binds the VAO for this model
+			glBindVertexArray(result->second.m_vertexArrayObject);
+			// [          Load buffers          ]
+			//vertices
+			glGenBuffers(Types::VertexBuffer_Max_Num, result->second.m_elementBuffer);
+			int oglErr = glGetError();
+			if (oglErr != 0)
+			{
+				printf("glError after glGenBuffers =%d\n", glGenBuffers);
+			}
+
+			// [VERTEX PREPARATION]
+			glBindBuffer(GL_ARRAY_BUFFER, result->second.m_elementBuffer[Types::VertexBuffer_Vertices]);
+			glBufferData(GL_ARRAY_BUFFER, (result->second.m_vertices.size() * sizeof(glm::vec3)), &result->second.m_vertices[0], GL_STATIC_DRAW);
+			glVertexPointer(3, GL_FLOAT, 0, (void*)(0));
+			// [------------------]
+
+			// [NORMAL PREPARATION]
+			glBindBuffer(GL_ARRAY_BUFFER, result->second.m_elementBuffer[Types::VertexBuffer_Normals]);
+			glBufferData(GL_ARRAY_BUFFER, (result->second.m_normals.size() * sizeof(glm::vec3)), &result->second.m_normals[0], GL_STATIC_DRAW);
+			glNormalPointer(GL_FLOAT, 0, (void*)(0));
+			// [------------------]
+
+			// [TEXTURE PREPARATION]
+			if (result->second.m_textures.size() > 0)
+			{
+				glBindBuffer(GL_ARRAY_BUFFER, result->second.m_elementBuffer[Types::VertexBuffer_Textures]);
+				glBufferData(GL_ARRAY_BUFFER, (result->second.m_textures.size() * sizeof(glm::vec2)), &result->second.m_textures[0], GL_STATIC_DRAW);
+				glTexCoordPointer(2, GL_FLOAT, 0, (void*)(0));
+			}
+			// [------------------]
+
+			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, result->second.m_elementBuffer[Types::VertexBuffer_Element]);
+			glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLushort) * result->second.m_verticesIndexed.size(), &result->second.m_verticesIndexed[0], GL_STATIC_DRAW);
+
+			// allocation integrity check
+			TInt32 allocIntegrityChk = 0;
+			glGetBufferParameteriv(GL_ELEMENT_ARRAY_BUFFER, GL_BUFFER_SIZE, &allocIntegrityChk);
+			if (allocIntegrityChk != result->second.m_verticesIndexed.size() * sizeof(GLushort))
+			{
+				glDeleteBuffers(Types::VertexBuffer_Max_Num, result->second.m_elementBuffer);
+				printf(" <!> error while allocating element buffer in %s\n", textId.data());
+			}
+			// [--------------------------------]
+		}
+
 		out = result->second;
+
 		return true;
 	}
 
@@ -169,12 +267,4 @@ CModelManager::getModelById(string textId, SModelData& out)
 	
 	// if it somehow failed, returns -1
 	return false;
-}
-
-
-CModelManager::~CModelManager()
-{
-	for (auto it = m_models.begin(); it != m_models.end();) {
-		m_models.erase(it);
-	}		
 }

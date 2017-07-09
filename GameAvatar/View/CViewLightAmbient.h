@@ -38,6 +38,8 @@ public:
 	virtual void VPreRender();
 	// actually draws the element
 	virtual void VRender();
+
+	virtual void VPostRender();
 	// debug purposes
 	virtual char* VGetName()
 	{

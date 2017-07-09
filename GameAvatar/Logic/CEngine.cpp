@@ -1,4 +1,6 @@
 #include "CEngine.h"
+#include "CShaderManager.h"
+#include "CModelManager.h"
 #include "CGameCockpit.h"
 #include "CThreadHolder.h"
 #include "CEventManager.h"
@@ -16,6 +18,11 @@ using namespace std;
 CEngine* CEngine::m_pInstance = nullptr;
 
 bool CEngine::m_bTerminateApplication = false;
+
+int CEngine::s_lastState = GLUT_UP;
+int CEngine::s_lastCursorX = -1;
+int CEngine::s_lastCursorY = -1;
+
 
 void
 CEngine::instance() {
@@ -46,34 +53,6 @@ CEngine::connectionLoop()
 void
 CEngine::execute() 
 {
-	// read incoming bytes from all sockets
-	//m_socketServer.readIncomingMsgs();
-
-	// execute commands from Sockets
-	//m_socketServer.executeCommands();
-
-	// prepares ORTHO PROJECTION
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity(); //Reset the drawing perspective
-	//glOrtho(-(s_SCREEN_WIDTH / 2.0), (s_SCREEN_WIDTH / 2.0), -(s_SCREEN_HEIGHT / 2.0), (s_SCREEN_HEIGHT / 2.0), -600.0, 600.0);
-	//glFrustum(-(s_SCREEN_WIDTH / 2.0), (s_SCREEN_WIDTH / 2.0), -(s_SCREEN_HEIGHT / 2.0), (s_SCREEN_HEIGHT / 2.0), 0.1f, 60000.0f);
-	static GLfloat frustumParams[] = {-1.f, 1.f, -1.f, 1.f, 5.f, 10000.f};
-	glFrustum(frustumParams[0], 
-		frustumParams[1], 
-		frustumParams[2], 
-		frustumParams[3], 
-		frustumParams[4], 
-		frustumParams[5]);
-	gluLookAt(0.0f, 0.0f, -5.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.f, 0.0f);
-	// prepares MODEL VIEW
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glMatrixMode(GL_MODELVIEW);
-	// Set background (clear) color to black
-	glClearColor(0.0, 0.0, 0.0, 1.0);
-	//GLenum err = glGetError();
-	//glMatrixMode(GL_PROJECTION);                // update projection
-	//err = glGetError();
-
 	// runs periodic functions based on system events
 	CGameCockpit::instance()->run();
 
@@ -83,6 +62,9 @@ CEngine::execute()
 	if (m_bTerminateApplication)
 	{
 		CGameCockpit::instance()->Close();
+		delete CModelManager::instance();
+		delete CTextManager::instance();
+		delete CShaderManager::instance();
 		//delete m_pInstance;
 	}
 
@@ -101,14 +83,12 @@ CEngine::reshape(TInt32 w, TInt32 h)
 {
 	glViewport(0, 0, (GLsizei)s_SCREEN_WIDTH, (GLsizei)s_SCREEN_HEIGHT);
 
-	glMatrixMode(GL_PROJECTION); //Switch to setting the camera perspective
+	// prepare Projection matrix
+	glMatrixMode(GL_PROJECTION); 
 
-								 //Set the camera perspective
-	glLoadIdentity(); //Reset the camera
-	//gluPerspective(45.0f,                  //The camera angle
-	//	(double)s_SCREEN_WIDTH / (double)s_SCREEN_HEIGHT, //The width-to-height ratio
-	//	0.1f,                   //The near z clipping coordinate
-	//	60000.0f);                //The far z clipping coordinate
+	// Set identity matrix
+	glLoadIdentity(); 
+
 }
 
 void 
@@ -133,7 +113,114 @@ CEngine::ReshapeWrap(TInt32 w, TInt32 h)
 // reads the user input key - KEY DOWN
 void CEngine::KeyboardInput(TUByte key, int x, int y)
 {
+	if (key == 'c')
+	{
+		s_lastState = GLUT_DOWN;
+		s_lastCursorX = -1;
+		s_lastCursorY = -1;
+	}
 	CGameCockpit::instance()->getGameController()->VOnKeyDown(key);
+}
+
+void CEngine::MouseMotion(int x, int y)
+{
+	float cursorX, cursorY = 0.0f;
+
+	if (s_lastCursorX == -1)
+	{
+		s_lastCursorX = x;
+	}
+
+	if (s_lastCursorY == -1)
+	{
+		s_lastCursorY = y;
+	}
+
+	if (s_lastState == GLUT_DOWN) 
+	{
+		cursorX = x;
+		cursorY = y;
+
+		float deltaX = 0;
+		float deltaY = 0;
+
+		deltaX = s_lastCursorX - cursorX;
+		deltaY = s_lastCursorY - cursorY;
+
+		float angle = (int)((atan2(deltaY, deltaX) * 180 / 3.14f) + 270) % 360;
+
+		if ((s_lastCursorX != cursorX) || (s_lastCursorY != cursorY))
+		{
+			printf("angle=%f, deltaX = %f, deltaY = %f\n",
+				angle,
+				deltaX,
+				deltaY);
+
+			s_lastCursorX = cursorX;
+			s_lastCursorY = cursorY;
+
+			if (deltaX > 0)
+			{
+				deltaX *= -1;
+			}
+
+			if (deltaY < 0)
+			{
+				deltaY *= -1;
+			}
+
+			CCamera* tmp = &CGameCockpit::instance()->m_camera;
+
+			tmp->RotateX(cos(angle * 3.14 / 180) * (deltaY / 10.f));
+			tmp->RotateY(sin(angle * 3.14 / 180) * (deltaX / 10.f));
+		}
+	}
+
+	printf("Mouse @ %d %d\n", x, y);
+
+
+}
+
+void CEngine::MouseInput(int button, int state, int x, int y)
+{
+	if (s_lastCursorX == -1)
+	{
+		s_lastCursorX = x;
+	}
+
+	if (s_lastCursorY == -1)
+	{
+		s_lastCursorY = y;
+	}
+
+
+	// Wheel reports as button 3(scroll up) and button 4(scroll down)
+	if ((button == 3) || (button == 4)) // It's a wheel event
+	{
+		// Each wheel event reports like a button click, GLUT_DOWN then GLUT_UP
+		printf("Scroll %s At %d %d\n", (button == 3) ? "Up" : "Down", x, y);
+		if (button == 3)
+		{
+			CGameCockpit::instance()->m_camera.MoveForward(1.0f);
+		}
+		else
+		{
+			CGameCockpit::instance()->m_camera.MoveForward(-1.0f);
+		}
+	}
+	else 
+	{  // normal button event
+		printf("Button %d - %s At %d %d\n", button, (state == GLUT_DOWN) ? "Down" : "Up", x, y);
+	}
+
+
+	
+
+	s_lastCursorX = x;
+	s_lastCursorY = y;
+	//s_lastState = state;
+
+	//glutPostRedisplay();
 }
 
 // reads the user input key - KEY UP
@@ -142,6 +229,7 @@ void CEngine::KeyboardRelease(TUByte key, int x, int y)
 	// if ESC key - application must be terminated
 	if (key == 27) 
 		m_bTerminateApplication = true;
+	if (key == 'c')     s_lastState = GLUT_UP;
 	if (key == '9') 	glutEnterGameMode();
 	if (key == '0') 	glutLeaveGameMode();
 	CGameCockpit::instance()->getGameController()->VOnKeyUp(key);
@@ -205,8 +293,19 @@ CEngine::ignition()
 	glutKeyboardFunc(KeyboardInput);
 	// key press up event
 	glutKeyboardUpFunc(KeyboardRelease);
+	// mouse click input
+	glutMouseFunc(MouseInput);
+	// mouse motion input
+	glutPassiveMotionFunc(MouseMotion);
 
 	glutGameModeString("800x600:32@60");
+
+	// initialize shaders
+	CShaderManager::instance()->LoadShader("simple");
+	CShaderManager::instance()->LoadShader("light");
+	CShaderManager::instance()->LoadShader("model");
+	CShaderManager::instance()->LoadShader("quasicrystal");
+	CShaderManager::instance()->LoadShader("noise");
 	
 	// initialize the opengl main loop
 	// this will handle the whole displaying states of our game...

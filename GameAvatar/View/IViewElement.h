@@ -35,6 +35,8 @@ public:
 	virtual void VPreRender() = 0;
 	// actually draws the element
 	virtual void VRender() = 0;
+
+	virtual void VPostRender() = 0;
 	// debug purposes
 	virtual char* VGetName()
 	{

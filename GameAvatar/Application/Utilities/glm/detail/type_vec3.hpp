@@ -179,6 +179,42 @@ namespace glm
 		template <typename U>
 		GLM_FUNC_DECL tvec3<T, P> & operator/=(tvec3<U, P> const & v);
 
+		// -- implemented by VAGNER LANDSKRON -- //
+/*
+		glm::vec3<T, P> operator+ (glm::vec3<T, P> const &u)
+		{
+			vec3 res;
+			res.x = x + u.x;
+			res.y = y + u.y;
+			res.z = z + u.z;
+			return res;
+		}
+
+		glm::vec3<T, P> operator- (glm::vec3<T, P> const &u)
+		{
+			vec3 res;
+			res.x = x - u.x;
+			res.y = y - u.y;
+			res.z = z - u.z;
+			return res;
+		}
+*/
+		tvec3<T, P> operator* (float r)
+		{
+			vec3 res;
+			res.x = x * r;
+			res.y = y * r;
+			res.z = z * r;
+			return res;
+		}
+	
+		float operator* (tvec3<T, P> const &u)
+		{
+			return x * u.x
+				+ y * u.y
+				+ z * u.z;
+		}
+
 		// -- Increment and decrement operators --
 
 		GLM_FUNC_DECL tvec3<T, P> & operator++();

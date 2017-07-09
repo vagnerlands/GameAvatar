@@ -2,12 +2,12 @@
 #include "obj_parser.h"
 
 
-int objLoader::load(char *filename, bool isStreamOfBytes)
+int objLoader::load(char *filename, char* material, bool isStreamOfBytes)
 {
 	int no_error = 1;
 	if (isStreamOfBytes)
 	{
-		no_error = parse_obj_scene_from_stream(&data, filename);
+		no_error = parse_obj_scene_from_stream(&data, filename, material);
 	}
 	else
 	{

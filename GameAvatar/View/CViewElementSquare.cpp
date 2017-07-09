@@ -60,8 +60,13 @@ void CViewElementSquare::VRender()
 	{
 		printf("glError glDisable=%d\n", err);
 	}
+	
+}
+
+void CViewElementSquare::VPostRender()
+{
 	glPopMatrix();
-	err = glGetError();
+	TInt32 err = glGetError();
 	if (err != 0)
 	{
 		printf("glError glPopMatrix=%d\n", err);

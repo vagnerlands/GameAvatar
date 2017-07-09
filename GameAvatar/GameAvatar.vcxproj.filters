@@ -54,6 +54,9 @@
     <Filter Include="Source Files\Application\Shaders">
       <UniqueIdentifier>{a68eda73-3394-4a3e-b82f-52366726bbeb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Application\Camera">
+      <UniqueIdentifier>{7a8538d9-5daf-425d-9314-c4f6dce28525}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -157,6 +160,9 @@
     </ClCompile>
     <ClCompile Include="Application\Loader\CProcessLoadShader.cpp">
       <Filter>Source Files\Application\Loader</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Camera\CCamera.cpp">
+      <Filter>Source Files\Application\Camera</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -301,6 +307,9 @@
     </ClInclude>
     <ClInclude Include="Application\Loader\CProcessLoadShader.h">
       <Filter>Source Files\Application\Loader</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Camera\CCamera.h">
+      <Filter>Source Files\Application\Camera</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

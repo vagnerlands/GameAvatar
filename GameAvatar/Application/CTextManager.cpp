@@ -200,7 +200,9 @@ CTextManager::AddTextureContent(string textId, shared_ptr<CResHandle> data)
 
 CTextManager::~CTextManager()
 {
-	for (auto it = m_textures.begin(); it != m_textures.end();) {		
+	while (!m_textures.empty()) 
+	{		
+		TextureMap::iterator it = m_textures.begin();
 		glDeleteTextures(1, &(it->second));
 		m_textures.erase(it);
 	}		

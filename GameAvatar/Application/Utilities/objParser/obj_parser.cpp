@@ -180,6 +180,114 @@ void obj_parse_camera(obj_growable_scene_data *scene, obj_camera *camera)
 	camera->camera_up_norm_index = obj_convert_to_list_index(scene->vertex_normal_list.item_count, indices[2]);
 }
 
+
+int obj_parse_mtl_file_from_stream(char *materialStream, list *material_list)
+{
+
+	membuf sbuf(materialStream, materialStream + strlen(materialStream));
+	std::istream streamIn(&sbuf);
+	std::string current_line;
+	int line_number = 0;
+	char* current_token;
+
+	char material_open = 0;
+	obj_material *current_mtl = NULL;
+
+	list_make(material_list, 10, 1);
+
+	while (std::getline(streamIn, current_line))
+	{
+		char nextLine[500];
+		strcpy(nextLine, current_line.data()); //strtok(current_line, " \t\n\r");
+		current_token = strtok(nextLine, " \t\n\r");
+		line_number++;
+
+		//skip comments
+		if (current_token == NULL || strequal(current_token, "//") || strequal(current_token, "#"))
+			continue;
+
+
+		//start material
+		else if (strequal(current_token, "newmtl"))
+		{
+			material_open = 1;
+			current_mtl = (obj_material*)malloc(sizeof(obj_material));
+			obj_set_material_defaults(current_mtl);
+
+			// get the name
+			strncpy(current_mtl->name, strtok(NULL, " \t"), MATERIAL_NAME_SIZE);
+			list_add_item(material_list, current_mtl, current_mtl->name);
+		}
+
+		//ambient
+		else if (strequal(current_token, "Ka") && material_open)
+		{
+			current_mtl->amb[0] = atof(strtok(NULL, " \t"));
+			current_mtl->amb[1] = atof(strtok(NULL, " \t"));
+			current_mtl->amb[2] = atof(strtok(NULL, " \t"));
+		}
+
+		//diff
+		else if (strequal(current_token, "Kd") && material_open)
+		{
+			current_mtl->diff[0] = atof(strtok(NULL, " \t"));
+			current_mtl->diff[1] = atof(strtok(NULL, " \t"));
+			current_mtl->diff[2] = atof(strtok(NULL, " \t"));
+		}
+
+		//specular
+		else if (strequal(current_token, "Ks") && material_open)
+		{
+			current_mtl->spec[0] = atof(strtok(NULL, " \t"));
+			current_mtl->spec[1] = atof(strtok(NULL, " \t"));
+			current_mtl->spec[2] = atof(strtok(NULL, " \t"));
+		}
+		//shiny
+		else if (strequal(current_token, "Ns") && material_open)
+		{
+			current_mtl->shiny = atof(strtok(NULL, " \t"));
+		}
+		//transparent
+		else if (strequal(current_token, "d") && material_open)
+		{
+			current_mtl->trans = atof(strtok(NULL, " \t"));
+		}
+		//reflection
+		else if (strequal(current_token, "r") && material_open)
+		{
+			current_mtl->reflect = atof(strtok(NULL, " \t"));
+		}
+		//glossy
+		else if (strequal(current_token, "sharpness") && material_open)
+		{
+			current_mtl->glossy = atof(strtok(NULL, " \t"));
+		}
+		//refract index
+		else if (strequal(current_token, "Ni") && material_open)
+		{
+			current_mtl->refract_index = atof(strtok(NULL, " \t"));
+		}
+		// illumination type
+		else if (strequal(current_token, "illum") && material_open)
+		{
+		}
+		// texture map
+		else if (strequal(current_token, "map_Ka") && material_open)
+		{
+			strncpy(current_mtl->texture_filename, strtok(NULL, " \t"), OBJ_FILENAME_LENGTH);
+		}
+		else
+		{
+			fprintf(stderr, "Unknown command '%s' in material stream at line %i:\n\t%s\n",
+				current_token, line_number, current_line);
+			//return 0;
+		}
+	}
+
+	return 1;
+
+}
+
 int obj_parse_mtl_file(char *filename, list *material_list)
 {
 	int line_number = 0;
@@ -293,7 +401,7 @@ int obj_parse_mtl_file(char *filename, list *material_list)
 }
 
 int 
-obj_parse_obj_stream(obj_growable_scene_data* growable_data, char* bytesStream)
+obj_parse_obj_stream(obj_growable_scene_data* growable_data, char* bytesStream, char* materialStream)
 {
 	membuf sbuf(bytesStream, bytesStream + strlen(bytesStream));
 	std::istream streamIn(&sbuf);
@@ -388,7 +496,10 @@ obj_parse_obj_stream(obj_growable_scene_data* growable_data, char* bytesStream)
 		else if (strequal(current_token, "mtllib")) // mtllib
 		{
 			strncpy(growable_data->material_filename, strtok(NULL, WHITESPACE), OBJ_FILENAME_LENGTH);
-			obj_parse_mtl_file(growable_data->material_filename, &growable_data->material_list);
+			if (materialStream != 0)
+			{
+				obj_parse_mtl_file_from_stream(materialStream, &growable_data->material_list);
+			}
 			continue;
 		}
 
@@ -660,12 +771,12 @@ void obj_copy_to_out_storage(obj_scene_data *data_out, obj_growable_scene_data *
 	data_out->camera = growable_data->camera;
 }
 
-int parse_obj_scene_from_stream(obj_scene_data *data_out, char *streamBytes)
+int parse_obj_scene_from_stream(obj_scene_data *data_out, char *streamBytes, char *materialStream)
 {
 	obj_growable_scene_data growable_data;
 
 	obj_init_temp_storage(&growable_data);
-	if (obj_parse_obj_stream(&growable_data, streamBytes) == 0)
+	if (obj_parse_obj_stream(&growable_data, streamBytes, materialStream) == 0)
 		return 0;
 
 	//print_vector(NORMAL, "Max bounds are: ", &growable_data->extreme_dimensions[1]);

@@ -148,7 +148,7 @@ typedef struct obj_scene_data
 };
 
 int parse_obj_scene(obj_scene_data *data_out, char *filename);
-int parse_obj_scene_from_stream(obj_scene_data *data_out, char *streamBytes);
+int parse_obj_scene_from_stream(obj_scene_data *data_out, char *streamBytes, char *material);
 void delete_obj_data(obj_scene_data *data_out);
 
 #endif

@@ -12,7 +12,7 @@ public:
 		delete_obj_data(&data);
 	}
 
-	int load(char *filename, bool isStreamOfBytes);
+	int load(char *filename, char* material, bool isStreamOfBytes);
 
 	obj_vector **vertexList;
 	obj_vector **normalList;

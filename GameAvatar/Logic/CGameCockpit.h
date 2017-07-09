@@ -15,6 +15,7 @@
 #include "IProcess.h"
 #include "IMutex.h"
 #include "CGameController.h"
+#include "CCamera.h"
 
 #include "GL/glut.h"
 
@@ -49,6 +50,8 @@ public:
 	void run();
 
 	CControllerMenu m_CtrlMenu;
+
+	CCamera m_camera;
 
 private:
 	CGameCockpit();

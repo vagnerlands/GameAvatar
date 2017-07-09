@@ -12,7 +12,17 @@ CHumanView::CHumanView()
 
 CHumanView::~CHumanView()
 {
-	// empty implementation
+	while (!m_lightSources.empty())
+	{
+		// shared pointers will automatically deallocate when the last reference is erased
+		m_lightSources.erase(m_lightSources.begin());
+	}
+
+	while (!m_elements.empty())
+	{
+		// shared pointers will automatically deallocate when the last reference is erased
+		m_elements.erase(m_elements.begin());
+	}
 }
 
 void 
@@ -24,11 +34,11 @@ CHumanView::UpdateScenario(const string elementId)
 
 	if (m_pGameCtrl->m_bKey['w'])
 	{
-		m_elements[elementId]->VTranslateZ(0.005f);
+		m_elements[elementId]->VTranslateZ(0.5f);
 	} 
 	else if (m_pGameCtrl->m_bKey['s'])
 	{
-		m_elements[elementId]->VTranslateZ(-0.005f);
+		m_elements[elementId]->VTranslateZ(-0.5f);
 	}
 
 	if (m_pGameCtrl->m_bKey['z'])
@@ -42,58 +52,60 @@ CHumanView::UpdateScenario(const string elementId)
 
 	if (m_pGameCtrl->m_bKey['a'])
 	{
-		m_elements[elementId]->VTranslateX(0.005f);
+		m_elements[elementId]->VTranslateX(-0.5f);
 	}
 	else if (m_pGameCtrl->m_bKey['d'])
 	{
-		m_elements[elementId]->VTranslateX(-0.005f);
+		m_elements[elementId]->VTranslateX(0.5f);
 	}
 
 	if (m_pGameCtrl->m_bKey['f'])
 	{
-		m_elements[elementId]->VRotateY(0.05f);
+		m_elements[elementId]->VRotateY(1.0f);
 	}
 	else if (m_pGameCtrl->m_bKey['g'])
 	{
-		m_elements[elementId]->VRotateY(-0.05f);
+		m_elements[elementId]->VRotateY(-1.0f);
 	}
 
 	if (m_pGameCtrl->m_bKey['q'])
 	{
-		m_elements[elementId]->VTranslateY(0.005f);
+		m_elements[elementId]->VTranslateY(-0.5f);
 	}
 	else if (m_pGameCtrl->m_bKey['e'])
 	{
-		m_elements[elementId]->VTranslateY(-0.005f);
+		m_elements[elementId]->VTranslateY(0.5f);
 	}
 
 	if ((m_pGameCtrl->m_bKey['o']))
 	{
-		m_lightSources[currentLightSource]->VTranslateZ(0.005f);
-	} else if ((m_pGameCtrl->m_bKey['l']))
+		m_lightSources[currentLightSource]->VTranslateZ(0.5f);
+	} 
+	if ((m_pGameCtrl->m_bKey['l']))
 	{
-		m_lightSources[currentLightSource]->VTranslateZ(-0.005f);
-	} else if ((m_pGameCtrl->m_bKey['k']))
+		m_lightSources[currentLightSource]->VTranslateZ(-0.5f);
+	} 
+	if ((m_pGameCtrl->m_bKey['k']))
 	{
-		m_lightSources[currentLightSource]->VTranslateX(0.005f);
+		m_lightSources[currentLightSource]->VTranslateX(-0.5f);
 	}
-	else if ((m_pGameCtrl->m_bKey[';']))
+	if ((m_pGameCtrl->m_bKey[';']))
 	{
-		m_lightSources[currentLightSource]->VTranslateX(-0.005f);
+		m_lightSources[currentLightSource]->VTranslateX(0.5f);
 	}
-	else if ((m_pGameCtrl->m_bKey['i']))
+	if ((m_pGameCtrl->m_bKey['i']))
 	{
-		m_lightSources[currentLightSource]->VTranslateY(0.005f);
+		m_lightSources[currentLightSource]->VTranslateY(-0.05f);
 	}
-	else if ((m_pGameCtrl->m_bKey['p']))
+	if ((m_pGameCtrl->m_bKey['p']))
 	{
-		m_lightSources[currentLightSource]->VTranslateY(-0.005f);
+		m_lightSources[currentLightSource]->VTranslateY(0.05f);
 	}
-	else if ((m_pGameCtrl->m_bKey['.']))
+	if ((m_pGameCtrl->m_bKey['.']))
 	{
 		m_lightSources[currentLightSource]->VSetVisible(false);
 	}
-	else if ((m_pGameCtrl->m_bKey[',']))
+	if ((m_pGameCtrl->m_bKey[',']))
 	{
 		m_lightSources[currentLightSource]->VSetVisible(true);
 	}
@@ -131,6 +143,8 @@ void CHumanView::VOnRender()
 			(*it).second->VPreRender();
 			// actually draws the shape
 			(*it).second->VRender();
+
+			(*it).second->VPostRender();
 		}
 	}
 	
@@ -147,6 +161,8 @@ void CHumanView::VOnRender()
 			UpdateScenario((*it).first);
 			// actually draws the shape
 			(*it).second->VRender();
+
+			(*it).second->VPostRender();
 		}
 	}
 }

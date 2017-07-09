@@ -87,7 +87,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_WIN_;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>./Application;./Controller;./Logic;./Logic/UI/;./Logic/Commands;./View/;./Application/Shaders;./Application/Cache;./Application/Cache/ResourceCache;./Application/Cache/ZLib;./Application/Debug/;./Application/Loader/;./Application/Utilities/;./Application/Utilities/ModelParser/;./Logic/Events/</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./Application;./Controller;./Logic;./Logic/UI/;./Logic/Commands;./View/;./Application/Shaders;./Application/Cache;./Application/Cache/ResourceCache;./Application/Cache/ZLib;./Application/Debug/;./Application/Loader/;./Application/Camera/;./Application/Utilities/;./Application/Utilities/ModelParser/;./Logic/Events/</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -149,6 +149,7 @@
   <ItemGroup>
     <ClCompile Include="Application\Cache\ResourceCache\CResHandle.cpp" />
     <ClCompile Include="Application\Cache\ResourceCache\ZipFile.cpp" />
+    <ClCompile Include="Application\Camera\CCamera.cpp" />
     <ClCompile Include="Application\CAnsiString.cpp" />
     <ClCompile Include="Application\CModelManager.cpp" />
     <ClCompile Include="Application\CShaderManager.cpp" />
@@ -185,6 +186,7 @@
     <ClInclude Include="Application\Cache\ResourceCache\CResHandle.h" />
     <ClInclude Include="Application\Cache\ResourceCache\IResourceFile.h" />
     <ClInclude Include="Application\Cache\ResourceCache\ZipFile.h" />
+    <ClInclude Include="Application\Camera\CCamera.h" />
     <ClInclude Include="Application\CAnsiString.h" />
     <ClInclude Include="Application\CCommonTypes.h" />
     <ClInclude Include="Application\CModelManager.h" />

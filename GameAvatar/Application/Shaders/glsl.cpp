@@ -73,8 +73,8 @@ char* aGLSLStrings[] = {
         "[e02] Not a valid object!",
         "[e03] Out of memory!",
         "[e04] Unknown compiler error!",
-        "[e05] Linker log is not available!",
-        "[e06] Compiler log is not available!",
+        "[e05] Linker executed SUCCESSFULLY!",
+        "[e06] Compiler executed SUCCESSFULLY!",
         "[Empty]"
         };
 //-----------------------------------------------------------------------------      
@@ -82,12 +82,13 @@ char* aGLSLStrings[] = {
 // GL ERROR CHECK
    int CheckGLError(char *file, int line)
    {
+	   //return 0;
 	   GLenum glErr;
 	   int    retCode = 0;
 
 	   glErr = glGetError();
-	   while (glErr != GL_NO_ERROR) 
-	   //if (glErr != GL_NO_ERROR) 
+	   //while (glErr != GL_NO_ERROR) 
+	   if (glErr != GL_NO_ERROR) 
        {
 	     const GLubyte* sError = gluErrorString(glErr);
 

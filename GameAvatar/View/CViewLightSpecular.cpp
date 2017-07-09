@@ -70,7 +70,16 @@ void CViewLightSpecular::VRender()
 		
 	glEnd();
 	glDisable(GL_TEXTURE_2D);
+}
+
+void CViewLightSpecular::VPostRender()
+{
 	glPopMatrix();
+	TInt32 err = glGetError();
+	if (err != 0)
+	{
+		printf("glError glPopMatrix=%d\n", err);
+	}
 }
 
 void CViewLightSpecular::applyTexture(string textId)
