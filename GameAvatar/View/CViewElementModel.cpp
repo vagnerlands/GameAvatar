@@ -70,7 +70,7 @@ void CViewElementModel::VRender()
 	glEnableClientState(GL_NORMAL_ARRAY);
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 	glBindVertexArray(m_data.m_vertexArrayObject);
-	glDrawElements(GL_TRIANGLES, m_data.m_verticesIndexed.size(), GL_UNSIGNED_SHORT, (void*)(0));
+	glDrawElements(GL_TRIANGLES, m_data.m_indexes.size(), GL_UNSIGNED_SHORT, (void*)(0));
 	err = glGetError();
 	if (err != 0)
 	{

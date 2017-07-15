@@ -18,29 +18,9 @@ CGameCockpit::instance()
 	return s_pInstance;
 }
 
-/*
-bool 
-CGameCockpit::validateUserLogin(string socketKey, string login, bool* isCharacterCreated)
-{
-	bool retVal = false;
-	for (list<CPerson*>::iterator it = m_userDB.begin(); it != m_userDB.end(); it++)
-	{		
-		if ((*it)->getUser() == login)
-		{
-			cout << "Key [" << socketKey << "] typed " << login << " and it's valid!" << endl;
-			retVal = true;
-			*isCharacterCreated = (*it)->isCharacterCreated();
-		}
-	}
 
-	if (!retVal)
-		cout << "Key [" << socketKey << "] typed " << login << ", this user is not valid!" << endl;
-	
-	return retVal;
-}
-*/
-
-void CGameCockpit::run()
+void 
+CGameCockpit::run()
 {
 
 	// limit fps to 60
@@ -168,12 +148,14 @@ CGameCockpit::CGameCockpit()
 	// set the game control to the current view
 	shared_ptr<IView> view(new CHumanView());
 	view->VSetGameCtrl(m_pGameInputCtrl);
+	view->VSetCamera(&m_camera);
 
 	// creates an object of Human View
 	shared_ptr<IViewElement> element(new CViewElementSquare(0.0f, 0.0f, 512.0f, 512.0f, "melancia.bmp"));
 	shared_ptr<IViewElement> element2(new CViewElementSquare(-256.0f, -256.0f, 100.0f, 100.0f, "melancia.bmp"));
 	shared_ptr<IViewElement> skull(new CViewElementModel(-5.0f, 0.0f, 2.0f, 2.0f, 2.0f, "skull.obj"));
-	shared_ptr<IViewElement> panda(new CViewElementModel(0.0f, 0.0f, 2.0f, 2.0f, 2.0f, "panda.obj"));
+	shared_ptr<IViewElement> panda(new CViewElementModel(5.0f, 0.0f, 2.0f, 2.0f, 2.0f, "princess.obj"));
+	shared_ptr<IViewElement> terrain(new CViewElementTerrainMesh(0.0f, 0.0f, 0.0f, 2.0f, 2.0f, 2.0f));
 	shared_ptr<IViewElement> tiger(new CViewElementModel(0.0f, 0.0f, 2.0f, 2.0f, 2.0f, "tiger.obj"));
 	shared_ptr<IViewElement> master(new CViewElementModel(0.0f, 0.0f, 2.0f, 2.0f, 2.0f, "master.obj"));
 	shared_ptr<IViewElement> monkey(new CViewElementModel(0.0f, 0.0f, 2.0f, 2.0f, 2.0f, "monky.obj"));
@@ -185,6 +167,7 @@ CGameCockpit::CGameCockpit()
 	//view->VPushElement(element2);
 	view->VPushElement("skull", skull);
 	view->VPushElement("panda", panda);
+	view->VPushElement("terrain", terrain);
 	//view->VPushElement("monkey", monkey);
 	//view->VPushElement("tiger", tiger);
 	//view->VPushElement("master", master);
@@ -196,10 +179,10 @@ CGameCockpit::CGameCockpit()
 	// push to the list of views
 	m_views.push_back(view);
 
-	m_camera.SetCameraAttribute(CameraAttributeType::CameraAttribute_Position, 0.0f, 0.0f, 50.f);
+	m_camera.SetCameraAttribute(CameraAttributeType::CameraAttribute_Position, 0.0f, 30.0f, 70.f);
 	m_camera.SetCameraAttribute(CameraAttributeType::CameraAttribute_Up, 0.0f, 1.0f, 0.f);
 	m_camera.SetCameraAttribute(CameraAttributeType::CameraAttribute_Right, 1.0f, 0.0f, 0.f);
-	m_camera.SetCameraAttribute(CameraAttributeType::CameraAttribute_Forward, 0.0f, 0.0f, -1.0f);
+	m_camera.SetCameraAttribute(CameraAttributeType::CameraAttribute_Forward, -0.000001f, -0.38975f, -0.92089f);
 }
 
 void

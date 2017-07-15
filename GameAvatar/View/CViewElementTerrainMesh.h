@@ -7,7 +7,7 @@ class CViewElementTerrainMesh : public IViewElement
 {
 public:
 
-	CViewElementTerrainMesh(TFloat posX, TFloat posY, TFloat posZ, TFloat width, TFloat height, TFloat volume, string modelName);
+	CViewElementTerrainMesh(TFloat posX, TFloat posY, TFloat posZ, TFloat width, TFloat height, TFloat volume);
 
 	virtual ~CViewElementTerrainMesh();
 
@@ -29,11 +29,9 @@ public:
 protected:
 	virtual void applyTexture(string textId);
 
-	virtual bool loadModel(string modelId);
+	virtual bool loadShader(string shaderId);
 
-	SModelData m_data;
-
-	string m_modelId;
+	cwc::glShader* m_pProgramShader;
 };
 
 #endif //_CVIEWELEMENTTERRAINMESH_H_

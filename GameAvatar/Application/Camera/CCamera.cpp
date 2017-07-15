@@ -74,6 +74,18 @@ void CCamera::MoveRight(TFloat Distance)
 	m_position = m_position + (m_rightVector*Distance);
 }
 
+void CCamera::HoverForward(TFloat Distance)
+{
+	glm::vec3 direction = m_position + (m_viewDir * Distance);
+	m_position = glm::vec3(direction.x, m_position.y, direction.z);
+}
+
+void CCamera::HoverRight(TFloat Distance)
+{
+	glm::vec3 direction = m_position + (m_rightVector * Distance);
+	m_position = glm::vec3(direction.x, m_position.y, direction.z);
+}
+
 void CCamera::SetCameraAttribute(CameraAttributeType attr, TFloat x, TFloat y, TFloat z)
 {
 	switch (attr)

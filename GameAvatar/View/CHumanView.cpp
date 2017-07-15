@@ -25,21 +25,43 @@ CHumanView::~CHumanView()
 	}
 }
 
+void
+CHumanView::UpdateCameraLocation()
+{
+	if (m_pGameCtrl->m_bKey['w'])
+	{
+		m_pCamera->HoverForward(0.5f);
+	}
+	else if (m_pGameCtrl->m_bKey['s'])
+	{
+		m_pCamera->HoverForward(-0.5f);
+	}	
+
+	if (m_pGameCtrl->m_bKey['a'])
+	{
+		m_pCamera->HoverRight(-0.5f);
+	}
+	else if (m_pGameCtrl->m_bKey['d'])
+	{
+		m_pCamera->HoverRight(0.5f);
+	}
+
+	if (m_pGameCtrl->m_bKey['f'])
+	{
+		m_pCamera->RotateY(-1.0f);
+	}
+	else if (m_pGameCtrl->m_bKey['g'])
+	{
+		m_pCamera->RotateY(1.0f);
+	}
+}
+
 void 
 CHumanView::UpdateScenario(const string elementId)
 {
 	static string currentLightSource = "specular";
 	if (m_pGameCtrl->m_bKey['1']) currentLightSource = "specular";
 	if (m_pGameCtrl->m_bKey['2']) currentLightSource = "diffuse";
-
-	if (m_pGameCtrl->m_bKey['w'])
-	{
-		m_elements[elementId]->VTranslateZ(0.5f);
-	} 
-	else if (m_pGameCtrl->m_bKey['s'])
-	{
-		m_elements[elementId]->VTranslateZ(-0.5f);
-	}
 
 	if (m_pGameCtrl->m_bKey['z'])
 	{
@@ -50,23 +72,6 @@ CHumanView::UpdateScenario(const string elementId)
 		m_elements[elementId]->VScale(0.999f, 0.999f, 0.999f);
 	}
 
-	if (m_pGameCtrl->m_bKey['a'])
-	{
-		m_elements[elementId]->VTranslateX(-0.5f);
-	}
-	else if (m_pGameCtrl->m_bKey['d'])
-	{
-		m_elements[elementId]->VTranslateX(0.5f);
-	}
-
-	if (m_pGameCtrl->m_bKey['f'])
-	{
-		m_elements[elementId]->VRotateY(1.0f);
-	}
-	else if (m_pGameCtrl->m_bKey['g'])
-	{
-		m_elements[elementId]->VRotateY(-1.0f);
-	}
 
 	if (m_pGameCtrl->m_bKey['q'])
 	{
@@ -132,6 +137,8 @@ CHumanView::UpdateScenario(const string elementId)
 
 void CHumanView::VOnRender()
 {
+	// updates the camera location according to input and current view rules
+	UpdateCameraLocation();
 	// render all light sources first
 	for (ViewLightMap::iterator it = m_lightSources.begin();
 		it != m_lightSources.end();

@@ -23,6 +23,10 @@ public:
 	void MoveUpward(TFloat Distance);
 
 	void MoveRight(TFloat Distance);
+	
+	void HoverForward(TFloat Distance);
+
+	void HoverRight(TFloat Distance);
 
 	void SetCameraAttribute(CameraAttributeType attr, TFloat x, TFloat y, TFloat z);
 	void SetCameraAttribute(CameraAttributeType attr, glm::vec3 xyz);

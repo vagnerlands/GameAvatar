@@ -10,6 +10,7 @@
 #include "IEvent.h"
 #include "CViewElementSquare.h"
 #include "CViewElementModel.h"
+#include "CViewElementTerrainMesh.h"
 #include "CHumanView.h"
 #include "IView.h"
 #include "IProcess.h"

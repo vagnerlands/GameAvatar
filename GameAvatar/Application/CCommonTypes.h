@@ -29,6 +29,12 @@ namespace Types {
 	static const TByte* s_GAME_CONNECTION_PORT = "1234";
 	static const TFloat s_CYCLE_MAX_TIME = 16;
 
+	static const TInt32 s_SCREEN_HEIGHT = 600;
+	static const TInt32 s_SCREEN_WIDTH = 600;
+
+	static const TInt32 s_SCREEN_CENTER_X = s_SCREEN_WIDTH / 2;
+	static const TInt32 s_SCREEN_CENTER_Y = s_SCREEN_HEIGHT / 2;
+
 	enum CameraAttributeType
 	{
 		CameraAttribute_Position,
@@ -83,6 +89,45 @@ namespace Types {
 	public:
 		TInt32 x;
 		TInt32 y;
+
+		CPoint() :
+			x(0),
+			y(0)
+		{
+
+		}
+
+		CPoint(TInt32 argX, TInt32 argY) :
+			x(argX),
+			y(argY)
+		{
+
+		}
+
+		CPoint& operator=(const CPoint& arg) 			
+		{
+			x = arg.x;
+			y = arg.y;
+			return *this;
+		}
+
+		bool operator!=(const CPoint& arg)
+		{
+			if ((arg.x == x) && (arg.y == y))
+			{
+				return false;
+			}
+			return true;
+		}
+
+		bool operator==(const CPoint& arg)
+		{
+			if ((arg.x == x) && (arg.y == y))
+			{
+				return true;
+			}
+			return false;
+		}
 	};
 
 	struct SMaterialAttr
@@ -132,9 +177,9 @@ namespace Types {
 
 		bool m_vboBufferCreated;
 		GLuint m_vertexArrayObject;
-		vector<GLushort> m_verticesIndexed;
-		vector<GLushort> m_normalsIndexed;
-		vector<GLushort> m_texturesIndexed;
+		vector<GLushort> m_indexes;
+		//vector<GLushort> m_normalsIndexed;
+		//vector<GLushort> m_texturesIndexed;
 		// indexes for Normals, Textures, Vertices and Colors
 		//GLuint m_vertexBuffer[VertexBuffer_Max_Num];
 		GLuint m_elementBuffer[VertexBuffer_Max_Num];

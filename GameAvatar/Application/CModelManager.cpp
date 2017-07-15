@@ -164,12 +164,12 @@ CModelManager::AddModelContent(string modelId, TByte* bytesStream, TByte* materi
 		for (int j = 0; j < o->vertex_count; j++)
 		{
 			
-			newNode.m_normalsIndexed.push_back(o->normal_index[j]);
-			newNode.m_verticesIndexed.push_back(o->vertex_index[j]);
-			if (o->material_index != -1)
-			{
-				newNode.m_texturesIndexed.push_back(o->texture_index[j]);
-			}			
+			//newNode.m_normalsIndexed.push_back(o->normal_index[j]);
+			newNode.m_indexes.push_back(o->vertex_index[j]);
+			//if (o->material_index != -1)
+			//{
+			//	newNode.m_texturesIndexed.push_back(o->texture_index[j]);
+			//}			
 		}
 	}
 
@@ -243,12 +243,12 @@ CModelManager::getModelById(string textId, SModelData& out)
 			// [------------------]
 
 			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, result->second.m_elementBuffer[Types::VertexBuffer_Element]);
-			glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLushort) * result->second.m_verticesIndexed.size(), &result->second.m_verticesIndexed[0], GL_STATIC_DRAW);
+			glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLushort) * result->second.m_indexes.size(), &result->second.m_indexes[0], GL_STATIC_DRAW);
 
 			// allocation integrity check
 			TInt32 allocIntegrityChk = 0;
 			glGetBufferParameteriv(GL_ELEMENT_ARRAY_BUFFER, GL_BUFFER_SIZE, &allocIntegrityChk);
-			if (allocIntegrityChk != result->second.m_verticesIndexed.size() * sizeof(GLushort))
+			if (allocIntegrityChk != result->second.m_indexes.size() * sizeof(GLushort))
 			{
 				glDeleteBuffers(Types::VertexBuffer_Max_Num, result->second.m_elementBuffer);
 				printf(" <!> error while allocating element buffer in %s\n", textId.data());

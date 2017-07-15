@@ -31,7 +31,7 @@ protected:
 
 	virtual bool loadModel(string modelId);
 
-	bool loadShader(string shaderId);
+	virtual bool loadShader(string shaderId);
 
 	SModelData m_data;
 

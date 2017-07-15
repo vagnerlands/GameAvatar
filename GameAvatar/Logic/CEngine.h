@@ -33,9 +33,6 @@ private:
 	static DWORD WINAPI ConnectionListener(LPVOID lpParameter);
 	static DWORD WINAPI BackgroundLoader(LPVOID lpParameter);
 
-	static const TInt32 s_SCREEN_HEIGHT = 600;
-	static const TInt32 s_SCREEN_WIDTH = 600;
-
 	static bool m_bTerminateApplication;
 
 	//CSocketHolder m_socketServer;

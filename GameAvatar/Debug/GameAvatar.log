@@ -1,18 +1,9 @@
-﻿  CViewElementModel.cpp
-  CModelManager.cpp
-c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\application\utilities\objparser\obj_parser.h(28): warning C4091: 'typedef ': ignored on left of 'obj_face' when no variable is declared
-c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\application\utilities\objparser\obj_parser.h(37): warning C4091: 'typedef ': ignored on left of 'obj_sphere' when no variable is declared
-c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\application\utilities\objparser\obj_parser.h(46): warning C4091: 'typedef ': ignored on left of 'obj_plane' when no variable is declared
-c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\application\utilities\objparser\obj_parser.h(51): warning C4091: 'typedef ': ignored on left of 'obj_vector' when no variable is declared
-c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\application\utilities\objparser\obj_parser.h(66): warning C4091: 'typedef ': ignored on left of 'obj_material' when no variable is declared
-c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\application\utilities\objparser\obj_parser.h(73): warning C4091: 'typedef ': ignored on left of 'obj_camera' when no variable is declared
-c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\application\utilities\objparser\obj_parser.h(79): warning C4091: 'typedef ': ignored on left of 'obj_light_point' when no variable is declared
-c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\application\utilities\objparser\obj_parser.h(86): warning C4091: 'typedef ': ignored on left of 'obj_light_disc' when no variable is declared
-c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\application\utilities\objparser\obj_parser.h(92): warning C4091: 'typedef ': ignored on left of 'obj_light_quad' when no variable is declared
-c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\application\utilities\objparser\obj_parser.h(115): warning C4091: 'typedef ': ignored on left of 'obj_growable_scene_data' when no variable is declared
-c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\application\utilities\objparser\obj_parser.h(148): warning C4091: 'typedef ': ignored on left of 'obj_scene_data' when no variable is declared
-c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\application\cmodelmanager.cpp(79): warning C4477: 'printf' : format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'const std::string'
-c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\application\cmodelmanager.cpp(146): warning C4244: 'initializing': conversion from 'double' to 'Types::TFloat', possible loss of data
-c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\application\cmodelmanager.cpp(221): warning C4477: 'printf' : format string '%d' requires an argument of type 'int', but variadic argument 1 has type 'PFNGLGENBUFFERSPROC'
-  Generating Code...
+﻿  CGameController.cpp
+c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\controller\cgamecontroller.cpp(30): warning C4244: '=': conversion from 'Types::TInt32' to 'float', possible loss of data
+c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\controller\cgamecontroller.cpp(31): warning C4244: '=': conversion from 'Types::TInt32' to 'float', possible loss of data
+c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\controller\cgamecontroller.cpp(33): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\controller\cgamecontroller.cpp(35): warning C4244: '=': conversion from 'float' to 'Types::TInt32', possible loss of data
+c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\controller\cgamecontroller.cpp(36): warning C4244: '=': conversion from 'float' to 'Types::TInt32', possible loss of data
+c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\controller\cgamecontroller.cpp(37): warning C4244: '=': conversion from 'float' to 'Types::TInt32', possible loss of data
+c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\controller\cgamecontroller.cpp(39): warning C4244: '=': conversion from 'double' to 'Types::TInt32', possible loss of data
   GameAvatar.vcxproj -> C:\Users\Vagner\Documents\Visual Studio 2015\Projects\GameAvatar\Debug\GameAvatar.exe

@@ -4,6 +4,7 @@
 #include "CCommonTypes.h"
 #include "IViewElement.h"
 #include "CGameController.h"
+#include "CCamera.h"
 #include <memory>
 
 
@@ -26,11 +27,13 @@ public:
 	virtual void VSetGameCtrl(shared_ptr<CGameController> pGameCtrl) { m_pGameCtrl = pGameCtrl; }
 	virtual void VPushElement(const string elementId, shared_ptr<IViewElement> pElement) = 0;
 	virtual void VPopElement(const string elementId, shared_ptr<IViewElement> pElement) = 0;
+	virtual void VSetCamera(CCamera* pCamera) = 0;
 protected:
 	GameViewId m_ViewId;
 	ViewElementMap m_elements;
 	ViewLightMap m_lightSources;
 	shared_ptr<CGameController> m_pGameCtrl;
+	CCamera* m_pCamera;
 };
 
 

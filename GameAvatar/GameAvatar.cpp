@@ -13,8 +13,8 @@
 #endif
 
 
-#define WINDOW_WIDTH 1000
-#define WINDOW_HEIGHT 800
+#define WINDOW_WIDTH 600
+#define WINDOW_HEIGHT 600
 
 int main(int argv, char** argc)
 {
@@ -53,11 +53,6 @@ int main(int argv, char** argc)
 	// preapres the MODELVIEW MATRIX
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-
-	//Assign the clear screen color
-	//Format (Red, Green, Blue, Alpha)
-	//Values should remain normalized between 0 and 1
-	//glClearColor(0.0, 0.0, 0.0, 0.0);
 
 	CEngine mainApp;
 	mainApp.ignition();

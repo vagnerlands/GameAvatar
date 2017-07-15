@@ -124,7 +124,10 @@ void CEngine::KeyboardInput(TUByte key, int x, int y)
 
 void CEngine::MouseMotion(int x, int y)
 {
-	float cursorX, cursorY = 0.0f;
+	if ((s_lastCursorX != -1) && (s_lastCursorY != -1))
+	{
+		CGameCockpit::instance()->getGameController()->VOnMouseMove(CPoint(x, y));
+	}
 
 	if (s_lastCursorX == -1)
 	{
@@ -135,50 +138,6 @@ void CEngine::MouseMotion(int x, int y)
 	{
 		s_lastCursorY = y;
 	}
-
-	if (s_lastState == GLUT_DOWN) 
-	{
-		cursorX = x;
-		cursorY = y;
-
-		float deltaX = 0;
-		float deltaY = 0;
-
-		deltaX = s_lastCursorX - cursorX;
-		deltaY = s_lastCursorY - cursorY;
-
-		float angle = (int)((atan2(deltaY, deltaX) * 180 / 3.14f) + 270) % 360;
-
-		if ((s_lastCursorX != cursorX) || (s_lastCursorY != cursorY))
-		{
-			printf("angle=%f, deltaX = %f, deltaY = %f\n",
-				angle,
-				deltaX,
-				deltaY);
-
-			s_lastCursorX = cursorX;
-			s_lastCursorY = cursorY;
-
-			if (deltaX > 0)
-			{
-				deltaX *= -1;
-			}
-
-			if (deltaY < 0)
-			{
-				deltaY *= -1;
-			}
-
-			CCamera* tmp = &CGameCockpit::instance()->m_camera;
-
-			tmp->RotateX(cos(angle * 3.14 / 180) * (deltaY / 10.f));
-			tmp->RotateY(sin(angle * 3.14 / 180) * (deltaX / 10.f));
-		}
-	}
-
-	printf("Mouse @ %d %d\n", x, y);
-
-
 }
 
 void CEngine::MouseInput(int button, int state, int x, int y)
@@ -306,6 +265,7 @@ CEngine::ignition()
 	CShaderManager::instance()->LoadShader("model");
 	CShaderManager::instance()->LoadShader("quasicrystal");
 	CShaderManager::instance()->LoadShader("noise");
+	CShaderManager::instance()->LoadShader("simpletexture");
 	
 	// initialize the opengl main loop
 	// this will handle the whole displaying states of our game...

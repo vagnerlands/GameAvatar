@@ -1,16 +1,16 @@
 #include "CHumanView.h"
 #include "CViewElementTerrainMesh.h"
 #include "CModelManager.h"
+#include "CShaderManager.h"
 
-CViewElementTerrainMesh::CViewElementTerrainMesh(TFloat posX, TFloat posY, TFloat posZ, TFloat width, TFloat height, TFloat volume, string modelName)
+CViewElementTerrainMesh::CViewElementTerrainMesh(TFloat posX, TFloat posY, TFloat posZ, TFloat width, TFloat height, TFloat volume)
 {
 	m_position.x = posX;
 	m_position.y = posY;
-	m_position.z = 0.0f;
+	m_position.z = posZ;
 	m_scale.x = width;
 	m_scale.y = height;
 	m_scale.z = volume;
-	m_modelId = modelName;
 }
 
 CViewElementTerrainMesh::~CViewElementTerrainMesh()
@@ -28,56 +28,88 @@ CViewElementTerrainMesh::VPreRender()
 void 
 CViewElementTerrainMesh::VRender()
 {
-	if (!loadModel(m_modelId))
+	if (!loadShader("simpletexture"))
 	{
 		return;
 	}
-	glTranslatef(m_position.x, m_position.y, m_position.z);
-	glScalef(m_scale.x, m_scale.y, m_scale.z);	
-	//glRotatef(m_rotate.x, 1.0f, 0.0f, 0.0f);
-	glRotatef(m_rotate.y, 0.0f, 1.0f, 0.0f);
-	//glRotatef(m_rotate.z, 0.0f, 0.0f, 1.0f);
 
+	applyTexture("mountain.bmp");
 
+	glUseProgram(m_pProgramShader->GetProgramObject());
+	TInt32 err = glGetError();
+	if (err != 0)
+	{
+		printf("glError after glUseProgram =%d\n", err);
+	}
+
+	// leave the GPU performing the matrices transformations
+	// code in the shader
+	//static float s_time = 0.0f;
+	//s_time += 0.001;
+	m_pProgramShader->setUniform3f("translate", m_position.x, m_position.y, m_position.z);
+	m_pProgramShader->setUniform3f("scale", m_scale.x, m_scale.y, m_scale.z);
+	m_pProgramShader->setUniform4f("rotation", m_rotate.y, 0.0f, 1.0f, 0.0f);
+	//m_pProgramShader->setUniform1f("time", s_time);
+
+	err = glGetError();
+	if (err != 0)
+	{
+		printf("glError after setUniform3f =%d\n", err);
+	}
 
 	GLfloat mat_shininess[] = { 50.0 };
 	glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
 
 	// enable vertices array pointer rendering
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glEnableClientState(GL_NORMAL_ARRAY);
-	//glEnableClientState(GL_CULL_FACE);
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY_EXT);
-	// points to array of vertices
-	glVertexPointer(3, GL_FLOAT, 0, (GLvoid*)&m_data.m_vertices[0]);
-	if (m_data.m_normals.size() > 0)
+	float verts[] = {
+		// square coordinates
+		-50.0f,   0.0f,  50.0f,
+		-50.0f,   0.0f, -50.0f,
+		 50.0f,   0.0f, -50.0f,		
+		 50.0f,   0.0f,  50.0f
+	};
+
+	glEnable(GL_TEXTURE_2D);
+	glBegin(GL_QUADS);
+	glColor3f(0.0f, 1.0f, 1.0f);
+	glTexCoord2f(0.0f, 0.0f);
+	glVertex3f(verts[0], verts[1], verts[2]);	
+	glTexCoord2f(1.0f, 0.0f);
+	glVertex3f(verts[3], verts[4], verts[5]);
+	glTexCoord2f(0.0f, 1.0f);
+	glVertex3f(verts[6], verts[7], verts[8]);
+	glTexCoord2f(1.0f, 1.0f);
+	glVertex3f(verts[9], verts[10], verts[11]);
+	glEnd();
+
+	//glBindVertexArray(m_data.m_vertexArrayObject);
+	//glDrawElements(GL_TRIANGLES, m_data.m_indexes.size(), GL_UNSIGNED_SHORT, (void*)(0));
+	err = glGetError();
+	if (err != 0)
 	{
-		glNormalPointer(GL_FLOAT, 0, &m_data.m_normals[0]);
+		printf("glError Drawing Model =%d\n", err);
 	}
-	// points to array of textures
-	if (m_data.m_textures.size() > 0)
-	{
-		glTexCoordPointer(2, GL_FLOAT, 0, (GLvoid*)&m_data.m_textures[0]);
-	}
-	// commit the vertices to the OpenGL
-	glDrawArrays(GL_TRIANGLES, 0, m_data.m_vertices.size());
-	// disable vertices array pointer rendering
-	glDisableClientState(GL_TEXTURE_COORD_ARRAY_EXT);
-	glDisableClientState(GL_NORMAL_ARRAY);
-	glDisableClientState(GL_VERTEX_ARRAY);
-	// disable texture 	
-	glDisable(GL_TEXTURE_2D);
 
 }
 
 void CViewElementTerrainMesh::VPostRender()
 {
-	glPopMatrix();
+	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+	glDisableClientState(GL_NORMAL_ARRAY);
+	glDisableClientState(GL_VERTEX_ARRAY);
+
 	TInt32 err = glGetError();
 	if (err != 0)
 	{
-		printf("glError glPopMatrix=%d\n", err);
+		printf("glError Disabling states Model = %d\n", err);
 	}
+
+	// disable texture 	
+	glDisable(GL_TEXTURE_2D);
+
+	glUseProgram(0);
+
+	glPopMatrix();
 }
 
 void 
@@ -116,11 +148,11 @@ CViewElementTerrainMesh::applyTexture(string textId)
 
 }
 
-bool 
-CViewElementTerrainMesh::loadModel(string modelId)
+bool
+CViewElementTerrainMesh::loadShader(string shaderId)
 {
 	// get texture from cache
-	if (!CModelManager::instance()->getModelById(modelId, m_data))
+	if ((m_pProgramShader = CShaderManager::instance()->getShaderById(shaderId)) == 0)
 	{
 		return false;
 	}

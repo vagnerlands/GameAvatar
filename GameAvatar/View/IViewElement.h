@@ -105,6 +105,11 @@ protected:
 		return true;
 	}
 
+	virtual bool loadShader(string shaderId)
+	{
+		return true;
+	}
+
 	bool m_isVisible;
 	glm::vec3 m_position;
 	glm::vec3 m_rotate;

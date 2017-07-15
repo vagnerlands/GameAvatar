@@ -9,22 +9,20 @@
 using namespace std;
 using namespace Types;
 
-class CGameController : public IKeyboardHandler, public IMouseHandler
+class CGameController : public IKeyboardHandler, IMouseHandler
 {
-	//shared_ptr<SceneNode>	m_object;
+
 public:
-	// Which keys are up and down
-	bool m_bKey[256];
+
+	// constructor
+	CGameController();
 	// destructor
 	virtual ~CGameController();
 
 	// this function is called cyclically and this updates the game status...
 	void OnUpdate();
 
-	virtual bool VOnMouseMove(const CPoint &mousePos)
-	{
-		return true;
-	}
+	virtual bool VOnMouseMove(const CPoint &mousePos);
 
 	virtual bool VOnLButtonDown(const CPoint &mousePos)
 	{
