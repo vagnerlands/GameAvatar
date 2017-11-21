@@ -2,16 +2,18 @@
 #include "CViewElementModel.h"
 #include "CModelManager.h"
 #include "CShaderManager.h"
+#include "CCommonUtils.h"
 
-CViewElementModel::CViewElementModel(TFloat posX, TFloat posY, TFloat width, TFloat height, TFloat volume, string modelName)
+CViewElementModel::CViewElementModel(TFloat posX, TFloat posY, TFloat posZ, TFloat width, TFloat height, TFloat volume, string modelName, Types::EDrawDirective drawDirective)
 {
 	m_position.x = posX;
 	m_position.y = posY;
-	m_position.z = 0.0f;
+	m_position.z = posZ;
 	m_scale.x = width;
 	m_scale.y = height;
 	m_scale.z = volume;
 	m_modelId = modelName;
+	m_drawDirective = drawDirective;
 }
 
 CViewElementModel::~CViewElementModel()
@@ -22,6 +24,7 @@ CViewElementModel::~CViewElementModel()
 void CViewElementModel::VPreRender()
 {
 	glPushMatrix();
+	glDisable(GL_TEXTURE_2D);
 }
 
 
@@ -70,7 +73,7 @@ void CViewElementModel::VRender()
 	glEnableClientState(GL_NORMAL_ARRAY);
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 	glBindVertexArray(m_data.m_vertexArrayObject);
-	glDrawElements(GL_TRIANGLES, m_data.m_indexes.size(), GL_UNSIGNED_SHORT, (void*)(0));
+	glDrawElements(CCommonUtils::instance()->RetrieveOGLDrawDirective(m_drawDirective), m_data.m_indexes.size(), GL_UNSIGNED_SHORT, (void*)(0));
 	err = glGetError();
 	if (err != 0)
 	{

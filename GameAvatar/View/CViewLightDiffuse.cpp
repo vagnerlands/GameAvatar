@@ -14,6 +14,7 @@ CViewLightDiffuse::CViewLightDiffuse(TFloat posX, TFloat posY, TFloat width, TFl
 
 void CViewLightDiffuse::VPreRender()
 {
+	glDisable(GL_TEXTURE_2D);
 	glPushMatrix();
 }
 
@@ -65,11 +66,11 @@ void CViewLightDiffuse::VRender()
 		m_position.z); // D
 		
 	glEnd();
-	glDisable(GL_TEXTURE_2D);
 }
 
 void CViewLightDiffuse::VPostRender()
 {
+	glDisable(GL_TEXTURE_2D);
 	glPopMatrix();
 	TInt32 err = glGetError();
 	if (err != 0)
@@ -104,6 +105,7 @@ void CViewLightDiffuse::applyTexture(string textId)
 	}
 
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
+	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, texture);
 	err = glGetError();
 	if (err != 0)

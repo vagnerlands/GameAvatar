@@ -235,8 +235,6 @@ CEngine::ignition()
 
 	// creates thread incomming "TCP/IP connection requests"
 	//CThreadHolder::instance()->registerThread("thSocketListener", ConnectionListener);
-	// creates a thread for loading resources purpose
-	CThreadHolder::instance()->registerThread("thBackgroundLoader", BackgroundLoader);
 
 	glEnable(GL_DEPTH_TEST);
 	glShadeModel(GL_SMOOTH);
@@ -266,6 +264,11 @@ CEngine::ignition()
 	CShaderManager::instance()->LoadShader("quasicrystal");
 	CShaderManager::instance()->LoadShader("noise");
 	CShaderManager::instance()->LoadShader("simpletexture");
+	CShaderManager::instance()->LoadShader("water");
+	CShaderManager::instance()->LoadShader("water2d");
+
+	// creates a thread for loading resources purpose
+	CThreadHolder::instance()->registerThread("thBackgroundLoader", BackgroundLoader);
 	
 	// initialize the opengl main loop
 	// this will handle the whole displaying states of our game...

@@ -12,6 +12,7 @@
 
 class IView;
 class IViewElement;
+class IViewElement2D;
 class IViewLight;
 class CResHandle;
 using namespace std;
@@ -35,6 +36,8 @@ namespace Types {
 	static const TInt32 s_SCREEN_CENTER_X = s_SCREEN_WIDTH / 2;
 	static const TInt32 s_SCREEN_CENTER_Y = s_SCREEN_HEIGHT / 2;
 
+	static const TFloat s_PI = 3.14159265359;
+
 	enum CameraAttributeType
 	{
 		CameraAttribute_Position,
@@ -56,8 +59,10 @@ namespace Types {
 	enum GameViewElement
 	{
 		GameViewElement_Undefined,
+		GameViewElement_Undefined2D,
 		GameViewElement_Square,
 		GameViewElement_Model,
+		GameViewElement_HUD,
 		GameViewElement_TerrainMesh,
 		GameViewElement_Light_Ambient,
 		GameViewElement_Light_Specular
@@ -78,6 +83,14 @@ namespace Types {
 		VertexBuffer_Colors,
 		VertexBuffer_Element,
 		VertexBuffer_Max_Num
+	};
+
+	enum EDrawDirective
+	{
+		DrawDirective_Triangles, //GL_TRIANGLES
+		DrawDirective_Triangle_Strip, //GL_TRIANGLE_STRIP
+		DrawDirective_Triangle_Fan, //GL_TRIANGLE_FAN
+		DrawDirective_Max_Num
 	};
 
 
@@ -195,10 +208,28 @@ namespace Types {
 	typedef unordered_map<string, shared_ptr<IViewElement>> ViewElementMap;
 	typedef unordered_map<string, shared_ptr<IViewLight>> ViewLightMap;
 	typedef std::list<shared_ptr<IView>> ViewList;
+	typedef std::list<shared_ptr<IViewElement2D>> HUDList;
 	typedef unordered_map<string, SModelData> ModelMap;
 	typedef unordered_map<string, GLuint> TextureMap;
-	typedef unordered_map<string, shared_ptr<CResHandle>> TextureContentMap;
+	typedef unordered_map<string, Types::TByte*> TextureContentMap;
 	typedef void(*OnRemoveEvent)(string);
+
+
+	struct SFontAttributes
+	{
+		SFontAttributes(TInt32 width, TInt32 height, void* id) :
+			m_fontWidth(width),
+			m_fontHeight(height),
+			m_fontId(id)
+		{
+
+		}
+		TInt32 m_fontWidth;
+		TInt32 m_fontHeight;
+		void* m_fontId;
+	};
+
+	typedef unordered_map<string, SFontAttributes> FontMap;
 
 	enum ESocketConnectionStatus
 	{

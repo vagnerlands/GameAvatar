@@ -10,6 +10,10 @@ public:
 	// regular ctor - just initialize m_data
 	CCamera();
 
+	void prepareProjection2D();
+
+	void prepareProjection3D();
+
 	void SetLookAtMatrix();
 
 	void RotateX(TFloat Angle);
@@ -29,6 +33,7 @@ public:
 	void HoverRight(TFloat Distance);
 
 	void SetCameraAttribute(CameraAttributeType attr, TFloat x, TFloat y, TFloat z);
+
 	void SetCameraAttribute(CameraAttributeType attr, glm::vec3 xyz);
 
 private:

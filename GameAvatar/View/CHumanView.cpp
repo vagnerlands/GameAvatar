@@ -3,6 +3,8 @@
 #include "CViewLightSpecular.h"
 #include "CViewLightDiffuse.h"
 
+const TFloat CHumanView::s_DEFAULT_MOVEMENT_DISTANCE = 0.5F;
+
 CHumanView::CHumanView()
 {
 	m_lightSources.insert(make_pair("ambient", new CViewLightAmbient(0.0f, 0.0f, .16f, .16f)));
@@ -30,29 +32,39 @@ CHumanView::UpdateCameraLocation()
 {
 	if (m_pGameCtrl->m_bKey['w'])
 	{
-		m_pCamera->HoverForward(0.5f);
+		m_pCamera->HoverForward(s_DEFAULT_MOVEMENT_DISTANCE);
 	}
 	else if (m_pGameCtrl->m_bKey['s'])
 	{
-		m_pCamera->HoverForward(-0.5f);
+		m_pCamera->HoverForward(-s_DEFAULT_MOVEMENT_DISTANCE);
 	}	
 
 	if (m_pGameCtrl->m_bKey['a'])
 	{
-		m_pCamera->HoverRight(-0.5f);
+		m_pCamera->HoverRight(-s_DEFAULT_MOVEMENT_DISTANCE);
 	}
 	else if (m_pGameCtrl->m_bKey['d'])
 	{
-		m_pCamera->HoverRight(0.5f);
+		m_pCamera->HoverRight(s_DEFAULT_MOVEMENT_DISTANCE);
 	}
 
 	if (m_pGameCtrl->m_bKey['f'])
 	{
-		m_pCamera->RotateY(-1.0f);
+		m_pCamera->RotateY(1.0f);
 	}
 	else if (m_pGameCtrl->m_bKey['g'])
 	{
-		m_pCamera->RotateY(1.0f);
+		m_pCamera->RotateY(-1.0f);
+	}
+
+	// this routine makes the map moves smoothly according to the cursor position
+	// on the screen
+	if (m_pGameCtrl->m_distanceFromCenter > 280)
+	{
+		// movement on the Z axis
+		m_pCamera->HoverForward(cos(m_pGameCtrl->m_angleFromCenter * s_PI / 180.0F) * s_DEFAULT_MOVEMENT_DISTANCE);
+		// movement on the X axis
+		m_pCamera->HoverRight(sin(m_pGameCtrl->m_angleFromCenter * s_PI / 180.0F) * s_DEFAULT_MOVEMENT_DISTANCE);
 	}
 }
 

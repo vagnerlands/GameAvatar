@@ -20,6 +20,7 @@ CViewElementSquare::~CViewElementSquare()
 
 void CViewElementSquare::VPreRender()
 {
+	glDisable(GL_TEXTURE_2D);
 	glPushMatrix();
 }
 

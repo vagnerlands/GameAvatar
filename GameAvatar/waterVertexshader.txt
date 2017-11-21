@@ -1,0 +1,56 @@
+
+attribute vec4 vPosition; 
+uniform vec3 translate;
+uniform vec3 scale;
+uniform vec4 rotation;
+uniform float noiseSpeed;
+uniform float time_0_X;
+
+varying vec3 pos;
+varying vec3 N;
+varying vec3 vTexCoord;
+varying vec3 v;
+
+uniform vec4 view_position;
+
+varying vec3 vNormal;
+varying vec3 vViewVec;
+
+void main()
+{
+    pos = vec3(gl_Vertex);
+	   // Get some size on the water
+   pos.xy *= 5.0;
+   pos.z  = -5.0;
+	
+	//pos.y *= time_0_X+noiseSpeed;
+	
+    N = normalize(gl_NormalMatrix * gl_Normal);
+	
+	float angle = radians(rotation[0]);
+	vec3 axis = normalize(rotation.yzw);
+	
+	mat3 I = mat3(1.0);
+	mat3 S = mat3(      0, -axis.z,  axis.y,
+	               axis.z,       0, -axis.x,
+                  -axis.y,  axis.x,       0);
+	mat3 uuT = outerProduct(axis, axis);
+	mat3 rot = uuT + cos(angle)*(I - uuT) + sin(angle)*S;	
+
+	pos *= scale;	
+	pos *= rot;
+    pos += translate;
+	
+	//vTexCoord   = vec2(gl_MultiTexCoord0);
+	vTexCoord   = pos.xyz * scale.xyz;
+	
+	v = vec3(gl_ModelViewMatrix * vec4(pos,1.0));       
+
+   vViewVec    = pos.xyz - view_position.xyz;
+   vViewVec.z *=1.0;
+   vNormal     = gl_Normal;   
+
+	
+
+	gl_Position =  gl_ModelViewProjectionMatrix * vec4(pos, 1);
+}

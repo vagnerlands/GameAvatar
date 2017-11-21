@@ -164,6 +164,24 @@
     <ClCompile Include="Application\Camera\CCamera.cpp">
       <Filter>Source Files\Application\Camera</Filter>
     </ClCompile>
+    <ClCompile Include="View\CViewElementHUD.cpp">
+      <Filter>Source Files\View</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Utilities\CFonts.cpp">
+      <Filter>Source Files\Application\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Utilities\CCommonUtils.cpp">
+      <Filter>Source Files\Application\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Utilities\CTargaImage.cpp">
+      <Filter>Source Files\Application\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Utilities\Skybox.cpp">
+      <Filter>Source Files\Application\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Utilities\CDDSImage.cpp">
+      <Filter>Source Files\Application\Utilities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application\CAnsiString.h">
@@ -310,6 +328,30 @@
     </ClInclude>
     <ClInclude Include="Application\Camera\CCamera.h">
       <Filter>Source Files\Application\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="View\CViewElementHUD.h">
+      <Filter>Source Files\View</Filter>
+    </ClInclude>
+    <ClInclude Include="View\IViewElement2D.h">
+      <Filter>Source Files\View</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Utilities\CFonts.h">
+      <Filter>Source Files\Application\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Utilities\CCommonUtils.h">
+      <Filter>Source Files\Application\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Utilities\CTargaImage.h">
+      <Filter>Source Files\Application\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Utilities\Skybox.h">
+      <Filter>Source Files\Application\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Utilities\CDDSImage.h">
+      <Filter>Source Files\Application\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Utilities\CNoise.h">
+      <Filter>Source Files\Application\Utilities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

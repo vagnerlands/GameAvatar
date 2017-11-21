@@ -1,0 +1,54 @@
+#version 330 core
+uniform float time_0_X;
+uniform float waveSpeed;
+//uniform float fadeExp;
+//uniform float fadeBias;
+
+
+varying vec3 N;
+varying vec3 v;
+varying vec2 vTexCoord;
+
+// Values that stay constant for the whole mesh.
+uniform sampler3D Noise;
+uniform sampler2D myTextureSampler;
+//uniform samplerCube skyBox;
+
+varying vec3 vNormal;
+varying vec3 vViewVec;
+
+void main(void)
+{   
+	vec2 tcoord = vTexCoord;
+	//tcoord.x += waveSpeed  * time_0_X;
+	//gl_FragColor = texture3D(Noise, vec3(tcoord,1)).rgba;
+    gl_FragColor = texture2D(myTextureSampler, tcoord).rgba;
+	
+   //vec2 tcoord = vTexCoord.xy;
+   //tcoord.x += waveSpeed  * time_0_X;
+   //tcoord.y += 0.18 * time_0_X;
+	//vec4 noisy = texture3D(Noise, tcoord);
+   //vec4 noisy = vec4(1 * waveSpeed  * time_0_X, 1, 1*0.09 * time_0_X, 1);//texture3D(Noise, tcoord);
+   //gl_FragColor = texture2D(myTextureSampler, tcoord).rgba;
+	
+	
+	   // Signed noise 
+   //vec3 bump = 2.0 * noisy.xyz - 1.0;
+   //bump.xy *= 0.15;
+   
+   // Make sure the normal always points upwards
+   //bump.z = 0.8 * abs(bump.z) + 0.2;
+   
+   // Offset the surface normal with the bump
+   //bump = normalize(vNormal + bump);
+
+   // Find the reflection vector
+   //vec3 reflVec = reflect(vViewVec, bump);
+   //vec4 refl = textureCube(skyBox, reflVec.yzx);
+
+   //float lrp = 1.0 - dot(-normalize(vViewVec), bump);
+
+   // Interpolate between the water color and reflection
+   //gl_FragColor = mix(vec4(0.1, 0.3, 0.75, 1.0), refl, clamp(0.18 + pow(lrp, 6.08),0.0, 1.0));
+   
+}

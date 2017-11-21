@@ -168,6 +168,18 @@ obj_vector* obj_parse_vector()
 	v->e[0] = atof( strtok(NULL, WHITESPACE));
 	v->e[1] = atof( strtok(NULL, WHITESPACE));
 	v->e[2] = atof( strtok(NULL, WHITESPACE));
+	// some textures have only 2 indexes - the third may be null
+	/*
+	char* thirdElem = strtok(NULL, WHITESPACE);
+	if (thirdElem == nullptr)
+	{
+		v->e[2] = 0.0F;
+	}
+	else
+	{
+		v->e[2] = atof(thirdElem);
+	}
+	*/
 	return v;
 }
 

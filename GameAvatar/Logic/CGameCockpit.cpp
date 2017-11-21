@@ -22,24 +22,8 @@ CGameCockpit::instance()
 void 
 CGameCockpit::run()
 {
-
 	// limit fps to 60
 	clock_t start = clock();
-
-	// prepares ORTHO PROJECTION
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity(); //Reset the drawing perspective
-					  //glOrtho(-(s_SCREEN_WIDTH / 2.0), (s_SCREEN_WIDTH / 2.0), -(s_SCREEN_HEIGHT / 2.0), (s_SCREEN_HEIGHT / 2.0), -600.0, 600.0);
-					  //glFrustum(-(s_SCREEN_WIDTH / 2.0), (s_SCREEN_WIDTH / 2.0), -(s_SCREEN_HEIGHT / 2.0), (s_SCREEN_HEIGHT / 2.0), 0.1f, 60000.0f);
-	static GLfloat frustumParams[] = { -1.f, 1.f, -1.f, 1.f, 5.f, 10000.f };
-	glFrustum(frustumParams[0],
-		frustumParams[1],
-		frustumParams[2],
-		frustumParams[3],
-		frustumParams[4],
-		frustumParams[5]);
-
-	m_camera.SetLookAtMatrix();
 
 	// prepares MODEL VIEW
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -47,17 +31,39 @@ CGameCockpit::run()
 	// Set background (clear) color to black
 	glClearColor(0.0, 0.0, 0.0, 1.0);
 
+	// prepares 3D PROJECTION
+	m_camera.prepareProjection3D();
+
+	m_camera.SetLookAtMatrix();
 
 	// Notify all controllers with related events - according to CEventManager rules
 	CEventManager::instance()->notify();
 
-	// Render Screen objects
+	//glPushMatrix();
+	//m_objSkyBox->Render(0, 0, 0);
+	//glPopMatrix();
+
+	// Render 3D Screen objects
 	for (ViewList::iterator it = m_views.begin();
 			it != m_views.end();
 			++it)
 	{
 		(*it)->VOnRender();
 	}
+
+	// 2D elements - no depth test
+	m_camera.prepareProjection2D();
+	
+	// Render 2D Screen objects
+	for (HUDList::iterator it = m_huds.begin();
+		it != m_huds.end();
+		++it)
+	{
+		(*it)->VPreRender();
+		(*it)->VRender();
+		(*it)->VPostRender();
+	}
+	
 
 	while (clock() - start < Types::s_CYCLE_MAX_TIME)
 	{
@@ -150,15 +156,28 @@ CGameCockpit::CGameCockpit()
 	view->VSetGameCtrl(m_pGameInputCtrl);
 	view->VSetCamera(&m_camera);
 
+	// same definition but for 2D
+	// set the game control to the current view
+	shared_ptr<IView> view2D(new CHumanView());
+	view2D->VSetGameCtrl(m_pGameInputCtrl);
+	view2D->VSetCamera(&m_camera);
+
 	// creates an object of Human View
-	shared_ptr<IViewElement> element(new CViewElementSquare(0.0f, 0.0f, 512.0f, 512.0f, "melancia.bmp"));
-	shared_ptr<IViewElement> element2(new CViewElementSquare(-256.0f, -256.0f, 100.0f, 100.0f, "melancia.bmp"));
-	shared_ptr<IViewElement> skull(new CViewElementModel(-5.0f, 0.0f, 2.0f, 2.0f, 2.0f, "skull.obj"));
-	shared_ptr<IViewElement> panda(new CViewElementModel(5.0f, 0.0f, 2.0f, 2.0f, 2.0f, "princess.obj"));
-	shared_ptr<IViewElement> terrain(new CViewElementTerrainMesh(0.0f, 0.0f, 0.0f, 2.0f, 2.0f, 2.0f));
-	shared_ptr<IViewElement> tiger(new CViewElementModel(0.0f, 0.0f, 2.0f, 2.0f, 2.0f, "tiger.obj"));
-	shared_ptr<IViewElement> master(new CViewElementModel(0.0f, 0.0f, 2.0f, 2.0f, 2.0f, "master.obj"));
-	shared_ptr<IViewElement> monkey(new CViewElementModel(0.0f, 0.0f, 2.0f, 2.0f, 2.0f, "monky.obj"));
+	//shared_ptr<IViewElement> element(new CViewElementSquare(0.0f, 0.0f, 512.0f, 512.0f, "melancia.bmp"));
+	//shared_ptr<IViewElement> element2(new CViewElementSquare(-256.0f, -256.0f, 100.0f, 100.0f, "melancia.bmp"));
+	shared_ptr<IViewElement> skull(new CViewElementModel(-5.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f, "skull.obj"));
+	shared_ptr<IViewElement> princess(new CViewElementModel(5.0f, 0.0f, 0.0f, 0.1f, 0.1f, 0.1f, "Hughes500.obj"));
+	shared_ptr<IViewElement> tree1(new CViewElementModel(15.0f, 0.0f, 0.0f, 0.05f, 0.05f, 0.05f, "Tree low.obj", Types::DrawDirective_Triangle_Fan));
+	shared_ptr<IViewElement> tree2(new CViewElementModel(18.0f, 0.0f, 1.0f, 0.05f, 0.05f, 0.05f, "Tree low.obj", Types::DrawDirective_Triangle_Fan));
+	shared_ptr<IViewElement> tree3(new CViewElementModel(17.5f, 0.0f, -1.0f, 0.05f, 0.05f, 0.05f, "Tree low.obj", Types::DrawDirective_Triangle_Fan));
+	shared_ptr<IViewElement> tree4(new CViewElementModel(13.5f, 0.0f, -1.0f, 0.05f, 0.05f, 0.05f, "Tree low.obj", Types::DrawDirective_Triangle_Fan));
+	//shared_ptr<IViewElement> mount(new CViewElementModel(13.5f, 0.0f, -1.0f, 1.00f, 1.10f, 1.00f, "castle.obj"));
+	shared_ptr<IViewElement> terrain(new CViewElementTerrainMesh(0.0f, 0.0f, 0.0f, 3.0f, 3.0f, 3.0f));
+	shared_ptr<IViewElement2D> hud(new CViewElementHUD(CPoint(-295, 295), CPoint(-150, 100), "comm"));
+	hud->VSetTransparency(0.2F);
+	//shared_ptr<IViewElement> tiger(new CViewElementModel(0.0f, 0.0f, 2.0f, 2.0f, 2.0f, "tiger.obj"));
+	//shared_ptr<IViewElement> master(new CViewElementModel(0.0f, 0.0f, 2.0f, 2.0f, 2.0f, "master.obj"));
+	//shared_ptr<IViewElement> monkey(new CViewElementModel(0.0f, 0.0f, 2.0f, 2.0f, 2.0f, "monky.obj"));
 	//shared_ptr<IViewElement> bread(new CViewElementModel(0.0f, 0.0f, 2.0f, 2.0f, 2.0f, "ford.obj"));
 	//shared_ptr<IViewElement> elementCube2(new CViewElementModel(-150.0f, 0.0f, 2.0f, 2.0f, 2.0f, "skull.obj"));
 	//shared_ptr<IViewElement> elementCube3(new CViewElementModel(100.0f, 0.0f, 2.0f, 2.0f, 2.0f, "skull.obj"));
@@ -166,8 +185,13 @@ CGameCockpit::CGameCockpit()
 	//view->VPushElement("melan", element);
 	//view->VPushElement(element2);
 	view->VPushElement("skull", skull);
-	view->VPushElement("panda", panda);
+	view->VPushElement("princess", princess);
 	view->VPushElement("terrain", terrain);
+	view->VPushElement("t1", tree1);
+	view->VPushElement("t2", tree2);
+	view->VPushElement("t3", tree3);
+	view->VPushElement("t4", tree4);
+	//view->VPushElement("mount", mount);
 	//view->VPushElement("monkey", monkey);
 	//view->VPushElement("tiger", tiger);
 	//view->VPushElement("master", master);
@@ -179,10 +203,16 @@ CGameCockpit::CGameCockpit()
 	// push to the list of views
 	m_views.push_back(view);
 
+	m_huds.push_back(hud);
+
 	m_camera.SetCameraAttribute(CameraAttributeType::CameraAttribute_Position, 0.0f, 30.0f, 70.f);
 	m_camera.SetCameraAttribute(CameraAttributeType::CameraAttribute_Up, 0.0f, 1.0f, 0.f);
 	m_camera.SetCameraAttribute(CameraAttributeType::CameraAttribute_Right, 1.0f, 0.0f, 0.f);
 	m_camera.SetCameraAttribute(CameraAttributeType::CameraAttribute_Forward, -0.000001f, -0.38975f, -0.92089f);
+
+	//m_objSkyBox = new CSkybox();
+	//m_objSkyBox->init(90, "./Resources/tex_cube/");
+
 }
 
 void

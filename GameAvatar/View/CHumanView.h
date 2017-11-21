@@ -15,6 +15,7 @@ public:
 	virtual void VSetCamera(CCamera* pCamera);
 
 private:
+	static const TFloat s_DEFAULT_MOVEMENT_DISTANCE;
 	void UpdateScenario(const string elementId);
 	void UpdateCameraLocation();
 };

@@ -6,6 +6,20 @@
 #ifdef _WIN_
 #include "CWinMutex.h"
 #endif
+#include "CNoise.h"
+#include "CTargaImage.h"
+
+const char CTextManager::filenames[6][7] = {
+	"lt.tga",
+	"rt.tga",
+
+	"dn.tga",
+	"up.tga",
+
+	"bk.tga",
+	"ft.tga"
+};
+
 
 CTextManager* CTextManager::s_pInstance = NULL;
 
@@ -15,10 +29,71 @@ CTextManager::instance()
 	if (s_pInstance == NULL)
 	{
 		s_pInstance = new CTextManager();
-		s_pInstance->m_cacheDb.Init();
+		s_pInstance->OpenResourceFile();
+		//s_pInstance->m_cacheDb.Init();
 	}
 
 	return s_pInstance;
+}
+
+void 
+CTextManager::OpenResourceFile()
+{
+	m_textureFiles.VOpen();
+
+	// add common textures
+	// NOISE TEXTURE
+	{
+		glEnable(GL_TEXTURE_3D);
+		GLuint NoiseTexture = -1;
+		glGenTextures(1, &NoiseTexture);
+		glBindTexture(GL_TEXTURE_3D, NoiseTexture);
+
+		glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+		glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+		Noise::CNoise::CreateNoise3D();
+
+		// adds to the hashmap
+		m_textures.insert(make_pair("3dnoise", NoiseTexture));
+
+		glDisable(GL_TEXTURE_3D);
+	}
+
+	// 3D CUBE
+	{
+		glEnable(GL_TEXTURE_CUBE_MAP);
+		GLuint CubeTexture = -1;
+		glGenTextures(1, &CubeTexture);
+		glBindTexture(GL_TEXTURE_CUBE_MAP, CubeTexture);
+
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+		char temp[256];
+		for (int i = 0; i<6; ++i) {
+			sprintf(temp, "./Resources/tex_cube/%s", filenames[i]);
+
+			// targa image format (tga)
+			CTargaImage img;
+
+			if (!img.Load(temp)) {
+				return;
+			}
+
+			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB, img.GetWidth(), img.GetHeight(), 0, GL_RGB, GL_UNSIGNED_BYTE, img.GetImage());
+			//gluBuild2DMipmaps(GL_TEXTURE_2D, GL_RGB, img.GetWidth(), img.GetHeight(), GL_RGB, GL_UNSIGNED_BYTE, img.GetImage());
+			img.Release();
+		}
+
+		// adds to the hashmap
+		m_textures.insert(make_pair("cubetexture", CubeTexture));
+
+		glDisable(GL_TEXTURE_CUBE_MAP);
+	}
 }
 
 void 
@@ -27,9 +102,9 @@ CTextManager::OnRemoveEvent(string removeItem)
 	instance()->RemoveTexture(removeItem);
 }
 
-CTextManager::CTextManager()
-	: m_textureFiles("C:\\Users\\Vagner\\Documents\\Visual Studio 2015\\Projects\\GameAvatar\\GameAvatar\\Resources\\respack.zip", this->OnRemoveEvent),
-	  m_cacheDb(7, &m_textureFiles)
+CTextManager::CTextManager() : 
+	m_textureFiles("C:\\Users\\Vagner\\Documents\\Visual Studio 2015\\Projects\\GameAvatar\\GameAvatar\\Resources\\respack.zip", this->OnRemoveEvent)
+	  //m_cacheDb(9, &m_textureFiles)
 {
 #ifdef _WIN_
 	m_textureContentMapMutex = new CWinMutex();
@@ -49,11 +124,16 @@ CTextManager::LoadTexture(const string textId)
 	clock_t start = clock();
 
 	// cache missed - must reload it from resources db
-	CResource resExample(textId);
-	shared_ptr<CResHandle> bytesStream = m_cacheDb.GetHandle(&resExample);
-	TByte* data = bytesStream->Buffer();	
-
-	AddTextureContent(textId, bytesStream);
+	CResource resourceItem(textId);
+	//shared_ptr<CResHandle> bytesStream = m_cacheDb.GetHandle(&resExample);
+	Types::TByte* bytesStream = new Types::TByte[m_textureFiles.VGetResourceSize(resourceItem)];
+	TInt32 status = m_textureFiles.VGetResource(resourceItem, bytesStream);
+	//TByte* data = bytesStream->Buffer();	
+	// status OK
+	if (status == 0)
+	{
+		AddTextureContent(textId, bytesStream);
+	}
 	
 	// time measurement
 	printf(" loading tex [%s] %.2fms\n", textId.data(), (float)(clock() - start));
@@ -69,7 +149,7 @@ void CTextManager::BuildTexture()
 	for (auto it = m_textureContentMap.begin(); !m_textureContentMap.empty();)
 	{
 		// whole data content of the image (texture)
-		TByte* data = it->second->Buffer();
+		TByte* data = it->second;
 		// retrieve header information
 		// offset for start of bmp data
 		TInt32 dataPos = *(int*)&(data[0x0A]);
@@ -87,7 +167,6 @@ void CTextManager::BuildTexture()
 
 		// then, allocate an indexer for new texture
 		glGenTextures(1, &GeneratedTexture);
-
 		// binds this texture as a 2D bitmap
 		glBindTexture(GL_TEXTURE_2D, GeneratedTexture);
 		int err = glGetError();
@@ -147,6 +226,10 @@ void CTextManager::BuildTexture()
 		}
 		// adds to the hashmap
 		m_textures.insert(make_pair(it->first, GeneratedTexture));
+
+		// deletes allocated memory (do not allow it to leak)
+		delete[] it->second;
+		// deletes the object from the DS
 		m_textureContentMap.erase(it);
 	}
 	// [END] CRITICAL AREA
@@ -191,7 +274,7 @@ CTextManager::getTextureById(string textId)
 }
 
 void 
-CTextManager::AddTextureContent(string textId, shared_ptr<CResHandle> data)
+CTextManager::AddTextureContent(string textId, Types::TByte* data)
 {
 	m_textureContentMapMutex->mutexLock();
 	m_textureContentMap.insert(make_pair(textId, data));
@@ -207,3 +290,4 @@ CTextManager::~CTextManager()
 		m_textures.erase(it);
 	}		
 }
+

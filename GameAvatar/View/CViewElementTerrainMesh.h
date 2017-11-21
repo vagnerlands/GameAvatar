@@ -32,6 +32,7 @@ protected:
 	virtual bool loadShader(string shaderId);
 
 	cwc::glShader* m_pProgramShader;
+	
 };
 
 #endif //_CVIEWELEMENTTERRAINMESH_H_

@@ -21,6 +21,8 @@ CViewElementTerrainMesh::~CViewElementTerrainMesh()
 void 
 CViewElementTerrainMesh::VPreRender()
 {
+	glDisable(GL_TEXTURE_2D);
+	glDisable(GL_TEXTURE_CUBE_MAP);
 	glPushMatrix();
 }
 
@@ -28,27 +30,59 @@ CViewElementTerrainMesh::VPreRender()
 void 
 CViewElementTerrainMesh::VRender()
 {
-	if (!loadShader("simpletexture"))
+	if (!loadShader("water2d"))
 	{
 		return;
 	}
 
-	applyTexture("mountain.bmp");
+	applyTexture("water.bmp");
 
+	TInt32 err = 0;
 	glUseProgram(m_pProgramShader->GetProgramObject());
-	TInt32 err = glGetError();
+	err = glGetError();
 	if (err != 0)
 	{
 		printf("glError after glUseProgram =%d\n", err);
 	}
 
 	// leave the GPU performing the matrices transformations
-	// code in the shader
-	//static float s_time = 0.0f;
-	//s_time += 0.001;
 	m_pProgramShader->setUniform3f("translate", m_position.x, m_position.y, m_position.z);
 	m_pProgramShader->setUniform3f("scale", m_scale.x, m_scale.y, m_scale.z);
 	m_pProgramShader->setUniform4f("rotation", m_rotate.y, 0.0f, 1.0f, 0.0f);
+	static float incTime = 0;
+	incTime += 0.001f;
+	//static bool signal = true;
+	//if (signal)
+	//{
+	//	incTime += 0.001f;
+	//}
+	//else
+	//{
+	//	incTime -= 0.001f;
+	//}
+	//if (incTime >= 0.5f) signal = false;
+	//if (incTime <= 0.0f) signal = true;
+	m_pProgramShader->setUniform1f("time_0_X", incTime);
+	static float wavefreq = 0.0f;
+	wavefreq += 0.0001;
+	m_pProgramShader->setUniform1f("wavefreq", wavefreq);
+	err = glGetError();
+	if (err != 0)
+	{
+		printf("glError after setUniform1f time =%d\n", err);
+	}
+	m_pProgramShader->setUniform1f("waveSpeed", 0.18f);
+
+	err = glGetError();
+	if (err != 0)
+	{
+		printf("glError after setUniform1f waveSpeed =%d\n", err);
+	}
+
+	//m_pProgramShader->setUniform1f("noiseSpeed", 0.34f);
+	m_pProgramShader->setUniform4f("view_position", 0.0f, 30.f, 70.0f, 1.0f);
+	//m_pProgramShader->setUniform1f("fadeExp", incTime * 6.08f);
+	//m_pProgramShader->setUniform1f("fadeBias", incTime*0.12f);
 	//m_pProgramShader->setUniform1f("time", s_time);
 
 	err = glGetError();
@@ -68,17 +102,21 @@ CViewElementTerrainMesh::VRender()
 		 50.0f,   0.0f, -50.0f,		
 		 50.0f,   0.0f,  50.0f
 	};
-
 	glEnable(GL_TEXTURE_2D);
+	glEnable(GL_TEXTURE_3D);
 	glBegin(GL_QUADS);
 	glColor3f(0.0f, 1.0f, 1.0f);
 	glTexCoord2f(0.0f, 0.0f);
+	glNormal3f(0.0F, 1.0F, 0.0F);
 	glVertex3f(verts[0], verts[1], verts[2]);	
 	glTexCoord2f(1.0f, 0.0f);
-	glVertex3f(verts[3], verts[4], verts[5]);
+	glNormal3f(0.0F, 1.0F, 0.0F);
+	glVertex3f(verts[3], verts[4], verts[5]);	
 	glTexCoord2f(0.0f, 1.0f);
+	glNormal3f(0.0F, 1.0F, 0.0F);
 	glVertex3f(verts[6], verts[7], verts[8]);
 	glTexCoord2f(1.0f, 1.0f);
+	glNormal3f(0.0F, 1.0F, 0.0F);
 	glVertex3f(verts[9], verts[10], verts[11]);
 	glEnd();
 
@@ -105,7 +143,8 @@ void CViewElementTerrainMesh::VPostRender()
 	}
 
 	// disable texture 	
-	glDisable(GL_TEXTURE_2D);
+	glDisable(GL_TEXTURE_3D);
+	glDisable(GL_TEXTURE_CUBE_MAP);
 
 	glUseProgram(0);
 
@@ -123,29 +162,104 @@ CViewElementTerrainMesh::applyTexture(string textId)
 		return;
 	}
 
-	glEnable(GL_TEXTURE_2D);
-	TInt32 err = glGetError();
-	if (err != 0)
+	GLint loc = m_pProgramShader->GetUniformLocation("myTextureSampler");
+	if (loc != -1)
 	{
-		printf("glError EnableTexture2D=%d\n", err);
-	}
-	glEnable(GL_BLEND);
-	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	err = glGetError();
-	if (err != 0)
-	{
-		printf("glError GL_BLEND=%d\n", err);
+		TInt32 err = 0;
+		err = glGetError();
+		if (err != 0)
+		{
+			//printf("glError EnableMap=%d\n", err);
+		}
+		glActiveTexture(GL_TEXTURE0);
+		err = 0;
+		err = glGetError();
+		if (err != 0)
+		{
+			printf("glError glActiveTexture=%d\n", err);
+		}
+		glBindTexture(GL_TEXTURE_2D, texture);
+		err = 0;
+		err = glGetError();
+		if (err != 0)
+		{
+			printf("glError glBindTexture=%d\n", err);
+		}
+
+		//m_pProgramShader->setUniform1i("myTextureSampler", GL_TEXTURE0);
+		//err = 0;
+		//err = glGetError();
+		//if (err != 0)
+		//{
+		//	printf("glError setUniform1i=%d\n", err);
+		//}
 	}
 
-	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
-	glBindTexture(GL_TEXTURE_2D, texture);
-	err = glGetError();
-	if (err != 0)
+	/*GLint loc = m_pProgramShader->GetUniformLocation("skyBox");
+	if (loc != -1)
 	{
-		printf("glError glBindTexture=%d\n", err);
+		TInt32 err = 0;
+		err = glGetError();
+		glActiveTexture(GL_TEXTURE0);
+		if (err != 0)
+		{
+			printf("glError ActiveTextureMap=%d\n", err);
+		}
+		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
+		err = glGetError();
+		if (err != 0)
+		{
+			printf("glError TexEnvf=%d\n", err);
+		}
+		glEnable(GL_TEXTURE_CUBE_MAP);
+		err = glGetError();
+		if (err != 0)
+		{
+			printf("glError EnableMap=%d\n", err);
+		}
+		glBindTexture(GL_TEXTURE_CUBE_MAP, texture);
+		err = glGetError();
+		if (err != 0)
+		{
+			printf("glError BindMap=%d\n", err);
+		}
+		//m_pProgramShader->setUniform1i("skyBox", GL_TEXTURE0);
+		//err = glGetError();
+		//if (err != 0)
+		//{
+		//	printf("glError CubeMap=%d\n", err);
+		//}
+	}*/
+
+
+	/*texture = CTextManager::instance()->getTextureById("3dnoise");
+	// requested texture was not found (the requested texture was put in a process queue and in next request it may be there)
+	if (texture == -1)
+	{
+		return;
 	}
 
+	loc = m_pProgramShader->GetUniformLocation("Noise");
+	if (loc != -1)
+	{
+		TInt32 err = 0;
+		glActiveTexture(GL_TEXTURE1);
+		if (err != 0)
+		{
+			printf("glError ActiveTextureNoise=%d\n", err);
+		}
+		glBindTexture(GL_TEXTURE_3D, texture);
+		if (err != 0)
+		{
+			printf("glError BindTextureNoise=%d\n", err);
+		}
+		m_pProgramShader->setUniform1i("Noise", GL_TEXTURE1);
+		if (err != 0)
+		{
+			printf("glError SetUniformNoise=%d\n", err);
+		}
+	}*/
+	
 }
 
 bool

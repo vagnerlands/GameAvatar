@@ -1,9 +1,4 @@
-﻿  CGameController.cpp
-c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\controller\cgamecontroller.cpp(30): warning C4244: '=': conversion from 'Types::TInt32' to 'float', possible loss of data
-c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\controller\cgamecontroller.cpp(31): warning C4244: '=': conversion from 'Types::TInt32' to 'float', possible loss of data
-c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\controller\cgamecontroller.cpp(33): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\controller\cgamecontroller.cpp(35): warning C4244: '=': conversion from 'float' to 'Types::TInt32', possible loss of data
-c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\controller\cgamecontroller.cpp(36): warning C4244: '=': conversion from 'float' to 'Types::TInt32', possible loss of data
-c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\controller\cgamecontroller.cpp(37): warning C4244: '=': conversion from 'float' to 'Types::TInt32', possible loss of data
-c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\controller\cgamecontroller.cpp(39): warning C4244: '=': conversion from 'double' to 'Types::TInt32', possible loss of data
+﻿  CViewElementTerrainMesh.cpp
+c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\application\ccommontypes.h(39): warning C4305: 'initializing': truncation from 'double' to 'Types::TFloat'
+c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\view\cviewelementterrainmesh.cpp(67): warning C4305: '+=': truncation from 'double' to 'float'
   GameAvatar.vcxproj -> C:\Users\Vagner\Documents\Visual Studio 2015\Projects\GameAvatar\Debug\GameAvatar.exe

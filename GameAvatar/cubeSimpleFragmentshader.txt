@@ -1,0 +1,10 @@
+out vec4 FragColor;
+
+varying vec3 vTexCoord;
+
+uniform samplerCube skybox;
+
+void main()
+{    
+    FragColor = texture(skybox, vTexCoord);
+}

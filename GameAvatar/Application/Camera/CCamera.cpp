@@ -13,6 +13,33 @@ CCamera::CCamera() :
 
 }
 
+void CCamera::prepareProjection3D()
+{
+	// prepares PERSPECTIVE PROJECTION
+	glMatrixMode(GL_PROJECTION);
+	//Reset the drawing perspective
+	glLoadIdentity(); 
+	static GLfloat frustumParams[] = { -1.f, 1.f, -1.f, 1.f, 5.f, 10000.f };
+	// prepares perspective projection
+	glFrustum(frustumParams[0],
+		frustumParams[1],
+		frustumParams[2],
+		frustumParams[3],
+		frustumParams[4],
+		frustumParams[5]);
+}
+
+void CCamera::prepareProjection2D()
+{
+	glMatrixMode(GL_MODELVIEW);
+	// prepares ORTHO PROJECTION
+	glMatrixMode(GL_PROJECTION);
+	//Reset the drawing perspective
+	glLoadIdentity(); 
+	// prepares orthogonal projection
+	glOrtho(-(s_SCREEN_WIDTH / 2.0), (s_SCREEN_WIDTH / 2.0), -(s_SCREEN_HEIGHT / 2.0), (s_SCREEN_HEIGHT / 2.0), -600.0, 600.0);
+}
+
 void CCamera::SetLookAtMatrix()
 {
 	glm::vec3 viewPoint = m_position + m_viewDir;

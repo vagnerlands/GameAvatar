@@ -11,12 +11,14 @@
 #include "CViewElementSquare.h"
 #include "CViewElementModel.h"
 #include "CViewElementTerrainMesh.h"
+#include "CViewElementHUD.h"
 #include "CHumanView.h"
 #include "IView.h"
 #include "IProcess.h"
 #include "IMutex.h"
 #include "CGameController.h"
 #include "CCamera.h"
+#include "Skybox.h"
 
 #include "GL/glut.h"
 
@@ -25,6 +27,8 @@ using namespace Types;
 
 class CGameCockpit {
 public:
+
+	CSkybox* m_objSkyBox;
 	static CGameCockpit* instance();
 
 	// for application closure
@@ -61,8 +65,9 @@ private:
 
 	shared_ptr<CGameController> m_pGameInputCtrl;
 
-	//list<CPerson*> m_userDB;
 	ViewList m_views;
+	HUDList m_huds;
+
 
 	// list of processes for background thread
 	list<shared_ptr<IProcess>> m_processes;

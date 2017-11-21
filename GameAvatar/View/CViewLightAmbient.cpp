@@ -14,6 +14,7 @@ CViewLightAmbient::CViewLightAmbient(TFloat posX, TFloat posY, TFloat width, TFl
 
 void CViewLightAmbient::VPreRender()
 {
+	glDisable(GL_TEXTURE_2D);
 	glPushMatrix();
 }
 
@@ -72,12 +73,13 @@ void CViewLightAmbient::VRender()
 		m_position.y - (m_scale.y / 2.0),
 		m_position.z); // D
 	glEnd();
-	glDisable(GL_TEXTURE_2D);
 }
 
 void CViewLightAmbient::VPostRender()
 {
+	glDisable(GL_TEXTURE_2D);
 	glPopMatrix();
+	
 	TInt32 err = glGetError();
 	if (err != 0)
 	{
@@ -95,6 +97,7 @@ void CViewLightAmbient::applyTexture(string textId)
 	{
 		return;
 	}
+
 	TInt32 err = glGetError();
 	if (err != 0)
 	{
@@ -121,6 +124,7 @@ void CViewLightAmbient::applyTexture(string textId)
 	}
 
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
+	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, texture);
 	err = glGetError();
 	if (err != 0)

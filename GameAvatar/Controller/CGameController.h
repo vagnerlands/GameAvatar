@@ -9,7 +9,7 @@
 using namespace std;
 using namespace Types;
 
-class CGameController : public IKeyboardHandler, IMouseHandler
+class CGameController : public IKeyboardHandler, public IMouseHandler
 {
 
 public:

@@ -14,6 +14,7 @@ CViewLightSpecular::CViewLightSpecular(TFloat posX, TFloat posY, TFloat width, T
 
 void CViewLightSpecular::VPreRender()
 {
+	glDisable(GL_TEXTURE_2D);
 	glPushMatrix();
 }
 
@@ -69,11 +70,11 @@ void CViewLightSpecular::VRender()
 		m_position.z); // D
 		
 	glEnd();
-	glDisable(GL_TEXTURE_2D);
 }
 
 void CViewLightSpecular::VPostRender()
 {
+	glDisable(GL_TEXTURE_2D);
 	glPopMatrix();
 	TInt32 err = glGetError();
 	if (err != 0)
@@ -108,6 +109,7 @@ void CViewLightSpecular::applyTexture(string textId)
 	}
 
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
+	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, texture);
 	err = glGetError();
 	if (err != 0)

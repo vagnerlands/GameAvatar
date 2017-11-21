@@ -15,10 +15,11 @@ class CTextManager
 {
 public:
 	static CTextManager* instance();
+	void OpenResourceFile();
 	void LoadTexture(const string textId);
 	void RemoveTexture(const string textId);
 	GLuint getTextureById(string textId);
-	void AddTextureContent(string textId, shared_ptr<CResHandle> data);
+	void AddTextureContent(string textId, Types::TByte* data);
 	CTextManager::~CTextManager();
 
 	// external callback event in case a resource is deallocated
@@ -36,12 +37,18 @@ private:
 	// mutex for m_processes
 	IMutex* m_textureContentMapMutex;
 
-	// file content may be found here
+	// resource database - TEXTURES
 	CResourceZipFile m_textureFiles;
+
+	// resource database
+	//CResourceZipFile m_texture
+
 	// cache database (allocated with fixed and known size)
-	CResCache m_cacheDb;
+	//CResCache m_cacheDb;
 	// local instance
 	static CTextManager* s_pInstance;
+
+	static const char filenames[6][7];
 
 };
 
