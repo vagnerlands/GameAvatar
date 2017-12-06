@@ -7,7 +7,7 @@ class CViewElementSquare : public IViewElement
 {
 public:
 
-	CViewElementSquare(TFloat posX, TFloat posY, TFloat width, TFloat height, string textureName);
+	CViewElementSquare(Float posX, Float posY, Float width, Float height, string textureName);
 
 	virtual ~CViewElementSquare();
 

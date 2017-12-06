@@ -18,25 +18,25 @@ class CResHandle;
 using namespace std;
 
 namespace Types {
-	typedef unsigned int TUInt32;
-	typedef int TInt32;
-	typedef short TInt16;
-	typedef unsigned short TUInt16;
-	typedef char TByte;
-	typedef unsigned char TUByte;
-	typedef double TDouble;
-	typedef float TFloat;
+	typedef unsigned int UInt32;
+	typedef int Int32;
+	typedef short Int16;
+	typedef unsigned short UInt16;
+	typedef char Byte;
+	typedef unsigned char UByte;
+	typedef double Double;
+	typedef float Float;
 
-	static const TByte* s_GAME_CONNECTION_PORT = "1234";
-	static const TFloat s_CYCLE_MAX_TIME = 16;
+	static const Byte* s_GAME_CONNECTION_PORT = "1234";
+	static const Float s_CYCLE_MAX_TIME = 16;
 
-	static const TInt32 s_SCREEN_HEIGHT = 600;
-	static const TInt32 s_SCREEN_WIDTH = 600;
+	static const Int32 s_SCREEN_HEIGHT = 600;
+	static const Int32 s_SCREEN_WIDTH = 600;
 
-	static const TInt32 s_SCREEN_CENTER_X = s_SCREEN_WIDTH / 2;
-	static const TInt32 s_SCREEN_CENTER_Y = s_SCREEN_HEIGHT / 2;
+	static const Int32 s_SCREEN_CENTER_X = s_SCREEN_WIDTH / 2;
+	static const Int32 s_SCREEN_CENTER_Y = s_SCREEN_HEIGHT / 2;
 
-	static const TFloat s_PI = 3.14159265359;
+	static const Float s_PI = 3.14159265359;
 
 	enum CameraAttributeType
 	{
@@ -96,12 +96,85 @@ namespace Types {
 
 	typedef unsigned int GameViewId;
 
+	struct SLoDInfo
+	{
+		UInt32 m_bandWidth;
+		UInt32 m_levelOfDetailTable[32];
+	};
+
+	struct STileInfo
+	{
+		// current level of detail
+		// always a positive number, following the (2^x)-1
+		// ex.: 0, 1, 3, 7, 15, 31, ...
+		UInt32 m_lod;
+		// how many triangles prepared for this tile
+		UInt32 m_trianglesCount;
+		// vertices database
+		glm::vec3* m_vertices;
+
+	};
+
+	class CCoordinates
+	{
+	public:
+		Float m_latitude;
+		Float m_longitude;
+
+		CCoordinates()
+		{
+			this->m_latitude = 0.0f;
+			this->m_longitude = 0.0f;
+		}
+
+		CCoordinates(Float latitude, Float longitude)
+		{
+			this->m_latitude = latitude;
+			this->m_longitude = longitude;
+		}
+
+		CCoordinates& operator+(CCoordinates& other)
+		{
+			return CCoordinates(this->m_latitude + other.m_latitude, this->m_longitude + other.m_longitude);
+		}
+
+		CCoordinates& operator-(CCoordinates& other)
+		{
+			return CCoordinates(this->m_latitude - other.m_latitude, this->m_longitude - other.m_longitude);
+		}
+
+		CCoordinates& operator=(CCoordinates& other)
+		{
+			this->m_latitude = other.m_latitude;
+			this->m_longitude = other.m_longitude;
+			return *this;
+		}
+
+		CCoordinates& operator=(const CCoordinates& other)
+		{
+			this->m_latitude = other.m_latitude;
+			this->m_longitude = other.m_longitude;
+			return *this;
+		}
+
+		bool operator==(CCoordinates& other)
+		{
+			bool retVal = false;
+			if ((this->m_latitude > other.m_latitude - 0.001) && (this->m_latitude < other.m_latitude + 0.001)
+				&& (this->m_longitude > other.m_longitude - 0.001) && (this->m_longitude < other.m_longitude + 0.001))
+				retVal = true;
+
+			return retVal;
+		}
+
+	};
+
 
 	class CPoint
 	{
 	public:
-		TInt32 x;
-		TInt32 y;
+		Int32 x;
+		Int32 y;
 
 		CPoint() :
 			x(0),
@@ -110,7 +183,7 @@ namespace Types {
 
 		}
 
-		CPoint(TInt32 argX, TInt32 argY) :
+		CPoint(Int32 argX, Int32 argY) :
 			x(argX),
 			y(argY)
 		{
@@ -148,11 +221,11 @@ namespace Types {
 		glm::vec3 m_ambient;
 		glm::vec3 m_diffuse;
 		glm::vec3 m_specular;
-		TDouble m_reflect;
-		TDouble m_refract;
-		TDouble m_trans;
-		TDouble m_shiny;
-		TDouble m_glossy;
+		Double m_reflect;
+		Double m_refract;
+		Double m_trans;
+		Double m_shiny;
+		Double m_glossy;
 	};
 
 	struct SFaceAttr
@@ -161,8 +234,8 @@ namespace Types {
 		glm::vec4 m_vertexIndex;
 		glm::vec4 m_normalIndex;
 		glm::vec4 m_textureIndex;
-		TInt32 m_vertexCount;
-		TInt32 m_materialIndex;
+		Int32 m_vertexCount;
+		Int32 m_materialIndex;
 	};
 
 	struct SModelData
@@ -182,7 +255,7 @@ namespace Types {
 
 		SModelData() : m_vboBufferCreated(false), m_vertexArrayObject(0)
 		{
-			for (TInt32 i = 0; i < VertexBuffer_Max_Num; i++)
+			for (Int32 i = 0; i < VertexBuffer_Max_Num; i++)
 			{
 				m_elementBuffer[i] = 0;
 			}
@@ -211,21 +284,21 @@ namespace Types {
 	typedef std::list<shared_ptr<IViewElement2D>> HUDList;
 	typedef unordered_map<string, SModelData> ModelMap;
 	typedef unordered_map<string, GLuint> TextureMap;
-	typedef unordered_map<string, Types::TByte*> TextureContentMap;
+	typedef unordered_map<string, Types::Byte*> TextureContentMap;
 	typedef void(*OnRemoveEvent)(string);
 
 
 	struct SFontAttributes
 	{
-		SFontAttributes(TInt32 width, TInt32 height, void* id) :
+		SFontAttributes(Int32 width, Int32 height, void* id) :
 			m_fontWidth(width),
 			m_fontHeight(height),
 			m_fontId(id)
 		{
 
 		}
-		TInt32 m_fontWidth;
-		TInt32 m_fontHeight;
+		Int32 m_fontWidth;
+		Int32 m_fontHeight;
 		void* m_fontId;
 	};
 

@@ -11,7 +11,7 @@ class CViewLightDiffuse : public IViewLight
 {
 public:
 
-	CViewLightDiffuse(TFloat posX, TFloat posY, TFloat width, TFloat height);
+	CViewLightDiffuse(Float posX, Float posY, Float width, Float height);
 	// constructor - every object starts as displayed
 	CViewLightDiffuse()
 	{

@@ -23,11 +23,11 @@ public:
 	void instance();
 private:
 	void execute();
-	void reshape(TInt32 w, TInt32 h);
+	void reshape(Int32 w, Int32 h);
 	static void RunWrap();
-	static void ReshapeWrap(TInt32 w, TInt32 h);
-	static void KeyboardInput(TUByte key, int x, int y);
-	static void KeyboardRelease(TUByte key, int x, int y);
+	static void ReshapeWrap(Int32 w, Int32 h);
+	static void KeyboardInput(UByte key, int x, int y);
+	static void KeyboardRelease(UByte key, int x, int y);
 	static void MouseInput(int button, int state, int x, int y);
 	static void MouseMotion(int x, int y);
 	static DWORD WINAPI ConnectionListener(LPVOID lpParameter);

@@ -2,7 +2,7 @@
 #include "CViewElementSquare.h"
 #include "CShaderManager.h"
 
-CViewElementSquare::CViewElementSquare(TFloat posX, TFloat posY, TFloat width, TFloat height, string textureName)
+CViewElementSquare::CViewElementSquare(Float posX, Float posY, Float width, Float height, string textureName)
 {
 	m_position.x = posX;
 	m_position.y = posY;
@@ -56,7 +56,7 @@ void CViewElementSquare::VRender()
 	glVertex3f(-(m_scale.x / 2.0), -(m_scale.y / 2.0), 0.0f); // D
 	glEnd();
 	glDisable(GL_TEXTURE_2D);
-    TInt32 err = glGetError();
+    Int32 err = glGetError();
 	if (err != 0)
 	{
 		printf("glError glDisable=%d\n", err);
@@ -67,7 +67,7 @@ void CViewElementSquare::VRender()
 void CViewElementSquare::VPostRender()
 {
 	glPopMatrix();
-	TInt32 err = glGetError();
+	Int32 err = glGetError();
 	if (err != 0)
 	{
 		printf("glError glPopMatrix=%d\n", err);
@@ -85,7 +85,7 @@ void CViewElementSquare::applyTexture(string textId)
 	}
 
 	glEnable(GL_TEXTURE_2D);
-	TInt32 err = glGetError();
+	Int32 err = glGetError();
 	if (err != 0)
 	{
 		printf("glError EnableTexture2D=%d\n", err);

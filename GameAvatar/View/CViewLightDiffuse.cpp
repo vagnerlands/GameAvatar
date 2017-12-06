@@ -1,7 +1,7 @@
 #include "CHumanView.h"
 #include "CViewLightDiffuse.h"
 
-CViewLightDiffuse::CViewLightDiffuse(TFloat posX, TFloat posY, TFloat width, TFloat height)
+CViewLightDiffuse::CViewLightDiffuse(Float posX, Float posY, Float width, Float height)
 {
 	m_position.x = posX;
 	m_position.y = posY;
@@ -72,7 +72,7 @@ void CViewLightDiffuse::VPostRender()
 {
 	glDisable(GL_TEXTURE_2D);
 	glPopMatrix();
-	TInt32 err = glGetError();
+	Int32 err = glGetError();
 	if (err != 0)
 	{
 		printf("glError glPopMatrix=%d\n", err);
@@ -90,7 +90,7 @@ void CViewLightDiffuse::applyTexture(string textId)
 	}
 
 	glEnable(GL_TEXTURE_2D);
-	TInt32 err = glGetError();
+	Int32 err = glGetError();
 	if (err != 0)
 	{
 		printf("glError EnableTexture2D=%d\n", err);

@@ -13,9 +13,9 @@ public:
 	{
 	}
 
-	virtual bool VOnKeyDown(const TByte c) = 0;
+	virtual bool VOnKeyDown(const Byte c) = 0;
 
-	virtual bool VOnKeyUp(const TByte c) = 0;
+	virtual bool VOnKeyUp(const Byte c) = 0;
 
 
 	virtual bool VOnMouseMove(const CPoint& mousePos) = 0;

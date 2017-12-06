@@ -47,7 +47,7 @@ void CCamera::SetLookAtMatrix()
 	gluLookAt(m_position.x, m_position.y, m_position.z, viewPoint.x, viewPoint.y, viewPoint.z, m_upVector.x, m_upVector.y, m_upVector.z);
 }
 
-void CCamera::RotateX(TFloat Angle)
+void CCamera::RotateX(Float Angle)
 {
 	m_rotation.x += Angle;
 
@@ -61,7 +61,7 @@ void CCamera::RotateX(TFloat Angle)
 	m_upVector = glm::cross(m_viewDir, m_rightVector) * -1;
 }
 
-void CCamera::RotateY(TFloat Angle)
+void CCamera::RotateY(Float Angle)
 {
 	m_rotation.y += Angle;
 	printf("ang=%f totalangY = %f\n\n", Angle, m_rotation.y);
@@ -74,7 +74,7 @@ void CCamera::RotateY(TFloat Angle)
 	m_rightVector = glm::cross(m_viewDir, m_upVector);
 }
 
-void CCamera::RotateZ(TFloat Angle)
+void CCamera::RotateZ(Float Angle)
 {
 	m_rotation.z += Angle;
 
@@ -86,34 +86,34 @@ void CCamera::RotateZ(TFloat Angle)
 	m_upVector = glm::cross(m_viewDir, m_rightVector) * -1;
 }
 
-void CCamera::MoveForward(TFloat Distance)
+void CCamera::MoveForward(Float Distance)
 {
 	m_position = m_position + (m_viewDir*-Distance);
 }
 
-void CCamera::MoveUpward(TFloat Distance)
+void CCamera::MoveUpward(Float Distance)
 {
 	m_position = m_position + (m_upVector*Distance);
 }
 
-void CCamera::MoveRight(TFloat Distance)
+void CCamera::MoveRight(Float Distance)
 {
 	m_position = m_position + (m_rightVector*Distance);
 }
 
-void CCamera::HoverForward(TFloat Distance)
+void CCamera::HoverForward(Float Distance)
 {
 	glm::vec3 direction = m_position + (m_viewDir * Distance);
 	m_position = glm::vec3(direction.x, m_position.y, direction.z);
 }
 
-void CCamera::HoverRight(TFloat Distance)
+void CCamera::HoverRight(Float Distance)
 {
 	glm::vec3 direction = m_position + (m_rightVector * Distance);
 	m_position = glm::vec3(direction.x, m_position.y, direction.z);
 }
 
-void CCamera::SetCameraAttribute(CameraAttributeType attr, TFloat x, TFloat y, TFloat z)
+void CCamera::SetCameraAttribute(CameraAttributeType attr, Float x, Float y, Float z)
 {
 	switch (attr)
 	{

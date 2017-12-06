@@ -17,7 +17,7 @@ public:
 
 	virtual void VPostRender();
 
-	virtual void VRenderBitmap(TFloat x, TFloat y, TInt32 fontSize, TInt32 maxWidth, TInt32 maxHeight, void *font, const TByte *string);
+	virtual void VRenderBitmap(Float x, Float y, Int32 fontSize, Int32 maxWidth, Int32 maxHeight, void *font, const Byte *string);
 
 	// debug purposes
 	virtual char* GetName()

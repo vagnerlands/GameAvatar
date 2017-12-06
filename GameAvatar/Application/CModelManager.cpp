@@ -69,8 +69,8 @@ CModelManager::LoadModel(const string modelId)
 	shared_ptr<CResHandle> materialStream = m_cacheDb.GetHandle(&resMaterial);
 	if (modelStream->GetSize() > 0)
 	{
-		TByte* data = modelStream->Buffer();
-		TByte* materialData = 0;
+		Byte* data = modelStream->Buffer();
+		Byte* materialData = 0;
 		if (materialStream->GetSize() > 0) materialData = materialStream->Buffer();
 		AddModelContent(modelId, data, materialData);
 	}
@@ -84,7 +84,7 @@ CModelManager::LoadModel(const string modelId)
 }
 
 void
-CModelManager::AddModelContent(string modelId, TByte* bytesStream, TByte* materialStream)
+CModelManager::AddModelContent(string modelId, Byte* bytesStream, Byte* materialStream)
 {
 	// new node to be allocated
 	SModelData newNode;
@@ -141,7 +141,7 @@ CModelManager::AddModelContent(string modelId, TByte* bytesStream, TByte* materi
 		{
 			//! if normals are not present - calculate them!
 			// calculate the length of the axis of the vertex
-			TFloat length = sqrt(pow(o->e[0], 2.0)
+			Float length = sqrt(pow(o->e[0], 2.0)
 				+ pow(o->e[1], 2.0)
 				+ pow(o->e[2], 2.0));
 
@@ -246,7 +246,7 @@ CModelManager::getModelById(string textId, SModelData& out)
 			glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLushort) * result->second.m_indexes.size(), &result->second.m_indexes[0], GL_STATIC_DRAW);
 
 			// allocation integrity check
-			TInt32 allocIntegrityChk = 0;
+			Int32 allocIntegrityChk = 0;
 			glGetBufferParameteriv(GL_ELEMENT_ARRAY_BUFFER, GL_BUFFER_SIZE, &allocIntegrityChk);
 			if (allocIntegrityChk != result->second.m_indexes.size() * sizeof(GLushort))
 			{

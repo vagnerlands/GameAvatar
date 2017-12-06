@@ -3,7 +3,7 @@
 #include "CViewLightSpecular.h"
 #include "CViewLightDiffuse.h"
 
-const TFloat CHumanView::s_DEFAULT_MOVEMENT_DISTANCE = 0.5F;
+const Float CHumanView::s_DEFAULT_MOVEMENT_DISTANCE = 0.5F;
 
 CHumanView::CHumanView()
 {

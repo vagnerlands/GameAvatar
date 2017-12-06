@@ -50,9 +50,9 @@ protected:
 	// shall have a pointer to the room location where 
 	CRoom* m_location;
 	ISocket* m_socket;
-	TInt32 m_life;
-	TInt32 m_mana;
-	TInt32 m_strength;
+	Int32 m_life;
+	Int32 m_mana;
+	Int32 m_strength;
 
 	string m_user;
 	bool m_isCharacterCreated;

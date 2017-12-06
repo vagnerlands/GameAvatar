@@ -20,11 +20,13 @@ c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\debu
 c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\debug\cviewlightambient.obj
 c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\debug\cviewlightdiffuse.obj
 c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\debug\cviewlightspecular.obj
+c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\debug\creshandle.obj
 c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\debug\zipfile.obj
 c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\debug\ccamera.obj
 c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\debug\cansistring.obj
 c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\debug\cmodelmanager.obj
 c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\debug\cshadermanager.obj
+c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\debug\ctextmanager.obj
 c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\debug\cthreadholder.obj
 c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\debug\cwinmutex.obj
 c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\debug\cwinsocket.obj
@@ -38,10 +40,6 @@ c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\debu
 c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\debug\cddsimage.obj
 c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\debug\cfonts.obj
 c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\debug\ctargaimage.obj
-c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\debug\cnoise.obj
-c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\debug\creshandle.obj
-c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\debug\ctextmanager.obj
-c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\debug\noise.obj
 c:\users\vagner\documents\visual studio 2015\projects\gameavatar\debug\gameavatar.ilk
 c:\users\vagner\documents\visual studio 2015\projects\gameavatar\debug\gameavatar.exe
 c:\users\vagner\documents\visual studio 2015\projects\gameavatar\debug\gameavatar.pdb

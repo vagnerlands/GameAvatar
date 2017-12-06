@@ -7,7 +7,7 @@ class CViewElementModel : public IViewElement
 {
 public:
 
-	CViewElementModel(TFloat posX, TFloat posY, TFloat posZ, TFloat width, TFloat height, TFloat volume, string modelName, Types::EDrawDirective drawDirective = Types::DrawDirective_Triangles);
+	CViewElementModel(Float posX, Float posY, Float posZ, Float width, Float height, Float volume, string modelName, Types::EDrawDirective drawDirective = Types::DrawDirective_Triangles);
 
 	virtual ~CViewElementModel();
 

@@ -40,7 +40,7 @@ public:
 		return GameViewElement_Undefined;
 	}
 
-	virtual void VSetTransparency(TFloat transparency)
+	virtual void VSetTransparency(Float transparency)
 	{
 		m_transparency = transparency;
 	}
@@ -64,7 +64,7 @@ protected:
 		return true;
 	}
 
-	TFloat m_transparency;
+	Float m_transparency;
 
 };
 

@@ -19,6 +19,7 @@
 #include "CGameController.h"
 #include "CCamera.h"
 #include "Skybox.h"
+#include "CTerrainDatabaseLoader.h"
 
 #include "GL/glut.h"
 
@@ -33,6 +34,10 @@ public:
 
 	// for application closure
 	void Close();
+	
+	// perform general updates in the game state
+	// such as database load, generating random encounters, preparing lookup tables, etc
+	void Update();
 
 	//bool validateUserLogin(string socketKey, string login, bool* isCharacterCreated);
 
@@ -58,6 +63,9 @@ public:
 
 	CCamera m_camera;
 
+	// performs all tasks related to terrain creation
+	CTerrainDatabaseLoader m_terrainLoader;
+
 private:
 	CGameCockpit();
 	~CGameCockpit();
@@ -67,7 +75,6 @@ private:
 
 	ViewList m_views;
 	HUDList m_huds;
-
 
 	// list of processes for background thread
 	list<shared_ptr<IProcess>> m_processes;

@@ -9,6 +9,8 @@ void CResourcesLoader::execute()
 	{
 		nextProcess->load();
 		CGameCockpit::instance()->popProcess(nextProcess);
+		// perform backgroun updates in the game state
+		CGameCockpit::instance()->Update();
 	}
 }
 

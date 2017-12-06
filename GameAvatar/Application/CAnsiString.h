@@ -16,7 +16,7 @@ public:
 
 	string getData();
 
-	TInt32 size();
+	Int32 size();
 
 	// removes all format definitions
 	void resetFormat();
@@ -54,7 +54,7 @@ CAnsiString::getData()
 	return m_data;
 }
 
-inline TInt32 
+inline Int32 
 CAnsiString::size()
 {
 	return m_data.size();

@@ -16,25 +16,27 @@ public:
 
 	void SetLookAtMatrix();
 
-	void RotateX(TFloat Angle);
+	void RotateX(Float Angle);
 
-	void RotateY(TFloat Angle);
+	void RotateY(Float Angle);
 
-	void RotateZ(TFloat Angle);
+	void RotateZ(Float Angle);
 
-	void MoveForward(TFloat Distance);
+	void MoveForward(Float Distance);
 
-	void MoveUpward(TFloat Distance);
+	void MoveUpward(Float Distance);
 
-	void MoveRight(TFloat Distance);
+	void MoveRight(Float Distance);
 	
-	void HoverForward(TFloat Distance);
+	void HoverForward(Float Distance);
 
-	void HoverRight(TFloat Distance);
+	void HoverRight(Float Distance);
 
-	void SetCameraAttribute(CameraAttributeType attr, TFloat x, TFloat y, TFloat z);
+	void SetCameraAttribute(CameraAttributeType attr, Float x, Float y, Float z);
 
 	void SetCameraAttribute(CameraAttributeType attr, glm::vec3 xyz);
+
+	glm::vec3 GetCameraAttribute(CameraAttributeType attr);
 
 private:
 	// view/forward vector
@@ -49,5 +51,10 @@ private:
 	glm::vec3 m_rotation;
 };
 
+inline glm::vec3 
+CCamera::GetCameraAttribute(CameraAttributeType attr)
+{
+	return m_position;
+}
 
 #endif //_CCAMERA_H_

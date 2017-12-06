@@ -21,7 +21,7 @@ public:
 	void destroy();
 private:
 	HANDLE m_mutexHandle;
-	TUInt32 m_counter;
+	UInt32 m_counter;
 	string m_mutexName;
 };
 

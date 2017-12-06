@@ -11,7 +11,7 @@ class CViewLightSpecular : public IViewLight
 {
 public:
 
-	CViewLightSpecular(TFloat posX, TFloat posY, TFloat width, TFloat height);
+	CViewLightSpecular(Float posX, Float posY, Float width, Float height);
 	// constructor - every object starts as displayed
 	CViewLightSpecular()
 	{

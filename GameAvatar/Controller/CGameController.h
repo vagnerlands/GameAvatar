@@ -44,13 +44,13 @@ public:
 		return true;
 	}
 
-	bool VOnKeyDown(const TByte c) 
+	bool VOnKeyDown(const Byte c) 
 	{ 
 		m_bKey[c] = true; 
 		return true; 
 	}
 
-	bool VOnKeyUp(const TByte c) 
+	bool VOnKeyUp(const Byte c) 
 	{ 
 		m_bKey[c] = false; 
 		return true; 

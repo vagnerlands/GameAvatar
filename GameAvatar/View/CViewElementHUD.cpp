@@ -69,7 +69,7 @@ void CViewElementHUD::VRender()
 }
 
 void
-CViewElementHUD::VRenderBitmap(TFloat x, TFloat y, TInt32 fontSize, TInt32 maxWidth, TInt32 maxHeight, void *font, const TByte *string)
+CViewElementHUD::VRenderBitmap(Float x, Float y, Int32 fontSize, Int32 maxWidth, Int32 maxHeight, void *font, const Byte *string)
 {
 	const char *c;
 	// set position to start drawing fonts
@@ -106,7 +106,7 @@ CViewElementHUD::VRenderBitmap(TFloat x, TFloat y, TInt32 fontSize, TInt32 maxWi
 void CViewElementHUD::VPostRender()
 {
 
-	TInt32 err = glGetError();
+	Int32 err = glGetError();
 	if (err != 0)
 	{
 		printf("glError Disabling states Model = %d\n", err);
@@ -129,7 +129,7 @@ void CViewElementHUD::applyTexture(string textId)
 	}
 
 	glEnable(GL_TEXTURE_2D);
-	TInt32 err = glGetError();
+	Int32 err = glGetError();
 	if (err != 0)
 	{
 		printf("glError EnableTexture2D=%d\n", err);

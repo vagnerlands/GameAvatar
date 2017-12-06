@@ -19,7 +19,7 @@ public:
 	void LoadTexture(const string textId);
 	void RemoveTexture(const string textId);
 	GLuint getTextureById(string textId);
-	void AddTextureContent(string textId, Types::TByte* data);
+	void AddTextureContent(string textId, Types::Byte* data);
 	CTextManager::~CTextManager();
 
 	// external callback event in case a resource is deallocated

@@ -114,8 +114,8 @@ CWinSocket::startListenSocket()
 
 }
 
-TInt32 
-CWinSocket::write(const TByte* buffer, TInt32 const size)
+Int32 
+CWinSocket::write(const Byte* buffer, Int32 const size)
 {
 	// temporary variable
 	int iSendResult;
@@ -135,8 +135,8 @@ CWinSocket::write(const TByte* buffer, TInt32 const size)
 
 // incoming buffer
 // size in bytes
-TInt32
-CWinSocket::read(TByte* buffer, TInt32 *size)
+Int32
+CWinSocket::read(Byte* buffer, Int32 *size)
 {
 	// read the socket and place content in buffer*
 	// *size shall hold the amount of bytes read
@@ -181,7 +181,7 @@ CWinSocket::parseReadBuffer()
 		found = false;
 		// Search for \r\n commands (enter)
 		// and add these commands in the m_commandQ
-		for (TInt32 i = 0; i < m_rbli; i++)
+		for (Int32 i = 0; i < m_rbli; i++)
 		{
 			// if an [enter] key was pressed
 			if ((m_readBuffer[i] == '\r') && (m_readBuffer[i + 1] == '\n'))

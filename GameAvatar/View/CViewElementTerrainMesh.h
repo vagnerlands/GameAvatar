@@ -3,29 +3,32 @@
 
 #include "IViewElement.h"
 
+class CTerrainDatabaseLoader;
+
 class CViewElementTerrainMesh : public IViewElement
 {
 public:
 
-	CViewElementTerrainMesh(TFloat posX, TFloat posY, TFloat posZ, TFloat width, TFloat height, TFloat volume);
+	CViewElementTerrainMesh(Float posX, Float posY, Float posZ, Float width, Float height, Float volume);
 
 	virtual ~CViewElementTerrainMesh();
 
-	virtual void VPreRender();
+	virtual void VPreRender() override;
 
-	virtual void VRender();
+	virtual void VRender() override;
 
-	virtual void VPostRender();
+	virtual void VPostRender() override;
 
 	// debug purposes
-	virtual char* GetName()
+	virtual char* GetName() 
 	{
-		return "Model";
+		return "TerrainMesh";
 	}
-	virtual GameViewElement VGetType()
+	virtual GameViewElement VGetType() override
 	{
 		return GameViewElement_TerrainMesh;
 	}
+
 protected:
 	virtual void applyTexture(string textId);
 

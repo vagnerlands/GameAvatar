@@ -41,7 +41,7 @@ CTextManager::OpenResourceFile()
 {
 	m_textureFiles.VOpen();
 
-	// add common textures
+	/*// add common textures
 	// NOISE TEXTURE
 	{
 		glEnable(GL_TEXTURE_3D);
@@ -93,7 +93,7 @@ CTextManager::OpenResourceFile()
 		m_textures.insert(make_pair("cubetexture", CubeTexture));
 
 		glDisable(GL_TEXTURE_CUBE_MAP);
-	}
+	}*/
 }
 
 void 
@@ -126,9 +126,9 @@ CTextManager::LoadTexture(const string textId)
 	// cache missed - must reload it from resources db
 	CResource resourceItem(textId);
 	//shared_ptr<CResHandle> bytesStream = m_cacheDb.GetHandle(&resExample);
-	Types::TByte* bytesStream = new Types::TByte[m_textureFiles.VGetResourceSize(resourceItem)];
-	TInt32 status = m_textureFiles.VGetResource(resourceItem, bytesStream);
-	//TByte* data = bytesStream->Buffer();	
+	Types::Byte* bytesStream = new Types::Byte[m_textureFiles.VGetResourceSize(resourceItem)];
+	Int32 status = m_textureFiles.VGetResource(resourceItem, bytesStream);
+	//Byte* data = bytesStream->Buffer();	
 	// status OK
 	if (status == 0)
 	{
@@ -149,18 +149,18 @@ void CTextManager::BuildTexture()
 	for (auto it = m_textureContentMap.begin(); !m_textureContentMap.empty();)
 	{
 		// whole data content of the image (texture)
-		TByte* data = it->second;
+		Byte* data = it->second;
 		// retrieve header information
 		// offset for start of bmp data
-		TInt32 dataPos = *(int*)&(data[0x0A]);
+		Int32 dataPos = *(int*)&(data[0x0A]);
 		// image size in bytes
-		TInt32 imageSize = *(int*)&(data[0x22]);
+		Int32 imageSize = *(int*)&(data[0x22]);
 		// width in pixels
-		TInt32 width = *(int*)&(data[0x12]);
+		Int32 width = *(int*)&(data[0x12]);
 		// height in pixels
-		TInt32 height = *(int*)&(data[0x16]);
+		Int32 height = *(int*)&(data[0x16]);
 		// supports only 24bits and 32bits
-		TInt32 numOfBytesPerPixel = 3;
+		Int32 numOfBytesPerPixel = 3;
 		// checks if this image is 32 bits
 		if (imageSize == (width * height * 4))
 			numOfBytesPerPixel = 4;
@@ -187,8 +187,8 @@ void CTextManager::BuildTexture()
 			printf("glError Texture parameters=%d\n", err);
 		}
 		// data must be sent in BGRA order - must swap byte order of integer
-		TByte* swapBuffer = new TByte[width*height*numOfBytesPerPixel];
-		for (TInt32 x = 0; x < (width*height*numOfBytesPerPixel);)
+		Byte* swapBuffer = new Byte[width*height*numOfBytesPerPixel];
+		for (Int32 x = 0; x < (width*height*numOfBytesPerPixel);)
 		{
 			if (numOfBytesPerPixel == 4)
 			{
@@ -274,7 +274,7 @@ CTextManager::getTextureById(string textId)
 }
 
 void 
-CTextManager::AddTextureContent(string textId, Types::TByte* data)
+CTextManager::AddTextureContent(string textId, Types::Byte* data)
 {
 	m_textureContentMapMutex->mutexLock();
 	m_textureContentMap.insert(make_pair(textId, data));

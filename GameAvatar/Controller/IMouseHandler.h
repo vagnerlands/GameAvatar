@@ -23,11 +23,11 @@ public:
 	virtual bool VOnRButtonUp(const CPoint& mousePos) = 0;
 	
 	// attributes about mouse movement for decisions
-	TInt32 m_movementIntensityX;
-	TInt32 m_movementIntensityY;
-	TInt32 m_movementAngle;
-	TInt32 m_distanceFromCenter;
-	TInt32 m_angleFromCenter;
+	Int32 m_movementIntensityX;
+	Int32 m_movementIntensityY;
+	Int32 m_movementAngle;
+	Int32 m_distanceFromCenter;
+	Int32 m_angleFromCenter;
 
 	CPoint m_lastPos;
 	

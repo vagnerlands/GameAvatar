@@ -4,7 +4,7 @@
 #include "CShaderManager.h"
 #include "CCommonUtils.h"
 
-CViewElementModel::CViewElementModel(TFloat posX, TFloat posY, TFloat posZ, TFloat width, TFloat height, TFloat volume, string modelName, Types::EDrawDirective drawDirective)
+CViewElementModel::CViewElementModel(Float posX, Float posY, Float posZ, Float width, Float height, Float volume, string modelName, Types::EDrawDirective drawDirective)
 {
 	m_position.x = posX;
 	m_position.y = posY;
@@ -43,7 +43,7 @@ void CViewElementModel::VRender()
 	applyTexture("furTex.bmp");
 
 	glUseProgram(m_pProgramShader->GetProgramObject());
-	TInt32 err = glGetError();
+	Int32 err = glGetError();
 	if (err != 0)
 	{
 		printf("glError after glUseProgram =%d\n", err);
@@ -88,7 +88,7 @@ void CViewElementModel::VPostRender()
 	glDisableClientState(GL_NORMAL_ARRAY);
 	glDisableClientState(GL_VERTEX_ARRAY);
 
-	TInt32 err = glGetError();
+	Int32 err = glGetError();
 	if (err != 0)
 	{
 		printf("glError Disabling states Model = %d\n", err);
@@ -113,7 +113,7 @@ void CViewElementModel::applyTexture(string textId)
 	}
 
 	glEnable(GL_TEXTURE_2D);
-	TInt32 err = glGetError();
+	Int32 err = glGetError();
 	if (err != 0)
 	{
 		printf("glError EnableTexture2D=%d\n", err);

@@ -20,7 +20,7 @@ varying vec3 vViewVec;
 void main(void)
 {   
 	vec2 tcoord = vTexCoord;
-	//tcoord.x += waveSpeed  * time_0_X;
+	tcoord.x += waveSpeed  * time_0_X;
 	//gl_FragColor = texture3D(Noise, vec3(tcoord,1)).rgba;
     gl_FragColor = texture2D(myTextureSampler, tcoord).rgba;
 	

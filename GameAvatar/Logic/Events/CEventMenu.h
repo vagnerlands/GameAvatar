@@ -38,12 +38,12 @@ public:
 		m_state = state;
 	}
 
-	TInt32 GetOption()
+	Int32 GetOption()
 	{
 		return m_option;
 	}
 
-	void SetOption(TInt32 option)
+	void SetOption(Int32 option)
 	{
 		m_option = option;
 	}
@@ -59,7 +59,7 @@ protected:
 	// current state
 	ESocketState m_state;
 	// selected option (shall be casted accordingly to the current state to reflect user selection)
-	TInt32 m_option;
+	Int32 m_option;
 
 };
 

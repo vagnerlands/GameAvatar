@@ -3,7 +3,6 @@
 #ifdef _WIN_
 #include "CWinMutex.h"
 #endif
-
 #include <time.h>
 
 CGameCockpit* CGameCockpit::s_pInstance = NULL;
@@ -30,6 +29,10 @@ CGameCockpit::run()
 	glMatrixMode(GL_MODELVIEW);
 	// Set background (clear) color to black
 	glClearColor(0.0, 0.0, 0.0, 1.0);
+
+	// updates the terrain loading area according to camera location 
+	glm::vec3 cameraLocation = m_camera.GetCameraAttribute(Types::CameraAttribute_Position);
+	m_terrainLoader.SetCoordinates(CCoordinates(cameraLocation.x, cameraLocation.y));
 
 	// prepares 3D PROJECTION
 	m_camera.prepareProjection3D();
@@ -210,6 +213,9 @@ CGameCockpit::CGameCockpit()
 	m_camera.SetCameraAttribute(CameraAttributeType::CameraAttribute_Right, 1.0f, 0.0f, 0.f);
 	m_camera.SetCameraAttribute(CameraAttributeType::CameraAttribute_Forward, -0.000001f, -0.38975f, -0.92089f);
 
+	m_terrainLoader.Initialize("C:/Users/Vagner/Documents/Visual Studio 2015/Projects/GameAvatar/GameAvatar/Resources/MyDatabase Height Map (ASTER 30m).png", 100);
+	m_terrainLoader.SetCoordinates(CCoordinates(60, 60));
+
 	//m_objSkyBox = new CSkybox();
 	//m_objSkyBox->init(90, "./Resources/tex_cube/");
 
@@ -239,6 +245,13 @@ CGameCockpit::Close()
 	delete s_pInstance;
 
 }
+
+void CGameCockpit::Update()
+{
+	// updates the terrain situation - if there is any need to update
+	m_terrainLoader.Update();
+}
+
 
 CGameCockpit::~CGameCockpit()
 {

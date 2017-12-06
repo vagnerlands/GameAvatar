@@ -7,6 +7,11 @@
 #include "GL/glut.h"
 using namespace Types;
 
+/*
+ * Interface class for any element visible on screen. 
+ * Provides basic implementation constraints.
+ * This object shall be added to a IView in order to be rendered
+ */
 class IViewElement
 {
 public:
@@ -48,21 +53,21 @@ public:
 		return GameViewElement_Undefined;
 	}
 
-	virtual void VScale(TFloat x, TFloat y, TFloat z)
+	virtual void VScale(Float x, Float y, Float z)
 	{
 		m_scale.x *= x;
 		m_scale.y *= y;
 		m_scale.z *= z;
 	}
 
-	virtual void VRotateX(TFloat x)
+	virtual void VRotateX(Float x)
 	{
 		m_rotate.x += x;
 		if (m_rotate.x > 360.0f) m_rotate.x -= 360.0f;
 		else if (m_rotate.x < 0.0f) m_rotate.x += 360.0f;
 	}
 
-	virtual void VRotateY(TFloat y)
+	virtual void VRotateY(Float y)
 	{
 		m_rotate.y += y;
 		if (m_rotate.y > 360.0f) m_rotate.y = 0.0f;
@@ -70,24 +75,24 @@ public:
 		std::cout << m_rotate.y << std::endl;
 	}
 
-	virtual void VRotateZ(TFloat z)
+	virtual void VRotateZ(Float z)
 	{
 		m_rotate.z += z;
 		if (m_rotate.z > 360.0f) m_rotate.z -= 360.0f;
 		else if (m_rotate.z < 0.0f) m_rotate.z += 360.0f;
 	}
 
-	virtual void VTranslateX(TFloat x)
+	virtual void VTranslateX(Float x)
 	{
 		m_position.x += x;
 	}
 
-	virtual void VTranslateY(TFloat y)
+	virtual void VTranslateY(Float y)
 	{
 		m_position.y += y;
 	}
 
-	virtual void VTranslateZ(TFloat z)
+	virtual void VTranslateZ(Float z)
 	{
 		m_position.z += z;
 	}

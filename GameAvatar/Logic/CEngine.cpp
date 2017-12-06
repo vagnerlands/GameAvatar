@@ -5,6 +5,7 @@
 #include "CThreadHolder.h"
 #include "CEventManager.h"
 #include <iostream>
+#include <stdio.h>
 //#define _DEBUG
 #define _CRTDBG_MAP_ALLOC
 #include <crtdbg.h>
@@ -68,7 +69,7 @@ CEngine::execute()
 		//delete m_pInstance;
 	}
 
-	TInt32 err = glGetError();
+	Int32 err = glGetError();
 	while (err != 0)
 	{
 		printf("glError Unknown error = %d\n", err);
@@ -79,7 +80,7 @@ CEngine::execute()
 }
 
 void
-CEngine::reshape(TInt32 w, TInt32 h)
+CEngine::reshape(Int32 w, Int32 h)
 {
 	glViewport(0, 0, (GLsizei)s_SCREEN_WIDTH, (GLsizei)s_SCREEN_HEIGHT);
 
@@ -105,13 +106,13 @@ CEngine::RunWrap()
 }
 
 void 
-CEngine::ReshapeWrap(TInt32 w, TInt32 h)
+CEngine::ReshapeWrap(Int32 w, Int32 h)
 {
 	m_pInstance->reshape(w, h);
 }
 
 // reads the user input key - KEY DOWN
-void CEngine::KeyboardInput(TUByte key, int x, int y)
+void CEngine::KeyboardInput(UByte key, int x, int y)
 {
 	if (key == 'c')
 	{
@@ -183,7 +184,7 @@ void CEngine::MouseInput(int button, int state, int x, int y)
 }
 
 // reads the user input key - KEY UP
-void CEngine::KeyboardRelease(TUByte key, int x, int y)
+void CEngine::KeyboardRelease(UByte key, int x, int y)
 {
 	// if ESC key - application must be terminated
 	if (key == 27) 
@@ -266,6 +267,9 @@ CEngine::ignition()
 	CShaderManager::instance()->LoadShader("simpletexture");
 	CShaderManager::instance()->LoadShader("water");
 	CShaderManager::instance()->LoadShader("water2d");
+
+	// initialize game cockpit to avoid creating it twice!
+	CGameCockpit::instance();
 
 	// creates a thread for loading resources purpose
 	CThreadHolder::instance()->registerThread("thBackgroundLoader", BackgroundLoader);

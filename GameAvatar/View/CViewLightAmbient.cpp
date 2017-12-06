@@ -1,7 +1,7 @@
 #include "CHumanView.h"
 #include "CViewLightAmbient.h"
 
-CViewLightAmbient::CViewLightAmbient(TFloat posX, TFloat posY, TFloat width, TFloat height)
+CViewLightAmbient::CViewLightAmbient(Float posX, Float posY, Float width, Float height)
 {
 	m_position.x = posX;
 	m_position.y = posY;
@@ -80,7 +80,7 @@ void CViewLightAmbient::VPostRender()
 	glDisable(GL_TEXTURE_2D);
 	glPopMatrix();
 	
-	TInt32 err = glGetError();
+	Int32 err = glGetError();
 	if (err != 0)
 	{
 		printf("glError glPopMatrix=%d\n", err);
@@ -98,7 +98,7 @@ void CViewLightAmbient::applyTexture(string textId)
 		return;
 	}
 
-	TInt32 err = glGetError();
+	Int32 err = glGetError();
 	if (err != 0)
 	{
 		printf("glError Before=%d\n", err);

@@ -35,20 +35,20 @@ public:
 	// return value isn't 0 - connection problem, delete this socket
 	//  to avoid memory leak
 	// content of buffer till it's size will be copied
-	TInt32 write(const TByte* buffer, TInt32 const size);
+	Int32 write(const Byte* buffer, Int32 const size);
 
 	// return value 0 is okay
 	// return value isn't 0 - connection problem, delete this socket
 	//  to avoid memory leak
 	// the buffer will be copied to Byte* pointer
-	TInt32 read(TByte* buffer, TInt32* size);
+	Int32 read(Byte* buffer, Int32* size);
 
 	void closeSocket();
 
 	void invalidateSocket();
 
-	TUInt16 getClientPort();
-	TByte* getClientIP();
+	UInt16 getClientPort();
+	Byte* getClientIP();
 
 	CICommand* CreateCommand();
 
@@ -65,7 +65,7 @@ private:
 	// parses the m_readBuffer and insert commands in m_commandQ
 	void parseReadBuffer();
 	// maximum buffer size for read messages
-	static const TUInt32 s_MAX_BUFFER_SIZE = 1024;
+	static const UInt32 s_MAX_BUFFER_SIZE = 1024;
 	// client socket 
 	SOCKET m_clientSocket;
 	// intentionally static
@@ -77,7 +77,7 @@ private:
 	// input buffer for commands
 	char m_readBuffer[s_MAX_BUFFER_SIZE];
 	// read buffer last index
-	TInt32 m_rbli;
+	Int32 m_rbli;
 
 	// this socket status
 	ESocketState m_state;
@@ -101,13 +101,13 @@ CWinSocket::closeSocket()
 	m_clientSocket = INVALID_SOCKET;
 }
 
-inline TUInt16
+inline UInt16
 CWinSocket::getClientPort()
 {
 	return ntohs(m_clientInfo.sin_port);
 }
 
-inline TByte*
+inline Byte*
 CWinSocket::getClientIP()
 {
 	return inet_ntoa(m_clientInfo.sin_addr);

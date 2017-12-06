@@ -12,7 +12,7 @@ class CViewLightAmbient : public IViewLight
 public:
 	// constructor - every object starts as displayed
 
-	CViewLightAmbient(TFloat posX, TFloat posY, TFloat width, TFloat height);
+	CViewLightAmbient(Float posX, Float posY, Float width, Float height);
 
 	CViewLightAmbient()
 	{

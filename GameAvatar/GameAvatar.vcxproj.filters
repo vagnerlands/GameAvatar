@@ -57,6 +57,9 @@
     <Filter Include="Source Files\Application\Camera">
       <UniqueIdentifier>{7a8538d9-5daf-425d-9314-c4f6dce28525}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Application\Terrain">
+      <UniqueIdentifier>{343539be-7531-4622-96f2-e7b034e73187}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -180,6 +183,15 @@
       <Filter>Source Files\Application\Utilities</Filter>
     </ClCompile>
     <ClCompile Include="Application\Utilities\CDDSImage.cpp">
+      <Filter>Source Files\Application\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Terrain\CLandscape.cpp">
+      <Filter>Source Files\Application\Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Terrain\CTerrainDatabaseLoader.cpp">
+      <Filter>Source Files\Application\Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Utilities\CPngLoader.cpp">
       <Filter>Source Files\Application\Utilities</Filter>
     </ClCompile>
   </ItemGroup>
@@ -351,6 +363,15 @@
       <Filter>Source Files\Application\Utilities</Filter>
     </ClInclude>
     <ClInclude Include="Application\Utilities\CNoise.h">
+      <Filter>Source Files\Application\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Terrain\CLandscape.h">
+      <Filter>Source Files\Application\Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Terrain\CTerrainDatabaseLoader.h">
+      <Filter>Source Files\Application\Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Utilities\CPngLoader.h">
       <Filter>Source Files\Application\Utilities</Filter>
     </ClInclude>
   </ItemGroup>

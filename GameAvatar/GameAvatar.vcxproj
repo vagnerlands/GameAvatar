@@ -87,14 +87,13 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_WIN_;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>./Application;./Controller;./Logic;./Logic/UI/;./Logic/Commands;./View/;./Application/Shaders;./Application/Cache;./Application/Cache/ResourceCache;./Application/Cache/ZLib;./Application/Debug/;./Application/Loader/;./Application/Camera/;./Application/Utilities/;./Application/Utilities/ModelParser/;./Logic/Events/;./3rdParty/DevIL_64bits/include/</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./Application;./Controller;./Logic;./Logic/UI/;./Logic/Commands;./View/;./Application/Shaders;./Application/Cache;./Application/Cache/ResourceCache;./Application/Cache/ZLib;./Application/Debug/;./Application/Loader/;./Application/Camera/;./Application/Utilities/;./Application/Utilities/ModelParser/;./Logic/Events/;./3rdParty/DevIL_64bits/include/;./Application/Terrain;./3rdParty/pnglib;./3rdParty/pnglib/lpng1626</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>zlib.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>
-      </AdditionalLibraryDirectories>
+      <AdditionalDependencies>zlib.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;libpng16.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>./3rdParty/pnglib</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -118,7 +117,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>_WIN_;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>./Application;./Controller;./Logic;./Logic/UI/;./Logic/Commands;./View/;./Application/Shaders;./Application/Cache;./Application/Cache/ResourceCache;./Application/Cache/ZLib;./Application/Debug/;./Application/Loader/;./Application/Utilities/;./Application/Utilities/ModelParser/;./Logic/Events/</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./Application;./Controller;./Logic;./Logic/UI/;./Logic/Commands;./View/;./Application/Shaders;./Application/Cache;./Application/Cache/ResourceCache;./Application/Cache/ZLib;./Application/Debug/;./Application/Loader/;./Application/Utilities/;./Application/Utilities/ModelParser/;./Logic/Events/;./Application/Camera;./Application/Terrain</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -165,9 +164,12 @@
     <ClCompile Include="Application\Loader\CProcessLoadTexture.cpp" />
     <ClCompile Include="Application\Loader\CResourcesLoader.cpp" />
     <ClCompile Include="Application\Shaders\glsl.cpp" />
+    <ClCompile Include="Application\Terrain\CLandscape.cpp" />
+    <ClCompile Include="Application\Terrain\CTerrainDatabaseLoader.cpp" />
     <ClCompile Include="Application\Utilities\CCommonUtils.cpp" />
     <ClCompile Include="Application\Utilities\CDDSImage.cpp" />
     <ClCompile Include="Application\Utilities\CFonts.cpp" />
+    <ClCompile Include="Application\Utilities\CPngLoader.cpp" />
     <ClCompile Include="Application\Utilities\CTargaImage.cpp" />
     <ClCompile Include="Application\Utilities\objParser\list.cpp" />
     <ClCompile Include="Application\Utilities\objParser\objLoader.cpp" />
@@ -213,11 +215,14 @@
     <ClInclude Include="Application\Loader\CResourcesLoader.h" />
     <ClInclude Include="Application\Loader\IProcess.h" />
     <ClInclude Include="Application\Shaders\glsl.h" />
+    <ClInclude Include="Application\Terrain\CLandscape.h" />
+    <ClInclude Include="Application\Terrain\CTerrainDatabaseLoader.h" />
     <ClInclude Include="Application\Utilities\CCommonUtils.h" />
     <ClInclude Include="Application\Utilities\CDDSImage.h" />
     <ClInclude Include="Application\Utilities\CFonts.h" />
     <ClInclude Include="Application\Utilities\CMathTypes.h" />
     <ClInclude Include="Application\Utilities\CNoise.h" />
+    <ClInclude Include="Application\Utilities\CPngLoader.h" />
     <ClInclude Include="Application\Utilities\CTargaImage.h" />
     <ClInclude Include="Application\Utilities\objParser\list.h" />
     <ClInclude Include="Application\Utilities\objParser\objLoader.h" />

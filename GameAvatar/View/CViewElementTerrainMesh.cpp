@@ -2,8 +2,9 @@
 #include "CViewElementTerrainMesh.h"
 #include "CModelManager.h"
 #include "CShaderManager.h"
-
-CViewElementTerrainMesh::CViewElementTerrainMesh(TFloat posX, TFloat posY, TFloat posZ, TFloat width, TFloat height, TFloat volume)
+#include "CTerrainDatabaseLoader.h"
+#include "CGameCockpit.h"
+CViewElementTerrainMesh::CViewElementTerrainMesh(Float posX, Float posY, Float posZ, Float width, Float height, Float volume)
 {
 	m_position.x = posX;
 	m_position.y = posY;
@@ -30,14 +31,14 @@ CViewElementTerrainMesh::VPreRender()
 void 
 CViewElementTerrainMesh::VRender()
 {
-	if (!loadShader("water2d"))
+	if (!loadShader("model"))
 	{
 		return;
 	}
 
 	applyTexture("water.bmp");
 
-	TInt32 err = 0;
+	Int32 err = 0;
 	glUseProgram(m_pProgramShader->GetProgramObject());
 	err = glGetError();
 	if (err != 0)
@@ -64,7 +65,7 @@ CViewElementTerrainMesh::VRender()
 	//if (incTime <= 0.0f) signal = true;
 	m_pProgramShader->setUniform1f("time_0_X", incTime);
 	static float wavefreq = 0.0f;
-	wavefreq += 0.0001;
+	wavefreq += 0.01;
 	m_pProgramShader->setUniform1f("wavefreq", wavefreq);
 	err = glGetError();
 	if (err != 0)
@@ -94,6 +95,58 @@ CViewElementTerrainMesh::VRender()
 	GLfloat mat_shininess[] = { 50.0 };
 	glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
 
+	UInt16** terrainData = (UInt16**)CGameCockpit::instance()->m_terrainLoader.GetTerrain();
+	glDisable(GL_TEXTURE_2D);
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	glColor3f(0.0f, 1.0f, 1.0f);
+	for (Int32 i = 0; i < 99; ++i)
+	{
+		for (Int32 j = 0; j < 99; ++j)
+		{
+			glm::vec3 pointA(i, terrainData[i][j], j);
+			glm::vec3 pointB(i+1, terrainData[i+1][j], j);
+			glm::vec3 pointC(i + 1, terrainData[i + 1][j + 1], j + 1);
+			glm::vec3 pointD(i, terrainData[i][j + 1], j + 1);
+
+			glm::vec3 polygon1Normal = glm::cross(pointA, pointB);
+			glm::vec3 polygon2Normal = glm::cross(pointD, pointC);
+
+			glBegin(GL_TRIANGLES);
+			
+			glNormal3f(polygon1Normal.x, polygon1Normal.y, polygon1Normal.z);
+			glTexCoord2f(0.0f, 0.0f);
+			glVertex3f(i, terrainData[i][j], j);
+
+			glNormal3f(polygon1Normal.x, polygon1Normal.y, polygon1Normal.z);
+			glTexCoord2f(1.0f, 0.0f);
+			glVertex3f(i + 1, terrainData[i + 1][j], j);
+			
+			glNormal3f(polygon1Normal.x, polygon1Normal.y, polygon1Normal.z);
+			glTexCoord2f(0.0f, 1.0f);
+			glVertex3f(i, terrainData[i][j + 1], j + 1);
+
+			glEnd();
+
+			glBegin(GL_TRIANGLES);
+
+			glNormal3f(polygon2Normal.x, polygon2Normal.y, polygon2Normal.z);
+			glTexCoord2f(1.0f, 1.0f);
+			glVertex3f(i + 1, terrainData[i + 1][j + 1], j + 1);
+
+			glNormal3f(polygon2Normal.x, polygon2Normal.y, polygon2Normal.z);
+			glTexCoord2f(0.0f, 1.0f);
+			glVertex3f(i, terrainData[i][j + 1], j + 1);
+
+			glNormal3f(polygon2Normal.x, polygon2Normal.y, polygon2Normal.z);
+			glTexCoord2f(1.0f, 0.0f);
+			glVertex3f(i + 1, terrainData[i + 1][j], j);
+
+			glEnd();
+		}
+	}
+
+
+	/*
 	// enable vertices array pointer rendering
 	float verts[] = {
 		// square coordinates
@@ -119,7 +172,7 @@ CViewElementTerrainMesh::VRender()
 	glNormal3f(0.0F, 1.0F, 0.0F);
 	glVertex3f(verts[9], verts[10], verts[11]);
 	glEnd();
-
+	*/
 	//glBindVertexArray(m_data.m_vertexArrayObject);
 	//glDrawElements(GL_TRIANGLES, m_data.m_indexes.size(), GL_UNSIGNED_SHORT, (void*)(0));
 	err = glGetError();
@@ -127,6 +180,8 @@ CViewElementTerrainMesh::VRender()
 	{
 		printf("glError Drawing Model =%d\n", err);
 	}
+
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 }
 
@@ -136,7 +191,7 @@ void CViewElementTerrainMesh::VPostRender()
 	glDisableClientState(GL_NORMAL_ARRAY);
 	glDisableClientState(GL_VERTEX_ARRAY);
 
-	TInt32 err = glGetError();
+	Int32 err = glGetError();
 	if (err != 0)
 	{
 		printf("glError Disabling states Model = %d\n", err);
@@ -150,6 +205,7 @@ void CViewElementTerrainMesh::VPostRender()
 
 	glPopMatrix();
 }
+
 
 void 
 CViewElementTerrainMesh::applyTexture(string textId)
@@ -165,7 +221,7 @@ CViewElementTerrainMesh::applyTexture(string textId)
 	GLint loc = m_pProgramShader->GetUniformLocation("myTextureSampler");
 	if (loc != -1)
 	{
-		TInt32 err = 0;
+		Int32 err = 0;
 		err = glGetError();
 		if (err != 0)
 		{
@@ -198,7 +254,7 @@ CViewElementTerrainMesh::applyTexture(string textId)
 	/*GLint loc = m_pProgramShader->GetUniformLocation("skyBox");
 	if (loc != -1)
 	{
-		TInt32 err = 0;
+		Int32 err = 0;
 		err = glGetError();
 		glActiveTexture(GL_TEXTURE0);
 		if (err != 0)
@@ -242,7 +298,7 @@ CViewElementTerrainMesh::applyTexture(string textId)
 	loc = m_pProgramShader->GetUniformLocation("Noise");
 	if (loc != -1)
 	{
-		TInt32 err = 0;
+		Int32 err = 0;
 		glActiveTexture(GL_TEXTURE1);
 		if (err != 0)
 		{

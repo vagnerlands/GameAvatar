@@ -26,7 +26,7 @@ public:
 
 private:
 	CModelManager();
-	void AddModelContent(string modelId, TByte* bytesStream, TByte* materialStream);
+	void AddModelContent(string modelId, Byte* bytesStream, Byte* materialStream);
 	// local hashmap built textures
 	ModelMap m_models;
 	// mutex for m_processes

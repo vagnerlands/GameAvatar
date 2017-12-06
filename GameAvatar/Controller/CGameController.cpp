@@ -2,7 +2,7 @@
 
 CGameController::CGameController()
 {
-	for (TInt32 i = 0; i < 256; i++)
+	for (Int32 i = 0; i < 256; i++)
 	{
 		m_bKey[i] = false;
 	}
@@ -40,7 +40,7 @@ CGameController::VOnMouseMove(const CPoint &mousePos)
 		// distance from screen center
 		m_distanceFromCenter = sqrt(pow(s_SCREEN_CENTER_X - mousePos.x, 2.0) + pow(s_SCREEN_CENTER_Y - mousePos.y, 2.0));
 		// angle from center of the screen
-		m_angleFromCenter = (TInt32)((atan2(mousePos.y - s_SCREEN_CENTER_Y, mousePos.x - s_SCREEN_CENTER_X) * 180.0f / 3.14F) + 450.0F) % 360;
+		m_angleFromCenter = (Int32)((atan2(mousePos.y - s_SCREEN_CENTER_Y, mousePos.x - s_SCREEN_CENTER_X) * 180.0f / 3.14F) + 450.0F) % 360;
 
 		printf("angle=%d, distCenter = %d, angleCenter = %d\n",
 			m_movementAngle,
