@@ -3,13 +3,15 @@
 #include "CViewLightSpecular.h"
 #include "CViewLightDiffuse.h"
 
-const Float CHumanView::s_DEFAULT_MOVEMENT_DISTANCE = 0.5F;
+const Float CHumanView::s_DEFAULT_MOVEMENT_DISTANCE = 0.05F;
 
 CHumanView::CHumanView()
 {
 	m_lightSources.insert(make_pair("ambient", new CViewLightAmbient(0.0f, 0.0f, .16f, .16f)));
-	m_lightSources.insert(make_pair("specular", new CViewLightSpecular(0.0f, 0.0f, .16f, .16f)));
-	m_lightSources.insert(make_pair("diffuse", new CViewLightSpecular(0.0f, 0.0f, .16f, .16f)));
+	m_lightSources.insert(make_pair("specular", new CViewLightSpecular(160.0f, 0.0f, .16f, .16f)));
+	m_lightSources.insert(make_pair("diffuse", new CViewLightSpecular(0.0f, 100.0f, .16f, .16f)));
+
+	m_userInputListenerName = "Human_View";
 }
 
 CHumanView::~CHumanView()
@@ -30,7 +32,7 @@ CHumanView::~CHumanView()
 void
 CHumanView::UpdateCameraLocation()
 {
-	if (m_pGameCtrl->m_bKey['w'])
+	/*if (m_pGameCtrl->m_bKey['w'])
 	{
 		m_pCamera->HoverForward(s_DEFAULT_MOVEMENT_DISTANCE);
 	}
@@ -55,11 +57,11 @@ CHumanView::UpdateCameraLocation()
 	else if (m_pGameCtrl->m_bKey['g'])
 	{
 		m_pCamera->RotateY(-1.0f);
-	}
+	}*/
 
 	// this routine makes the map moves smoothly according to the cursor position
 	// on the screen
-	if (m_pGameCtrl->m_distanceFromCenter > 280)
+	if (m_pGameCtrl->m_distanceFromCenter > (s_SCREEN_HEIGHT / 2))
 	{
 		// movement on the Z axis
 		m_pCamera->HoverForward(cos(m_pGameCtrl->m_angleFromCenter * s_PI / 180.0F) * s_DEFAULT_MOVEMENT_DISTANCE);
@@ -71,6 +73,7 @@ CHumanView::UpdateCameraLocation()
 void 
 CHumanView::UpdateScenario(const string elementId)
 {
+	/*
 	static string currentLightSource = "specular";
 	if (m_pGameCtrl->m_bKey['1']) currentLightSource = "specular";
 	if (m_pGameCtrl->m_bKey['2']) currentLightSource = "diffuse";
@@ -93,7 +96,8 @@ CHumanView::UpdateScenario(const string elementId)
 	{
 		m_elements[elementId]->VTranslateY(0.5f);
 	}
-
+	*/
+	/*
 	if ((m_pGameCtrl->m_bKey['o']))
 	{
 		m_lightSources[currentLightSource]->VTranslateZ(0.5f);
@@ -125,7 +129,7 @@ CHumanView::UpdateScenario(const string elementId)
 	if ((m_pGameCtrl->m_bKey[',']))
 	{
 		m_lightSources[currentLightSource]->VSetVisible(true);
-	}
+	}*/
 	/*
 	if ((m_pGameCtrl->m_bKey['t']))
 	{
@@ -150,7 +154,7 @@ CHumanView::UpdateScenario(const string elementId)
 void CHumanView::VOnRender()
 {
 	// updates the camera location according to input and current view rules
-	UpdateCameraLocation();
+	//UpdateCameraLocation();
 	// render all light sources first
 	for (ViewLightMap::iterator it = m_lightSources.begin();
 		it != m_lightSources.end();
@@ -177,7 +181,7 @@ void CHumanView::VOnRender()
 			// prepares the OpenGL state machine before starting to draw
 			(*it).second->VPreRender();
 			// update scenario according to user input
-			UpdateScenario((*it).first);
+			//UpdateScenario((*it).first);
 			// actually draws the shape
 			(*it).second->VRender();
 
@@ -202,4 +206,74 @@ void CHumanView::VPopElement(const string elementId, shared_ptr<IViewElement> pE
 	}
 	// if item really exists - then removes it from the DB
 	m_elements.erase(elementId);
+}
+
+void 
+CHumanView::VProcessUserInput(Byte keyId, Int32 keyStatus)
+{
+	if (keyStatus == EKeyStatus::KeyStatus_Pressed)
+	{
+		static string currentLightSource = "specular";
+		static string elementId = "terrain";
+		if (m_pGameCtrl->m_bKey['1']) currentLightSource = "specular";
+		if (m_pGameCtrl->m_bKey['2']) currentLightSource = "diffuse";
+
+		switch (keyId)
+		{
+		case 'w':
+			m_pCamera->HoverForward(s_DEFAULT_MOVEMENT_DISTANCE);
+			break;
+		case 's':
+			m_pCamera->HoverForward(-s_DEFAULT_MOVEMENT_DISTANCE);
+			break;
+		case 'a':
+			m_pCamera->HoverRight(-s_DEFAULT_MOVEMENT_DISTANCE);
+			break;
+		case 'd':
+			m_pCamera->HoverRight(s_DEFAULT_MOVEMENT_DISTANCE);
+			break;
+		case 'f':
+			m_pCamera->RotateY(1.0f);
+			break;
+		case 'g':
+			m_pCamera->RotateY(-1.0f);
+			break;
+		case 'o':
+			m_lightSources[currentLightSource]->VTranslateZ(0.5f);
+			break;
+		case 'l':
+			m_lightSources[currentLightSource]->VTranslateZ(-0.5f);
+			break;
+		case 'k':
+			m_lightSources[currentLightSource]->VTranslateX(-0.5f);
+			break;
+		case ';':
+			m_lightSources[currentLightSource]->VTranslateX(0.5f);
+			break;
+		case 'i':
+			m_lightSources[currentLightSource]->VTranslateY(-0.05f);
+			break;
+		case 'p':
+			m_lightSources[currentLightSource]->VTranslateY(0.05f);
+			break;
+		case '.':
+			m_lightSources[currentLightSource]->VSetVisible(false);
+			break;
+		case ',':
+			m_lightSources[currentLightSource]->VSetVisible(true);
+			break;
+		case 'z':
+			m_elements[elementId]->VScale(1.001f, 1.001f, 1.001f);
+			break;
+		case 'x':
+			m_elements[elementId]->VScale(0.999f, 0.999f, 0.999f);
+			break;
+		case 'q':
+			m_elements[elementId]->VTranslateY(-0.5f);
+			break;
+		case 'e':
+			m_elements[elementId]->VTranslateY(0.5f);
+			break;
+		}
+	}
 }

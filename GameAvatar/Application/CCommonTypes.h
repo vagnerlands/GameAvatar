@@ -30,13 +30,18 @@ namespace Types {
 	static const Byte* s_GAME_CONNECTION_PORT = "1234";
 	static const Float s_CYCLE_MAX_TIME = 16;
 
-	static const Int32 s_SCREEN_HEIGHT = 600;
-	static const Int32 s_SCREEN_WIDTH = 600;
+	static Int32 s_SCREEN_HEIGHT = 600;
+	static Int32 s_SCREEN_WIDTH = 600;
+
+	static Int32 s_INVALID_ELEVATION = -9999;
 
 	static const Int32 s_SCREEN_CENTER_X = s_SCREEN_WIDTH / 2;
 	static const Int32 s_SCREEN_CENTER_Y = s_SCREEN_HEIGHT / 2;
 
 	static const Float s_PI = 3.14159265359;
+
+	// default distance between points
+	static const UInt32 s_DEFAULT_DISTANCE_BETWEEN_HEIGHT_POINTS = 10;
 
 	enum CameraAttributeType
 	{
@@ -112,8 +117,12 @@ namespace Types {
 		UInt32 m_trianglesCount;
 		// vertices database
 		glm::vec3* m_vertices;
-
+		// normals
+		glm::vec3* m_normals;
+		// texture coordinates
+		glm::vec2* m_textureCoords;
 	};
+
 
 	class CCoordinates
 	{
@@ -133,12 +142,12 @@ namespace Types {
 			this->m_longitude = longitude;
 		}
 
-		CCoordinates& operator+(CCoordinates& other)
+		CCoordinates operator+(CCoordinates& other)
 		{
 			return CCoordinates(this->m_latitude + other.m_latitude, this->m_longitude + other.m_longitude);
 		}
 
-		CCoordinates& operator-(CCoordinates& other)
+		CCoordinates operator-(CCoordinates& other)
 		{
 			return CCoordinates(this->m_latitude - other.m_latitude, this->m_longitude - other.m_longitude);
 		}
@@ -183,6 +192,13 @@ namespace Types {
 
 		}
 
+		CPoint(CPoint& newPoint) :
+			x(newPoint.x),
+			y(newPoint.y)
+		{
+
+		}
+
 		CPoint(Int32 argX, Int32 argY) :
 			x(argX),
 			y(argY)
@@ -191,6 +207,13 @@ namespace Types {
 		}
 
 		CPoint& operator=(const CPoint& arg) 			
+		{
+			x = arg.x;
+			y = arg.y;
+			return *this;
+		}
+
+		CPoint& operator=(CPoint& arg)
 		{
 			x = arg.x;
 			y = arg.y;
@@ -214,6 +237,64 @@ namespace Types {
 			}
 			return false;
 		}
+	};
+
+	//! minimum boundary rectangle
+	//! defined by 2 points
+	//! this MBR should be used only for 2D plans - recommend to be extended
+	class CMbr
+	{
+	public:
+		CCoordinates m_bottomLeft;
+		CCoordinates m_topRight;
+
+		CMbr() :
+			m_bottomLeft(0.F, 0.F), m_topRight(0.F, 0.F)
+		{
+			
+		}
+
+		CMbr(const CCoordinates bottomLeft, const CCoordinates topRight)
+			: m_bottomLeft(bottomLeft), m_topRight(topRight)
+		{			
+			
+		}
+
+		bool Contains(const CMbr& second)
+		{
+			bool retVal = false;
+
+			// checks if the given MBR is inside 
+			if ((this->m_bottomLeft.m_latitude <= second.m_bottomLeft.m_latitude) &&
+				(this->m_bottomLeft.m_longitude <= second.m_bottomLeft.m_longitude) &&
+				(this->m_topRight.m_latitude >= second.m_topRight.m_latitude) &&
+				(this->m_topRight.m_longitude >= second.m_topRight.m_longitude))
+			{
+				retVal = true;
+			}
+
+			return retVal;
+		}
+
+		bool Contains(const CCoordinates& point)
+		{
+			bool retVal = false;
+
+			// checks if the given POINT is inside 
+			if ((this->m_bottomLeft.m_latitude <= point.m_latitude) &&
+				(this->m_bottomLeft.m_longitude <= point.m_longitude) &&
+				(this->m_topRight.m_latitude > point.m_latitude) &&
+				(this->m_topRight.m_longitude > point.m_longitude))
+			{
+				retVal = true;
+			}
+
+			return retVal;
+		}
+
+
+		
+
 	};
 
 	struct SMaterialAttr
@@ -286,6 +367,12 @@ namespace Types {
 	typedef unordered_map<string, GLuint> TextureMap;
 	typedef unordered_map<string, Types::Byte*> TextureContentMap;
 	typedef void(*OnRemoveEvent)(string);
+
+	enum EKeyStatus
+	{
+		KeyStatus_Pressed = 0,
+		KeyStatus_Released = 1
+	};
 
 
 	struct SFontAttributes

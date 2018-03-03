@@ -7,11 +7,13 @@
 #include "CCamera.h"
 #include <memory>
 
+#include "IUserInputListener.h"
+
 
 using namespace Types;
 using namespace std;
 
-class IView
+class IView : public IUserInputListener
 {
 public:
 	// Implement the IGameView interface

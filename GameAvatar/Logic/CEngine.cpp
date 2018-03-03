@@ -1,4 +1,5 @@
 #include "CEngine.h"
+//#include "python.h"
 #include "CShaderManager.h"
 #include "CModelManager.h"
 #include "CGameCockpit.h"
@@ -82,7 +83,10 @@ CEngine::execute()
 void
 CEngine::reshape(Int32 w, Int32 h)
 {
-	glViewport(0, 0, (GLsizei)s_SCREEN_WIDTH, (GLsizei)s_SCREEN_HEIGHT);
+	glViewport(0, 0, (GLsizei)w, (GLsizei)h);
+
+	s_SCREEN_WIDTH = w;
+	s_SCREEN_HEIGHT = h;
 
 	// prepare Projection matrix
 	glMatrixMode(GL_PROJECTION); 
@@ -190,8 +194,12 @@ void CEngine::KeyboardRelease(UByte key, int x, int y)
 	if (key == 27) 
 		m_bTerminateApplication = true;
 	if (key == 'c')     s_lastState = GLUT_UP;
-	if (key == '9') 	glutEnterGameMode();
-	if (key == '0') 	glutLeaveGameMode();
+	if (key == '9') 	glutFullScreen();
+	if (key == '0')
+	{
+		glutReshapeWindow((GLsizei)s_SCREEN_WIDTH, (GLsizei)s_SCREEN_HEIGHT);
+		glutPositionWindow(80, 80);
+	}
 	CGameCockpit::instance()->getGameController()->VOnKeyUp(key);
 }
 
@@ -217,6 +225,8 @@ CEngine::BackgroundLoader(LPVOID lpParameter)
 	{
 		// load resources in background thread
 		m_pInstance->m_resourceLoader.execute();
+		// perform background updates in the game state
+		CGameCockpit::instance()->Update();
 	}
 
 	return (DWORD WINAPI)0;
@@ -228,6 +238,14 @@ CEngine::ignition()
 {
 	// first thing ever - set "this" instance to the m_pInstance
 	instance();
+
+	// instantiate Python (for scripting)
+	/*Py_Initialize();
+	PyRun_SimpleString("import sys");
+	PyRun_SimpleString("from time import time,ctime\n"
+		"print 'Today is',ctime(time())\n");
+	Py_Finalize();*/
+	// this shall be moved to a specific class for scripting purposes
 
 	// initialize all singletons
 

@@ -30,12 +30,18 @@ public:
 
 	void Update();
 
-	string getName() const
+	const CMbr& GetAreaOfCoverage() const;
+
+	string GetName() const
 	{
 		return "Terrain Database Loader";
 	}
 
-	UInt16** GetTerrain();
+	Int16** GetTerrain();
+
+	Int16 GetElevationAtLocation(CCoordinates location) ;
+
+	UInt32 GetAreaOfConcernSize() const;
 
 	// factor to be applied on the terrain elevation
 	static Int32 s_HEIGHT_FACTOR;
@@ -58,7 +64,7 @@ private:
 	// png handler pointing to a heightmap (gray scale file where each pixel represents an elevation)
 	CPngLoader m_terrainLoaderHandler;
 	// double buffered matrix 2x2 containing elevation points 
-	UInt16** m_terrainBuffer[ETerrainBuffer_Max];
+	Int16** m_terrainBuffer[ETerrainBuffer_Max];
 	// buffer size dynamically assigned by user
 	UInt32 m_areaOfConcernSize;
 	// which buffer is being used currently for displaying
@@ -72,12 +78,27 @@ private:
 	// requests a loading - first item will be retrieved and processed
 	// all others are going to be discarded
 	stack<CCoordinates> m_loadingRequest;
+
+	// area of coverage
+	CMbr m_areaOfCoverage;
 };
 
-inline UInt16** 
+inline Int16** 
 CTerrainDatabaseLoader::GetTerrain()
 {
 	return m_terrainBuffer[m_displayBuffer];
+}
+
+inline const CMbr& 
+CTerrainDatabaseLoader::GetAreaOfCoverage() const
+{
+	return m_areaOfCoverage;
+}
+
+inline UInt32 
+CTerrainDatabaseLoader::GetAreaOfConcernSize() const
+{
+	return m_areaOfConcernSize;
 }
 
 

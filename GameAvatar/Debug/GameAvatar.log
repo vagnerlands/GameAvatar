@@ -1,16 +1,6 @@
-﻿  CViewElementTerrainMesh.cpp
-c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\application\ccommontypes.h(39): warning C4305: 'initializing': truncation from 'double' to 'Types::Float'
-c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\application\ccommontypes.h(170): warning C4522: 'Types::CCoordinates': multiple assignment operators specified
-c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\view\cviewelementterrainmesh.cpp(68): warning C4305: '+=': truncation from 'double' to 'float'
-c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\view\cviewelementterrainmesh.cpp(118): warning C4244: 'argument': conversion from 'Types::Int32' to 'GLfloat', possible loss of data
-c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\view\cviewelementterrainmesh.cpp(122): warning C4244: 'argument': conversion from 'Types::Int32' to 'GLfloat', possible loss of data
-c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\view\cviewelementterrainmesh.cpp(122): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
-c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\view\cviewelementterrainmesh.cpp(126): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
-c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\view\cviewelementterrainmesh.cpp(126): warning C4244: 'argument': conversion from 'Types::Int32' to 'GLfloat', possible loss of data
-c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\view\cviewelementterrainmesh.cpp(134): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
-c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\view\cviewelementterrainmesh.cpp(138): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
-c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\view\cviewelementterrainmesh.cpp(138): warning C4244: 'argument': conversion from 'Types::Int32' to 'GLfloat', possible loss of data
-c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\view\cviewelementterrainmesh.cpp(142): warning C4244: 'argument': conversion from 'Types::Int32' to 'GLfloat', possible loss of data
-c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\view\cviewelementterrainmesh.cpp(142): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+﻿  CHumanView.cpp
+c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\application\ccommontypes.h(41): warning C4305: 'initializing': truncation from 'double' to 'Types::Float'
+c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\application\ccommontypes.h(179): warning C4522: 'Types::CCoordinates': multiple assignment operators specified
+c:\users\vagner\documents\visual studio 2015\projects\gameavatar\gameavatar\application\ccommontypes.h(240): warning C4522: 'Types::CPoint': multiple assignment operators specified
   GameAvatar.vcxproj -> C:\Users\Vagner\Documents\Visual Studio 2015\Projects\GameAvatar\Debug\GameAvatar.exe
   GameAvatar.vcxproj -> C:\Users\Vagner\Documents\Visual Studio 2015\Projects\GameAvatar\Debug\GameAvatar.pdb (Full PDB)

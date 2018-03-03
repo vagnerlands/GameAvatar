@@ -4,6 +4,7 @@
 #include "IViewElement.h"
 
 class CTerrainDatabaseLoader;
+class CLandscape;
 
 class CViewElementTerrainMesh : public IViewElement
 {
@@ -29,12 +30,20 @@ public:
 		return GameViewElement_TerrainMesh;
 	}
 
+	// used basically by Landscape displaying views
+	virtual void VSetLandscapeObject(CLandscape* pLandscape)
+	{
+		m_pLandscape = pLandscape;
+	}
+
 protected:
 	virtual void applyTexture(string textId);
 
 	virtual bool loadShader(string shaderId);
 
 	cwc::glShader* m_pProgramShader;
+	// keeps a reference of the same object existing in CGameCockpit
+	CLandscape* m_pLandscape;
 	
 };
 

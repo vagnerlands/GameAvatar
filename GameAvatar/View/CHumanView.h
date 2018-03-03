@@ -13,6 +13,7 @@ public:
 	virtual void VPushElement(const string elementId, shared_ptr<IViewElement> pElement);
 	virtual void VPopElement(const string elementId, shared_ptr<IViewElement> pElement);
 	virtual void VSetCamera(CCamera* pCamera);
+	virtual void VProcessUserInput(Byte keyId, Int32 keyStatus);
 
 private:
 	static const Float s_DEFAULT_MOVEMENT_DISTANCE;
@@ -25,5 +26,6 @@ CHumanView::VSetCamera(CCamera * pCamera)
 {
 	m_pCamera = pCamera;
 }
+
 
 #endif //_CHUMANVIEW_H_

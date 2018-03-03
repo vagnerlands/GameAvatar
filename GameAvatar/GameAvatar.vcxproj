@@ -87,13 +87,13 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_WIN_;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>./Application;./Controller;./Logic;./Logic/UI/;./Logic/Commands;./View/;./Application/Shaders;./Application/Cache;./Application/Cache/ResourceCache;./Application/Cache/ZLib;./Application/Debug/;./Application/Loader/;./Application/Camera/;./Application/Utilities/;./Application/Utilities/ModelParser/;./Logic/Events/;./3rdParty/DevIL_64bits/include/;./Application/Terrain;./3rdParty/pnglib;./3rdParty/pnglib/lpng1626</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./Application;./Controller;./Logic;./Logic/UI/;./Logic/Commands;./View/;./Application/Shaders;./Application/Cache;./Application/Cache/ResourceCache;./Application/Cache/ZLib;./Application/Debug/;./Application/Loader/;./Application/Camera/;./Application/Utilities/;./Application/Utilities/ModelParser/;./Logic/Events/;./3rdParty/DevIL_64bits/include/;./Application/Terrain;./3rdParty/pnglib;./3rdParty/pnglib/lpng1626;C:\Python27\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>zlib.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;libpng16.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>./3rdParty/pnglib</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>./3rdParty/pnglib;C:\Python27\libs</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -117,7 +117,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>_WIN_;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>./Application;./Controller;./Logic;./Logic/UI/;./Logic/Commands;./View/;./Application/Shaders;./Application/Cache;./Application/Cache/ResourceCache;./Application/Cache/ZLib;./Application/Debug/;./Application/Loader/;./Application/Utilities/;./Application/Utilities/ModelParser/;./Logic/Events/;./Application/Camera;./Application/Terrain</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./Application;./Controller;./Logic;./Logic/UI/;./Logic/Commands;./View/;./Application/Shaders;./Application/Cache;./Application/Cache/ResourceCache;./Application/Cache/ZLib;./Application/Debug/;./Application/Loader/;./Application/Utilities/;./Application/Utilities/ModelParser/;./Logic/Events/;./Application/Camera;./Application/Terrain;C:\Python27\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -125,6 +125,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>zlib.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Python27\libs</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -166,6 +167,7 @@
     <ClCompile Include="Application\Shaders\glsl.cpp" />
     <ClCompile Include="Application\Terrain\CLandscape.cpp" />
     <ClCompile Include="Application\Terrain\CTerrainDatabaseLoader.cpp" />
+    <ClCompile Include="Application\Terrain\CTerrainMesh.cpp" />
     <ClCompile Include="Application\Utilities\CCommonUtils.cpp" />
     <ClCompile Include="Application\Utilities\CDDSImage.cpp" />
     <ClCompile Include="Application\Utilities\CFonts.cpp" />
@@ -183,6 +185,7 @@
     <ClCompile Include="Logic\Events\CControllerUserInput.cpp" />
     <ClCompile Include="Logic\Events\CEventManager.cpp" />
     <ClCompile Include="Logic\Events\CEventMenu.cpp" />
+    <ClCompile Include="Logic\Events\CUserInputEventManager.cpp" />
     <ClCompile Include="View\CHumanView.cpp" />
     <ClCompile Include="View\CViewElementHUD.cpp" />
     <ClCompile Include="View\CViewElementModel.cpp" />
@@ -217,6 +220,7 @@
     <ClInclude Include="Application\Shaders\glsl.h" />
     <ClInclude Include="Application\Terrain\CLandscape.h" />
     <ClInclude Include="Application\Terrain\CTerrainDatabaseLoader.h" />
+    <ClInclude Include="Application\Terrain\CTerrainMesh.h" />
     <ClInclude Include="Application\Utilities\CCommonUtils.h" />
     <ClInclude Include="Application\Utilities\CDDSImage.h" />
     <ClInclude Include="Application\Utilities\CFonts.h" />
@@ -238,7 +242,9 @@
     <ClInclude Include="Logic\Events\CControllerUserInput.h" />
     <ClInclude Include="Logic\Events\CEventManager.h" />
     <ClInclude Include="Logic\Events\CEventMenu.h" />
+    <ClInclude Include="Logic\Events\CUserInputEventManager.h" />
     <ClInclude Include="Logic\Events\IEvent.h" />
+    <ClInclude Include="Logic\Events\IUserInputListener.h" />
     <ClInclude Include="Logic\UI\CBaseUI.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="View\CHumanView.h" />

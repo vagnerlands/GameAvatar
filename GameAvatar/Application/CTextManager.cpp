@@ -6,9 +6,11 @@
 #ifdef _WIN_
 #include "CWinMutex.h"
 #endif
+// noise creator - using fractals
 #include "CNoise.h"
+// under development - TGA loading
 #include "CTargaImage.h"
-
+// for TGA loading - under development
 const char CTextManager::filenames[6][7] = {
 	"lt.tga",
 	"rt.tga",
@@ -30,7 +32,6 @@ CTextManager::instance()
 	{
 		s_pInstance = new CTextManager();
 		s_pInstance->OpenResourceFile();
-		//s_pInstance->m_cacheDb.Init();
 	}
 
 	return s_pInstance;
@@ -39,6 +40,7 @@ CTextManager::instance()
 void 
 CTextManager::OpenResourceFile()
 {
+	// opens the resource file - returns a handler for the file
 	m_textureFiles.VOpen();
 
 	/*// add common textures
@@ -128,7 +130,6 @@ CTextManager::LoadTexture(const string textId)
 	//shared_ptr<CResHandle> bytesStream = m_cacheDb.GetHandle(&resExample);
 	Types::Byte* bytesStream = new Types::Byte[m_textureFiles.VGetResourceSize(resourceItem)];
 	Int32 status = m_textureFiles.VGetResource(resourceItem, bytesStream);
-	//Byte* data = bytesStream->Buffer();	
 	// status OK
 	if (status == 0)
 	{
@@ -141,7 +142,6 @@ CTextManager::LoadTexture(const string textId)
 
 void CTextManager::BuildTexture()
 {
-	const int wrap = 0;
 	// allocate a texture name
 	GLuint GeneratedTexture = -1;
 	// [BEGIN] CRITICAL AREA

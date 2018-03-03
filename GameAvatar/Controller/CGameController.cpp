@@ -5,6 +5,7 @@ CGameController::CGameController()
 	for (Int32 i = 0; i < 256; i++)
 	{
 		m_bKey[i] = false;
+		m_bKeyStatus[i] = false;
 	}
 }
 
@@ -16,7 +17,19 @@ CGameController::~CGameController()
 void 
 CGameController::OnUpdate()
 {
-
+	for (Int32 cAsciiId = 0; cAsciiId < 256; cAsciiId++)
+	{
+		if (m_bKey[cAsciiId])
+		{
+			// notify that key "c" was pressed
+			CUserInputEventManager::instance()->NotifyEvent(static_cast<Byte>(cAsciiId), EKeyStatus::KeyStatus_Pressed);
+		} 
+		else if ((!m_bKey[cAsciiId]) && (m_bKeyStatus[cAsciiId]))
+		{
+			CUserInputEventManager::instance()->NotifyEvent(static_cast<Byte>(cAsciiId), EKeyStatus::KeyStatus_Released);
+		}
+		m_bKeyStatus[cAsciiId] = m_bKey[cAsciiId];
+	}
 }
 
 bool 
@@ -42,10 +55,10 @@ CGameController::VOnMouseMove(const CPoint &mousePos)
 		// angle from center of the screen
 		m_angleFromCenter = (Int32)((atan2(mousePos.y - s_SCREEN_CENTER_Y, mousePos.x - s_SCREEN_CENTER_X) * 180.0f / 3.14F) + 450.0F) % 360;
 
-		printf("angle=%d, distCenter = %d, angleCenter = %d\n",
+		/*printf("angle=%d, distCenter = %d, angleCenter = %d\n",
 			m_movementAngle,
 			m_distanceFromCenter,
-			m_angleFromCenter);
+			m_angleFromCenter);*/
 
 		m_lastPos = mousePos;
 	}

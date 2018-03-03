@@ -41,7 +41,7 @@ void CViewElementHUD::VRender()
 	// apply texture - if found, Texture will be enabled
 	applyTexture("board.bmp");
 	glPushMatrix();
-	glColor4f(0.0F, 0.0F, 0.0F, m_transparency);
+	glColor3f(0.0F, 1.0F, 0.0F);
 	glTranslatef(m_position.x, m_position.y, 0);
 	glBegin(GL_QUADS);
 
@@ -54,6 +54,19 @@ void CViewElementHUD::VRender()
 	glTexCoord2f(0, 0);
 	glVertex3f(-(m_scale.x / 2.0), -(m_scale.y / 2.0), 0.0f); // D
 	glEnd();
+	/*const float radius = m_scale.x / 2.f;
+	const float PI = 3.1415926535897932384626433832795;
+	const float PIdiv180 = (PI / 180.0);
+	glBegin(GL_TRIANGLES);
+	for (int x = 0; x < 360; x+=2)
+	{
+		glVertex3f(0.0f, 0.0f, 0.0f);
+		glVertex3f(cos(x*PIdiv180)*radius, sin(x*PIdiv180)*radius, 0.0f);
+		glVertex3f(cos((x+2)*PIdiv180)*radius, sin((x + 2)*PIdiv180)*radius, 0.0f);
+	}
+	glEnd();*/
+
+
 	glPopMatrix();
 
 	glPushMatrix();

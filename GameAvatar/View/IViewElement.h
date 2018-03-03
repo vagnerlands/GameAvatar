@@ -7,6 +7,8 @@
 #include "GL/glut.h"
 using namespace Types;
 
+class CLandscape;
+
 /*
  * Interface class for any element visible on screen. 
  * Provides basic implementation constraints.
@@ -95,6 +97,12 @@ public:
 	virtual void VTranslateZ(Float z)
 	{
 		m_position.z += z;
+	}
+
+	// used basically by Landscape displaying views
+	virtual void VSetLandscapeObject(CLandscape* pLandscape)
+	{
+		// do nothing
 	}
 
 protected:

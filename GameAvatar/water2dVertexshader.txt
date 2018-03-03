@@ -69,7 +69,7 @@ void main()
     float len = length(p);
 
 	//pos.y = sin(len*wavefreq)/2;
-	pos.y = sin(pos.x*600.0+wavefreq);
+	pos.y = sin(pos.x*500+wavefreq) + cos(pos.z*500+wavefreq);
 
 	gl_Position =  gl_ModelViewProjectionMatrix * vec4(pos, 1);
 	

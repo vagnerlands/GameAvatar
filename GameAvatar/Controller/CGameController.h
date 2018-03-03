@@ -4,6 +4,7 @@
 #include "CCommonTypes.h"
 #include "IKeyboardHandler.h"
 #include "IMouseHandler.h"
+#include "CUserInputEventManager.h"
 #include <string>
 
 using namespace std;
@@ -53,6 +54,8 @@ public:
 	bool VOnKeyUp(const Byte c) 
 	{ 
 		m_bKey[c] = false; 
+		// notify that key "c" was released
+		CUserInputEventManager::instance()->NotifyEvent(c, EKeyStatus::KeyStatus_Released);
 		return true; 
 	}
 

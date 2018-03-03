@@ -40,14 +40,9 @@ private:
 	// resource database - TEXTURES
 	CResourceZipFile m_textureFiles;
 
-	// resource database
-	//CResourceZipFile m_texture
-
-	// cache database (allocated with fixed and known size)
-	//CResCache m_cacheDb;
 	// local instance
 	static CTextManager* s_pInstance;
-
+	// for TGA loading - under development
 	static const char filenames[6][7];
 
 };

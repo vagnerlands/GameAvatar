@@ -2,6 +2,8 @@
 varying vec3 N;
 varying vec3 v;
 
+varying vec2 vTexCoord;
+
 // Values that stay constant for the whole mesh.
 uniform sampler2D myTextureSampler;
 // gl_FrontLightProduct[0].ambient * gl_FrontLightProduct[0].diffuse
@@ -25,7 +27,8 @@ void main(void)
     cf = intensity * (gl_FrontMaterial.diffuse).rgb +
                   gl_FrontMaterial.ambient.rgb;
     af = gl_FrontMaterial.diffuse.a;
-    texel = texture2D(myTextureSampler,gl_TexCoord[0].st);
+//    texel = texture2D(myTextureSampler,gl_TexCoord[0].st);
+texel = texture2D(myTextureSampler,vTexCoord);
  
     ct = texel.rgb;
     at = texel.a;

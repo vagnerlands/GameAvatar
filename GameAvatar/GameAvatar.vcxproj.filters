@@ -194,6 +194,12 @@
     <ClCompile Include="Application\Utilities\CPngLoader.cpp">
       <Filter>Source Files\Application\Utilities</Filter>
     </ClCompile>
+    <ClCompile Include="Application\Terrain\CTerrainMesh.cpp">
+      <Filter>Source Files\Application\Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="Logic\Events\CUserInputEventManager.cpp">
+      <Filter>Source Files\Logic\Events</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application\CAnsiString.h">
@@ -373,6 +379,15 @@
     </ClInclude>
     <ClInclude Include="Application\Utilities\CPngLoader.h">
       <Filter>Source Files\Application\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Terrain\CTerrainMesh.h">
+      <Filter>Source Files\Application\Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\Events\IUserInputListener.h">
+      <Filter>Source Files\Logic\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\Events\CUserInputEventManager.h">
+      <Filter>Source Files\Logic\Events</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

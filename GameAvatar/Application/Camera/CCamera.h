@@ -36,7 +36,7 @@ public:
 
 	void SetCameraAttribute(CameraAttributeType attr, glm::vec3 xyz);
 
-	glm::vec3 GetCameraAttribute(CameraAttributeType attr);
+	glm::vec3 GetCameraAttribute(CameraAttributeType attr) const;
 
 private:
 	// view/forward vector
@@ -52,7 +52,7 @@ private:
 };
 
 inline glm::vec3 
-CCamera::GetCameraAttribute(CameraAttributeType attr)
+CCamera::GetCameraAttribute(CameraAttributeType attr) const
 {
 	return m_position;
 }

@@ -24,8 +24,13 @@ public:
 	virtual bool VOnRButtonDown(const CPoint& mousePos) = 0;
 	virtual bool VOnRButtonUp(const CPoint& mousePos) = 0;
 
-	// Which keys are up and down
+	// last key status
+	bool m_bKeyStatus[256];
+	// transitory status
+	// once per cycle, these keys are copied to m_bKeyStatus
+	// this is used to detect "on release" events
 	bool m_bKey[256];
+
 };
 
 #endif //_IKEYBOARDHANDLER_H_

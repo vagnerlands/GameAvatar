@@ -19,7 +19,8 @@
 #include "CGameController.h"
 #include "CCamera.h"
 #include "Skybox.h"
-#include "CTerrainDatabaseLoader.h"
+
+class CLandscape;
 
 #include "GL/glut.h"
 
@@ -63,8 +64,12 @@ public:
 
 	CCamera m_camera;
 
-	// performs all tasks related to terrain creation
-	CTerrainDatabaseLoader m_terrainLoader;
+	// controls landscape operations such as
+	// - terrain
+	// - sky
+	// - fog
+	// - dynamic events (birds, folliage movement, random particles, ...)
+	CLandscape* m_pLandscape;
 
 private:
 	CGameCockpit();
@@ -80,6 +85,7 @@ private:
 	list<shared_ptr<IProcess>> m_processes;
 	// mutex for m_processes
 	IMutex* m_processesMutex;
+
 	
 };
 

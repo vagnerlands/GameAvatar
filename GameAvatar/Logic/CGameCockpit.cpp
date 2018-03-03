@@ -1,5 +1,7 @@
 #include "CGameCockpit.h"
 #include "CEventManager.h"
+#include "CLandscape.h"
+#include "CUserInputEventManager.h"
 #ifdef _WIN_
 #include "CWinMutex.h"
 #endif
@@ -29,10 +31,15 @@ CGameCockpit::run()
 	glMatrixMode(GL_MODELVIEW);
 	// Set background (clear) color to black
 	glClearColor(0.0, 0.0, 0.0, 1.0);
+	// notify all controls with last statuses about user input
+	m_pGameInputCtrl->OnUpdate();
 
 	// updates the terrain loading area according to camera location 
-	glm::vec3 cameraLocation = m_camera.GetCameraAttribute(Types::CameraAttribute_Position);
-	m_terrainLoader.SetCoordinates(CCoordinates(cameraLocation.x, cameraLocation.y));
+	// if the location crosses the hysteresis tolerance, it will trigger
+	// a new loadings (which will happen in the Loader thread)
+	m_pLandscape->SetCameraLocation(
+			m_camera.GetCameraAttribute(Types::CameraAttribute_Position)
+		);
 
 	// prepares 3D PROJECTION
 	m_camera.prepareProjection3D();
@@ -67,7 +74,8 @@ CGameCockpit::run()
 		(*it)->VPostRender();
 	}
 	
-
+	// in order the frame rate seems continuous, wait here and hope 
+	// OS will give the CPU time for background threads
 	while (clock() - start < Types::s_CYCLE_MAX_TIME)
 	{
 		// no operation
@@ -168,14 +176,14 @@ CGameCockpit::CGameCockpit()
 	// creates an object of Human View
 	//shared_ptr<IViewElement> element(new CViewElementSquare(0.0f, 0.0f, 512.0f, 512.0f, "melancia.bmp"));
 	//shared_ptr<IViewElement> element2(new CViewElementSquare(-256.0f, -256.0f, 100.0f, 100.0f, "melancia.bmp"));
-	shared_ptr<IViewElement> skull(new CViewElementModel(-5.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f, "skull.obj"));
-	shared_ptr<IViewElement> princess(new CViewElementModel(5.0f, 0.0f, 0.0f, 0.1f, 0.1f, 0.1f, "Hughes500.obj"));
-	shared_ptr<IViewElement> tree1(new CViewElementModel(15.0f, 0.0f, 0.0f, 0.05f, 0.05f, 0.05f, "Tree low.obj", Types::DrawDirective_Triangle_Fan));
-	shared_ptr<IViewElement> tree2(new CViewElementModel(18.0f, 0.0f, 1.0f, 0.05f, 0.05f, 0.05f, "Tree low.obj", Types::DrawDirective_Triangle_Fan));
-	shared_ptr<IViewElement> tree3(new CViewElementModel(17.5f, 0.0f, -1.0f, 0.05f, 0.05f, 0.05f, "Tree low.obj", Types::DrawDirective_Triangle_Fan));
-	shared_ptr<IViewElement> tree4(new CViewElementModel(13.5f, 0.0f, -1.0f, 0.05f, 0.05f, 0.05f, "Tree low.obj", Types::DrawDirective_Triangle_Fan));
+	shared_ptr<IViewElement> skull(new CViewElementModel(100.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f, "skull.obj"));
+	shared_ptr<IViewElement> princess(new CViewElementModel(95.0f, 0.0f, 0.0f, 0.1f, 0.1f, 0.1f, "Hughes500.obj"));
+	shared_ptr<IViewElement> tree1(new CViewElementModel(105.0f, 0.0f, 0.0f, 0.05f, 0.05f, 0.05f, "Tree low.obj", Types::DrawDirective_Triangle_Fan));
+	shared_ptr<IViewElement> tree2(new CViewElementModel(108.0f, 0.0f, 1.0f, 0.05f, 0.05f, 0.05f, "Tree low.obj", Types::DrawDirective_Triangle_Fan));
+	shared_ptr<IViewElement> tree3(new CViewElementModel(90.5f, 0.0f, -1.0f, 0.05f, 0.05f, 0.05f, "Tree low.obj", Types::DrawDirective_Triangle_Fan));
+	shared_ptr<IViewElement> tree4(new CViewElementModel(88.f, 0.0f, -1.0f, 0.05f, 0.05f, 0.05f, "Tree low.obj", Types::DrawDirective_Triangle_Fan));
 	//shared_ptr<IViewElement> mount(new CViewElementModel(13.5f, 0.0f, -1.0f, 1.00f, 1.10f, 1.00f, "castle.obj"));
-	shared_ptr<IViewElement> terrain(new CViewElementTerrainMesh(0.0f, 0.0f, 0.0f, 3.0f, 3.0f, 3.0f));
+	shared_ptr<IViewElement> terrain(new CViewElementTerrainMesh(0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f));
 	shared_ptr<IViewElement2D> hud(new CViewElementHUD(CPoint(-295, 295), CPoint(-150, 100), "comm"));
 	hud->VSetTransparency(0.2F);
 	//shared_ptr<IViewElement> tiger(new CViewElementModel(0.0f, 0.0f, 2.0f, 2.0f, 2.0f, "tiger.obj"));
@@ -206,15 +214,39 @@ CGameCockpit::CGameCockpit()
 	// push to the list of views
 	m_views.push_back(view);
 
-	m_huds.push_back(hud);
+	// input commands
+	// TBD: create alias for each key binding - such as: 'fire' == 'a', 'run' == 'b' and so on
+	CUserInputEventManager::instance()->RegisterListener(view.get(), 'w', EKeyStatus::KeyStatus_Pressed);
+	CUserInputEventManager::instance()->RegisterListener(view.get(), 's', EKeyStatus::KeyStatus_Pressed);
+	CUserInputEventManager::instance()->RegisterListener(view.get(), 'a', EKeyStatus::KeyStatus_Pressed);
+	CUserInputEventManager::instance()->RegisterListener(view.get(), 'd', EKeyStatus::KeyStatus_Pressed);
+	CUserInputEventManager::instance()->RegisterListener(view.get(), 'f', EKeyStatus::KeyStatus_Pressed);
+	CUserInputEventManager::instance()->RegisterListener(view.get(), 'g', EKeyStatus::KeyStatus_Pressed);
+	CUserInputEventManager::instance()->RegisterListener(view.get(), 'o', EKeyStatus::KeyStatus_Pressed);
+	CUserInputEventManager::instance()->RegisterListener(view.get(), 'l', EKeyStatus::KeyStatus_Pressed);
+	CUserInputEventManager::instance()->RegisterListener(view.get(), 'k', EKeyStatus::KeyStatus_Pressed);
+	CUserInputEventManager::instance()->RegisterListener(view.get(), ';', EKeyStatus::KeyStatus_Pressed);
+	CUserInputEventManager::instance()->RegisterListener(view.get(), 'i', EKeyStatus::KeyStatus_Pressed);
+	CUserInputEventManager::instance()->RegisterListener(view.get(), 'p', EKeyStatus::KeyStatus_Pressed);
+	CUserInputEventManager::instance()->RegisterListener(view.get(), '.', EKeyStatus::KeyStatus_Pressed);
+	CUserInputEventManager::instance()->RegisterListener(view.get(), ',', EKeyStatus::KeyStatus_Pressed);
+	CUserInputEventManager::instance()->RegisterListener(view.get(), 'z', EKeyStatus::KeyStatus_Pressed);
+	CUserInputEventManager::instance()->RegisterListener(view.get(), 'x', EKeyStatus::KeyStatus_Pressed);
+	CUserInputEventManager::instance()->RegisterListener(view.get(), 'q', EKeyStatus::KeyStatus_Pressed);
+	CUserInputEventManager::instance()->RegisterListener(view.get(), 'e', EKeyStatus::KeyStatus_Pressed);
 
-	m_camera.SetCameraAttribute(CameraAttributeType::CameraAttribute_Position, 0.0f, 30.0f, 70.f);
+
+
+	m_huds.push_back(hud);
+	// Camera Attributes initialization
+	m_camera.SetCameraAttribute(CameraAttributeType::CameraAttribute_Position, 100.0f, 70.9750f, 182.f);
 	m_camera.SetCameraAttribute(CameraAttributeType::CameraAttribute_Up, 0.0f, 1.0f, 0.f);
 	m_camera.SetCameraAttribute(CameraAttributeType::CameraAttribute_Right, 1.0f, 0.0f, 0.f);
 	m_camera.SetCameraAttribute(CameraAttributeType::CameraAttribute_Forward, -0.000001f, -0.38975f, -0.92089f);
 
-	m_terrainLoader.Initialize("C:/Users/Vagner/Documents/Visual Studio 2015/Projects/GameAvatar/GameAvatar/Resources/MyDatabase Height Map (ASTER 30m).png", 100);
-	m_terrainLoader.SetCoordinates(CCoordinates(60, 60));
+	m_pLandscape = new CLandscape(30, 32);
+	m_pLandscape->Initialize();
+	terrain->VSetLandscapeObject(m_pLandscape);
 
 	//m_objSkyBox = new CSkybox();
 	//m_objSkyBox->init(90, "./Resources/tex_cube/");
@@ -249,7 +281,7 @@ CGameCockpit::Close()
 void CGameCockpit::Update()
 {
 	// updates the terrain situation - if there is any need to update
-	m_terrainLoader.Update();
+	m_pLandscape->Update(m_camera);
 }
 
 

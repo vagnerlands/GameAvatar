@@ -10,7 +10,6 @@
 using namespace std;
 using namespace Types;
 
-//typedef list<TOnEvent>::iterator TEventListIterator;
 typedef list<IEvent*> TEventList;
 typedef void(*TOnEvent)(IEvent* ev);
 
